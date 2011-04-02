@@ -1,0 +1,10 @@
+; $Id: elements.info,v 1.1.4.1 2008/04/05 06:33:48 heine Exp $
+name = "Elements"
+description = "Provides a library of Form API elements."
+core = 6.x
+; Information added by drupal.org packaging script on 2008-04-05
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "elements"
+datestamp = "1207396990"
+

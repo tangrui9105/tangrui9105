@@ -1,0 +1,26 @@
+name = LiteJazz
+description = A Drupal 6 Theme by RoopleTheme
+version = VERSION
+core = 6.x
+engine = phptemplate
+
+regions[sidebar_left] = Left Sidebar
+regions[sidebar_right] = Right Sidebar
+regions[content_top] = Content Top
+regions[content_bottom] = Content Bottom
+regions[header] = Header
+regions[suckerfish] = Suckerfish Menu
+regions[user1] = User 1
+regions[user2] = User 2
+regions[user3] = User 3
+regions[user4] = User 4
+regions[user5] = User 5
+regions[user6] = User 6
+regions[footer_region] = Footer
+
+; Information added by drupal.org packaging script on 2008-09-09
+version = "6.x-1.7"
+core = "6.x"
+project = "litejazz"
+datestamp = "1220959821"
+

@@ -1,0 +1,561 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  aggregator-feed-source.tpl.php,v 1.1 2007/09/13 08:02:38 goba
+#  aggregator-summary-items.tpl.php,v 1.1 2007/09/13 08:02:38 goba
+#  aggregator.admin.inc,v 1.7 2008/01/10 22:47:17 goba
+#  aggregator.pages.inc,v 1.12 2008/01/08 10:35:40 goba
+#  aggregator.module,v 1.374.2.1 2008/04/09 21:11:44 goba
+#  aggregator.install,v 1.14 2007/12/18 12:59:20 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-27 04:53-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/aggregator/aggregator-feed-source.tpl.php:30
+msgid "URL:"
+msgstr "URL："
+
+#: modules/aggregator/aggregator-feed-source.tpl.php:33
+msgid "Updated:"
+msgstr "更新时间："
+
+#: modules/aggregator/aggregator-summary-items.tpl.php:23
+msgid "More"
+msgstr "更多"
+
+#: modules/aggregator/aggregator.admin.inc:25
+msgid "Feed overview"
+msgstr "Feed 总览"
+
+#: modules/aggregator/aggregator.admin.inc:27,38
+msgid "Items"
+msgstr "条目"
+
+#: modules/aggregator/aggregator.admin.inc:27
+msgid "Last update"
+msgstr "上次更新"
+
+#: modules/aggregator/aggregator.admin.inc:27
+msgid "Next update"
+msgstr "下次更新"
+
+#: modules/aggregator/aggregator.admin.inc:30
+msgid "%time left"
+msgstr "剩余 %time"
+
+#: modules/aggregator/aggregator.admin.inc:30
+msgid "remove items"
+msgstr "删除条目"
+
+#: modules/aggregator/aggregator.admin.inc:30
+msgid "update items"
+msgstr "更新条目"
+
+#: modules/aggregator/aggregator.admin.inc:36
+msgid "Category overview"
+msgstr "类别总览"
+
+#: modules/aggregator/aggregator.admin.inc:66
+msgid "The name of the feed (or the name of the website providing the feed)."
+msgstr "Feed的名称(或者是提供这个Feed的网站名称)"
+
+#: modules/aggregator/aggregator.admin.inc:73
+msgid "The fully-qualified URL of the feed."
+msgstr "Feed的完整URL。"
+
+#: modules/aggregator/aggregator.admin.inc:77
+msgid "Update interval"
+msgstr "更新间隔"
+
+#: modules/aggregator/aggregator.admin.inc:80
+msgid ""
+"The length of time between feed updates. (Requires a correctly configured <a "
+"href=\"@cron\">cron maintenance task</a>.)"
+msgstr "Feed更新的时间间隔。（需要<a href=\"@cron\">cron</a>正确运行）。"
+
+#: modules/aggregator/aggregator.admin.inc:93
+msgid "Categorize news items"
+msgstr "把新闻条目分类"
+
+#: modules/aggregator/aggregator.admin.inc:96
+msgid "New feed items are automatically filed in the checked categories."
+msgstr "新的feed条目将会自动被分配给指定的分类。"
+
+#: modules/aggregator/aggregator.admin.inc:116
+msgid ""
+"The URL %url is invalid. Please enter a fully-qualified URL, such as http://"
+"www.example.com/feed.xml."
+msgstr ""
+"此 URL %url 无效，请输入一个合法的URL，例如 http://www.example.com/feed.xml."
+
+#: modules/aggregator/aggregator.admin.inc:127
+msgid "A feed named %feed already exists. Please enter a unique title."
+msgstr "已经有一个叫做 %feed 的Feed，请重新输入名称。"
+
+#: modules/aggregator/aggregator.admin.inc:130
+msgid "A feed with this URL %url already exists. Please enter a unique URL."
+msgstr "已经有一个来自URL %url 的Feed，请重新输入URL。"
+
+#: modules/aggregator/aggregator.admin.inc:150
+msgid "The feed %feed has been updated."
+msgstr "此Feed %feed 已经被更新。"
+
+#: modules/aggregator/aggregator.admin.inc:162
+msgid "The feed %feed has been deleted."
+msgstr "此feed %feed 已经被删除。"
+
+#: modules/aggregator/aggregator.admin.inc:175
+msgid "The feed %feed has been added."
+msgstr "添加了feed %feed 。"
+
+#: modules/aggregator/aggregator.admin.inc:187
+msgid "Are you sure you want to remove all items from the feed %feed?"
+msgstr "您确定要从feed %feed中移除所有条目？"
+
+#: modules/aggregator/aggregator.admin.inc:230
+msgid ""
+"A space-separated list of HTML tags allowed in the content of feed items. "
+"(Tags in this list are not removed by Drupal.)"
+msgstr ""
+"在feed项目中允许的html标签，以空格加以分隔。(这里列出的标签不会被Drupal所移"
+"除)"
+
+#: modules/aggregator/aggregator.admin.inc:234
+msgid "Items shown in sources and categories pages"
+msgstr "设置在feed源和类别页面显示的条目数量"
+
+#: modules/aggregator/aggregator.admin.inc:236
+msgid "Number of feed items displayed in feed and category summary pages."
+msgstr "显示在feed和分类摘要页面的feed项目数目。"
+
+#: modules/aggregator/aggregator.admin.inc:240
+msgid "Discard items older than"
+msgstr "删除此前的条目"
+
+#: modules/aggregator/aggregator.admin.inc:242
+msgid ""
+"The length of time to retain feed items before discarding. (Requires a "
+"correctly configured <a href=\"@cron\">cron maintenance task</a>.)"
+msgstr ""
+"设置旧的新闻条目保留时间，超过此时间的条目将被自动删除。（需要<a href=\"@cron"
+"\">cron正确运行</a>.）。"
+
+#: modules/aggregator/aggregator.admin.inc:246
+msgid "Category selection type"
+msgstr "类别选择方式"
+
+#: modules/aggregator/aggregator.admin.inc:247
+msgid "checkboxes"
+msgstr "复选框"
+
+#: modules/aggregator/aggregator.admin.inc:247
+msgid "multiple selector"
+msgstr "多重选择框"
+
+#: modules/aggregator/aggregator.admin.inc:248
+msgid ""
+"The type of category selection widget displayed on categorization pages. "
+"(For a small number of categories, checkboxes are easier to use, while a "
+"multiple selector work well with large numbers of categories.)"
+msgstr ""
+"在类别页面上如何显示类别选择。（选项较少时，复选框方便易用；多重选择框则适用"
+"于有大量类别时。）"
+
+#: modules/aggregator/aggregator.admin.inc:295
+msgid "A category named %category already exists. Please enter a unique title."
+msgstr "已经存在名为 %category 的类别。请输入唯一标题。"
+
+#: modules/aggregator/aggregator.admin.inc:314
+msgid "The category %category has been updated."
+msgstr "类别%category已更新。"
+
+#: modules/aggregator/aggregator.admin.inc:326
+msgid "The category %category has been deleted."
+msgstr "类别%category已删除。"
+
+#: modules/aggregator/aggregator.admin.inc:339
+msgid "The category %category has been added."
+msgstr "类别%category已添加。"
+
+#: modules/aggregator/aggregator.admin.inc:161
+msgid "Feed %feed deleted."
+msgstr "Feed %feed 已删除。"
+
+#: modules/aggregator/aggregator.admin.inc:174
+msgid "Feed %feed added."
+msgstr "Feed %feed 已添加。"
+
+#: modules/aggregator/aggregator.admin.inc:325
+msgid "Category %category deleted."
+msgstr "类别%category已删除。"
+
+#: modules/aggregator/aggregator.admin.inc:338
+msgid "Category %category added."
+msgstr "类别%category已添加。"
+
+#: modules/aggregator/aggregator.pages.inc:68
+msgid "aggregator - @title"
+msgstr "聚合器 - @title"
+
+#: modules/aggregator/aggregator.pages.inc:175
+msgid "Save categories"
+msgstr "保存类别"
+
+#: modules/aggregator/aggregator.pages.inc:185
+msgid "You are not allowed to categorize this feed item."
+msgstr "您没有对此Feed分类的权限。"
+
+#: modules/aggregator/aggregator.pages.inc:203
+msgid "The categories have been saved."
+msgstr "类别已被保存。"
+
+#: modules/aggregator/aggregator.pages.inc:262
+msgid "%ago ago"
+msgstr "%ago 前"
+
+#: modules/aggregator/aggregator.pages.inc:377
+msgid "@site_name - aggregated feeds in category @title"
+msgstr "@site_name - 聚合了分类 @title之下的feeds"
+
+#: modules/aggregator/aggregator.pages.inc:377
+msgid "@site_name - aggregated feeds"
+msgstr "@site_name - 聚合了feeds"
+
+#: modules/aggregator/aggregator.pages.inc:381
+msgid "@site_name aggregator"
+msgstr "@site_name 聚合器"
+
+#: modules/aggregator/aggregator.pages.inc:459
+msgid "%age old"
+msgstr "%age前"
+
+#: modules/aggregator/aggregator.pages.inc:477
+msgid "!title feed"
+msgstr "!title feed"
+
+#: modules/aggregator/aggregator.module:15
+msgid ""
+"The aggregator is a powerful on-site syndicator and news reader that gathers "
+"fresh content from RSS-, RDF-, and Atom-based feeds made available across "
+"the web. Thousands of sites (particularly news sites and blogs) publish "
+"their latest headlines and posts in feeds, using a number of standardized "
+"XML-based formats. Formats supported by the aggregator include <a href=\"@rss"
+"\">RSS</a>, <a href=\"@rdf\">RDF</a>, and <a href=\"@atom\">Atom</a>."
+msgstr ""
+"新闻聚合器是一个强大的线上新闻阅读器，可以自动收集其它网站以RSS，RDF和ATOM等"
+"格式发布的的最新内容。网络上有成千上万的站点以基于XML的feed形式发布头条新闻或"
+"最新文章。新闻聚合器支持的格式包括<a href=\"@rss\">RSS</a>，<a href=\"@rddf"
+"\">RDF</a>与<a href=\"@atom\">Atom</a>。"
+
+#: modules/aggregator/aggregator.module:16
+msgid ""
+"Feeds contain feed items, or individual posts published by the site "
+"providing the feed. Feeds may be grouped in categories, generally by topic. "
+"Users view feed items in the <a href=\"@aggregator\">main aggregator "
+"display</a> or by <a href=\"@aggregator-sources\">their source</a>. "
+"Administrators can <a href=\"@feededit\">add, edit and delete feeds</a> and "
+"choose how often to check each feed for newly updated items. The most recent "
+"items in either a feed or category can be displayed as a block through the "
+"<a href=\"@admin-block\">blocks administration page</a>. A <a href="
+"\"@aggregator-opml\">machine-readable OPML file</a> of all feeds is "
+"available. A correctly configured <a href=\"@cron\">cron maintenance task</"
+"a> is required to update feeds automatically."
+msgstr ""
+"Feeds由一系列单独的feed组成，每一条feed都是一条其它站点以特定格式发布的文章。"
+"Feeds通常可以按不同主题分类。用户可以在<a href=\"@aggregator\">新闻聚合器主页"
+"面</a>查看所有feeds，或者到<a href=\"@aggregator-sources\">新闻来源</a>页面按"
+"其来源查看。管理员可以<a href=\"@feededit\">添加、编辑或删除</a>feeds，并可以"
+"设置feed更新的时间间隔。在<a href=\"@admin-block\">区块管理页面</a>可以设置在"
+"区块中显示最新接收到的feed条目。Drupal会为所有的feeds自动生成一个<a href="
+"\"@aggregator-opml\">可读的OPML文件</a>供导出到其它软件使用。Feeds的自动更新"
+"需要通过设置<a href=\"@cron\">Cron</a>来完成。"
+
+#: modules/aggregator/aggregator.module:17
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@aggregator"
+"\">Aggregator module</a>."
+msgstr "更多信息请参见<a href=\"@aggregator\">聚合器模块手册</a>。"
+
+#: modules/aggregator/aggregator.module:20
+msgid ""
+"Thousands of sites (particularly news sites and blogs) publish their latest "
+"headlines and posts in feeds, using a number of standardized XML-based "
+"formats. Formats supported by the aggregator include <a href=\"@rss\">RSS</"
+"a>, <a href=\"@rdf\">RDF</a>, and <a href=\"@atom\">Atom</a>."
+msgstr ""
+"数以千计的网站（特别是新闻网站和博客）都采用特定的机器可识别格式来发布新闻和"
+"头条内容。通常采用的格式是一种基于XML的聚合标准，支持聚合格式包括<a href="
+"\"@rss\">RSS</a>，<a href=\"@rdf\">RDF</a>和<a href=\"@atom\">Atom</a>。"
+
+#: modules/aggregator/aggregator.module:21
+msgid ""
+"Current feeds are listed below, and <a href=\"@addfeed\">new feeds may be "
+"added</a>. For each feed or feed category, the <em>latest items</em> block "
+"may be enabled at the <a href=\"@block\">blocks administration page</a>."
+msgstr ""
+"现有的feeds如下所列，也可以<a href=\"@addfeed\">添加新feed</a>。对于每个feed"
+"或feed分类，都可以在<a href=“@block\">区块管理页面</a>开启相应的<em>最新条目"
+"</em>区块。"
+
+#: modules/aggregator/aggregator.module:24
+msgid "Add a feed in RSS, RDF or Atom format. A feed may only have one entry."
+msgstr "添加RSS/RDF/Atom feed。同一Feed只能添加一次。"
+
+#: modules/aggregator/aggregator.module:26
+msgid ""
+"Categories allow feed items from different feeds to be grouped together. For "
+"example, several sport-related feeds may belong to a category named "
+"<em>Sports</em>. Feed items may be grouped automatically (by selecting a "
+"category when creating or editing a feed) or manually (via the "
+"<em>Categorize</em> page available from feed item listings). Each category "
+"provides its own feed page and block."
+msgstr ""
+"类别提供了一个将来自不同feeds的条目重组的办法。例如您可以用体育这个类别来标注"
+"所有与<em>体育</em>相关的feeds。在设置类别时，在创建或编辑feed时，可以制定该"
+"feed下条目的自动分类；也可以在<em>分类</em>页面手动制定分类。每个分类都对应有"
+"自己的feed页面与区块。"
+
+#: modules/aggregator/aggregator.module:306
+msgid "!title category latest items"
+msgstr "!title 类别最新条目"
+
+#: modules/aggregator/aggregator.module:310
+msgid "!title feed latest items"
+msgstr "!title feed最新条目"
+
+#: modules/aggregator/aggregator.module:321
+msgid "Number of news items in block"
+msgstr "区块中条目的数量"
+
+#: modules/aggregator/aggregator.module:340
+msgid "View this feed's recent news."
+msgstr "查看此feed的最新新闻。"
+
+#: modules/aggregator/aggregator.module:348
+msgid "View this category's recent news."
+msgstr "查看此类别的最新新闻。"
+
+#: modules/aggregator/aggregator.module:458
+msgid "The news items from %site have been removed."
+msgstr "来自于%site的新闻条目已被删除。"
+
+#: modules/aggregator/aggregator.module:599
+msgid "There is no new syndicated content from %site."
+msgstr "没有来自%site的新的聚合内容。"
+
+#: modules/aggregator/aggregator.module:638,637
+msgid "There is new syndicated content from %site."
+msgstr "有来自 %site 的新的聚合内容。"
+
+#: modules/aggregator/aggregator.module:641
+msgid "feed not parseable"
+msgstr "Feed无法解析"
+
+#: modules/aggregator/aggregator.module:645
+msgid "The feed from %site seems to be broken, because of error \"%error\"."
+msgstr "由于\"%error\"错误，来自%site的feed已损坏。"
+
+#: modules/aggregator/aggregator.module:715
+msgid ""
+"The feed from %site seems to be broken, because of error \"%error\" on line %"
+"line."
+msgstr "由于第%line行的\"%error\"错误，来自%site的feed已损坏。"
+
+#: modules/aggregator/aggregator.module:892
+msgid "blog it"
+msgstr "blog it"
+
+#: modules/aggregator/aggregator.module:893
+msgid "Comment on this news item in your personal blog."
+msgstr "在您的个人博客中评论此条新闻。"
+
+#: modules/aggregator/aggregator.module:603
+msgid "Updated URL for feed %title to %url."
+msgstr "Feed %title 的URL更新为 %url。"
+
+#: modules/aggregator/aggregator.module:644
+msgid "The feed from %site seems to be broken, due to \"%error\"."
+msgstr "由于\"%error\"错误，来自%site的feed已损坏。"
+
+#: modules/aggregator/aggregator.module:714
+msgid ""
+"The feed from %site seems to be broken, due to an error \"%error\" on line %"
+"line."
+msgstr "由于第 %line 行的 \"%error\" 错误，来自%site的feed已损坏。"
+
+#: modules/aggregator/aggregator.install:30
+msgid "Stores categories for aggregator feeds and feed items."
+msgstr "存储聚合feed的类别和feed条目。"
+
+#: modules/aggregator/aggregator.install:35
+msgid "Primary Key: Unique aggregator category ID."
+msgstr "主键：唯一的聚合器(aggregator)类别ID。"
+
+#: modules/aggregator/aggregator.install:42
+msgid "Title of the category."
+msgstr "分类标题"
+
+#: modules/aggregator/aggregator.install:48
+msgid "Description of the category"
+msgstr "类别的说明"
+
+#: modules/aggregator/aggregator.install:55
+msgid "The number of recent items to show within the category block."
+msgstr "在分类区块中显示的最新条目数。"
+
+#: modules/aggregator/aggregator.install:63
+msgid "Bridge table; maps feeds to categories."
+msgstr "桥接表；将feeds对应到各个类别。"
+
+#: modules/aggregator/aggregator.install:69
+msgid "The feed's {aggregator_feed}.fid."
+msgstr "Feed的 {aggregator_feed}.fid"
+
+#: modules/aggregator/aggregator.install:75
+msgid "The {aggregator_category}.cid to which the feed is being assigned."
+msgstr "Feed 所属类别的 {aggregator_category}.cid"
+
+#: modules/aggregator/aggregator.install:83
+msgid "Bridge table; maps feed items to categories."
+msgstr "桥接表；将feed条目对应到类别。"
+
+#: modules/aggregator/aggregator.install:89
+msgid "The feed item's {aggregator_item}.iid."
+msgstr "feed条目的 {aggregator_item}.iid 。"
+
+#: modules/aggregator/aggregator.install:95
+msgid "The {aggregator_category}.cid to which the feed item is being assigned."
+msgstr "feed条目所属的{aggregator_category}.cid 。"
+
+#: modules/aggregator/aggregator.install:103
+msgid "Stores feeds to be parsed by the aggregator."
+msgstr "存储 feeds 供新闻聚合器解析。"
+
+#: modules/aggregator/aggregator.install:108
+msgid "Primary Key: Unique feed ID."
+msgstr "主键：唯一的feed ID。"
+
+#: modules/aggregator/aggregator.install:115
+msgid "Title of the feed."
+msgstr "Feed标题"
+
+#: modules/aggregator/aggregator.install:122
+msgid "URL to the feed."
+msgstr "Feed的URL"
+
+#: modules/aggregator/aggregator.install:128
+msgid "How often to check for new feed items, in seconds."
+msgstr "检查一次新的feed条目的间隔时间（单位：秒）。"
+
+#: modules/aggregator/aggregator.install:134
+msgid "Last time feed was checked for new items, as Unix timestamp."
+msgstr "上一次检查此feed中新条目的时间，以Unix时间戳表示。"
+
+#: modules/aggregator/aggregator.install:141
+msgid ""
+"The parent website of the feed; comes from the <link> element in the feed."
+msgstr "发布Feed的站点；来自于feed的<link>元素。"
+
+#: modules/aggregator/aggregator.install:147
+msgid ""
+"The parent website's description; comes from the <description> element in "
+"the feed."
+msgstr "发布站点的描述；来自于feed中的<description>元素。"
+
+#: modules/aggregator/aggregator.install:153
+msgid "An image representing the feed."
+msgstr "feed的图标。"
+
+#: modules/aggregator/aggregator.install:160
+msgid "Entity tag HTTP response header, used for validating cache."
+msgstr "实体标签HTTP响应头，用于缓存验证。"
+
+#: modules/aggregator/aggregator.install:166
+msgid "When the feed was last modified, as a Unix timestamp."
+msgstr "此feed上一次被修改的时间，以Unix时间戳表示。"
+
+#: modules/aggregator/aggregator.install:173
+msgid "Number of items to display in the feed's block."
+msgstr "feed区块中所显示的条目数。"
+
+#: modules/aggregator/aggregator.install:184
+msgid "Stores the individual items imported from feeds."
+msgstr "存储从feeds中导入的条目。"
+
+#: modules/aggregator/aggregator.install:189
+msgid "Primary Key: Unique ID for feed item."
+msgstr "主键：唯一的feed条目ID"
+
+#: modules/aggregator/aggregator.install:195
+msgid "The {aggregator_feed}.fid to which this item belongs."
+msgstr "此条目所属的 {aggregator_feed}.fid 。"
+
+#: modules/aggregator/aggregator.install:202
+msgid "Title of the feed item."
+msgstr "feed条目标题。"
+
+#: modules/aggregator/aggregator.install:209
+msgid "Link to the feed item."
+msgstr "指向feed条目的链接"
+
+#: modules/aggregator/aggregator.install:216
+msgid "Author of the feed item."
+msgstr "feed条目作者"
+
+#: modules/aggregator/aggregator.install:222
+msgid "Body of the feed item."
+msgstr "feed条目正文"
+
+#: modules/aggregator/aggregator.install:227
+msgid "Post date of feed item, as a Unix timestamp."
+msgstr "feed条目发布时间，以Unix时间戳表示。"
+
+#: modules/aggregator/aggregator.install:233
+msgid "Unique identifier for the feed item."
+msgstr "feed条目的唯一识别码。"
+
+#: modules/aggregator/aggregator.module:281
+msgid "administer news feeds"
+msgstr "管理新闻 feed"
+
+#: modules/aggregator/aggregator.module:281
+msgid "access news feeds"
+msgstr "访问新闻 feed"
+
+#: modules/aggregator/aggregator.module:83,138
+msgid "Feed aggregator"
+msgstr "Feed 聚合器"
+
+#: modules/aggregator/aggregator.module:84
+msgid ""
+"Configure which content your site aggregates from other sites, how often it "
+"polls them, and how they're categorized."
+msgstr "配置来自其它网站的内容，获取内容的频率以及内容分类"
+
+#: modules/aggregator/aggregator.module:90
+msgid "Add feed"
+msgstr "增加 feed"
+
+#: modules/aggregator/aggregator.module:116
+msgid "Update items"
+msgstr "更新条目"
+
+#: modules/aggregator/aggregator.module:145
+msgid "Sources"
+msgstr "来源"
+
+#: modules/aggregator/aggregator.module:231
+msgid "Edit feed"
+msgstr "编辑feed"
+
+#: modules/aggregator/aggregator.module:239
+msgid "Edit category"
+msgstr "编辑分类"

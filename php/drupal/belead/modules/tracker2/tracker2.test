@@ -1,0 +1,50 @@
+<?php
+// $Id: tracker2.test,v 1.1.2.2 2009/02/19 16:02:31 straussd Exp $
+
+/**
+ * @file
+ *   Tests the tracker2 module.
+ */
+
+class Tracker2TestCase extends DrupalWebTestCase {
+  function getInfo() {
+    return array(
+      'name' => t('Tracker 2'),
+      'description' => t('tests the tracker2 module'),
+      'group' => t('tracker2'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('tracker2');
+  }
+
+  function testTracker2TrackUser() {
+    $base = 'tracker2';
+    $user_base = 'track2';
+    if (!module_exists('tracker')) {
+      $base = 'tracker';
+      $user_base = 'track';
+    }
+
+    // call tracker2_track_user -> there is not arg(1)
+    $this->drupalGet('user');
+    tracker2_track_user();
+    $this->assertResponse(404, t('take sure that the function returns 404, if there is no arg(1)'));
+
+    // create user
+    $web_user_1 = $this->drupalCreateUser();
+    $web_user_2 = $this->drupalCreateUser();
+    $web_user_1->status = 0;
+    user_save($web_user_1);
+    $admin_user = $this->drupalCreateUser(array('administer users'));
+
+    $this->drupalLogin($web_user_2);
+    $this->drupalGet('user/'. $web_user_1->uid .'/'. $user_base);
+    $this->assertResponse(403, t('take sure that it is pot possible to look at users with status 0 for normal users'));
+
+    $this->drupalLogin($admin_user);
+    $this->drupalGet('user/'. $web_user_1->uid .'/'. $user_base);
+    $this->assertTitle(check_plain($web_user_1->name), t('take sure that the title is set right'));
+  }
+}

@@ -1,0 +1,14 @@
+; $Id: translation_table.info,v 1.1.2.2 2009/05/26 05:19:59 pasqualle Exp $
+name = Translation table
+description = UI for quick translation of taxonomy, menu and content type strings.
+package = Multilanguage
+core = 6.x
+dependencies[] = locale
+dependencies[] = i18nstrings
+
+; Information added by drupal.org packaging script on 2009-06-16
+version = "6.x-1.0-rc2"
+core = "6.x"
+project = "translation_table"
+datestamp = "1245128513"
+

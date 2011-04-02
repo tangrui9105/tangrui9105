@@ -1,0 +1,138 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  color.module,v 1.39 2008/01/23 09:43:25 goba
+#  color.install,v 1.2 2006/12/05 05:49:50 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-28 13:22-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/color/color.module:10
+msgid ""
+"The color module allows a site administrator to quickly and easily change "
+"the color scheme of certain themes. Although not all themes support color "
+"module, both Garland (the default theme) and Minnelli were designed to take "
+"advantage of its features. By using color module with a compatible theme, "
+"you can easily change the color of links, backgrounds, text, and other theme "
+"elements. Color module requires that your <a href=\"@url\">file download "
+"method</a> be set to public."
+msgstr ""
+"颜色模块(color module)可以让网站管理员方便、快速地改变某些外观主题的配色方"
+"案。虽然不是所有的主题都支援颜色模块，但Garland(默认主题)和Minneli都可以使用"
+"这一高级功能。使用与color模组相容的主题，您将可以很容易地变更链接、背景、文字"
+"和其它页面元素的颜色。颜色模块需要您将<a href=\"@url\">文件下载方式</a>设定为"
+"公开下载。"
+
+#: modules/color/color.module:11
+msgid ""
+"It is important to remember that color module saves a modified copy of the "
+"theme's specified stylesheets in the files directory. This means that if you "
+"make any manual changes to your theme's stylesheet, you must save your color "
+"settings again, even if they haven't changed. This causes the color module "
+"generated version of the stylesheets in the files directory to be recreated "
+"using the new version of the original file."
+msgstr ""
+"请务必记住，颜色模块(color module)在 files文件夹中储存了修改过的版型css样式表"
+"副本。这意味着说如果您对主题样式表进行了任何手动变更，即便没有任何颜色变化，"
+"都必须再次保存颜色设定。让颜色模组针对新版本样式表文件在files 文件夹中创建新"
+"的副本。"
+
+#: modules/color/color.module:12
+msgid ""
+"To change the color settings for a compatible theme, select the \"configure"
+"\" link for the theme on the <a href=\"@themes\">themes administration page</"
+"a>."
+msgstr ""
+"要对一个与颜色模块相容的主题变更颜色设定，请在<a href=\"@themes\">主题管理页"
+"面</a>点击该主题的“设置”链接。"
+
+#: modules/color/color.module:13
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@color"
+"\">Color module</a>."
+msgstr "更多信息, 请参考<a href=\"@color\">Color模块</a>的在线手册"
+
+#: modules/color/color.module:38
+msgid ""
+"The color picker only works if the <a href=\"@url\">download method</a> is "
+"set to public."
+msgstr ""
+"只有在<a href=\"@url\">下载方式</a>设定成公开的情况下，才能使用颜色挑选器。"
+
+#: modules/color/color.module:43
+msgid "Color scheme"
+msgstr "配色方案"
+
+#: modules/color/color.module:171
+msgid "Custom"
+msgstr "自定义"
+
+#: modules/color/color.module:174
+msgid "Color set"
+msgstr "颜色集"
+
+#: modules/color/color.module:182
+msgid "Base color"
+msgstr "基色"
+
+#: modules/color/color.module:183
+msgid "Link color"
+msgstr "链接颜色"
+
+#: modules/color/color.module:184
+msgid "Header top"
+msgstr "页首顶部(Header Top)"
+
+#: modules/color/color.module:185
+msgid "Header bottom"
+msgstr "页首底部(Header bottom)"
+
+#: modules/color/color.module:186
+msgid "Text color"
+msgstr "文本颜色"
+
+#: modules/color/color.module:271
+msgid ""
+"There is not enough memory available to PHP to change this theme's color "
+"scheme. You need at least %size more. Check the <a href=\"@url\">PHP "
+"documentation</a> for more information."
+msgstr ""
+"没有足够的PHP内存空间所以无法改变本主题的配色方案。您至少需要增加 %size 的内"
+"存。更多信息参阅<a href=\"@url\">PHP 文档</a>。"
+
+#: modules/color/color.install:21
+msgid ""
+"The GD library for PHP is enabled, but was compiled without PNG support. "
+"Please check the <a href=\"@url\">PHP image documentation</a> for "
+"information on how to correct this."
+msgstr ""
+"PHP的GD图形库已开启，但需要重新编译以支持PNG图片。更多信息参见<a href=\"@url"
+"\">PHP 图片文档</a>。"
+
+#: modules/color/color.install:26
+msgid "Not installed"
+msgstr "未安装。"
+
+#: modules/color/color.install:28
+msgid ""
+"The GD library for PHP is missing or outdated. Please check the <a href="
+"\"@url\">PHP image documentation</a> for information on how to correct this."
+msgstr ""
+"未找到PHP的GD图形库，或者该GD库过去陈旧。更多信息参见<a href=\"@url\">PHP 图"
+"片文档</a>。"
+
+#: modules/color/color.install:31
+msgid "GD library"
+msgstr "GD 库"
+
+#: modules/color/color.module:0
+msgid "color"
+msgstr "颜色"

@@ -1,0 +1,187 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  trigger.admin.inc,v 1.5 2008/01/08 10:35:43 goba
+#  trigger.module,v 1.13.2.1 2008/04/09 21:11:51 goba
+#  trigger.install,v 1.5 2007/12/28 12:02:52 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:18-0400\n"
+"PO-Revision-Date: 2008-05-01 03:20-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/trigger/trigger.admin.inc:74
+msgid "Are you sure you want to unassign the action %title?"
+msgstr "您确定您想要取消指派任务<em>%title</em>吗？"
+
+#: modules/trigger/trigger.admin.inc:76
+msgid "You can assign it again later if you wish."
+msgstr "如果需要您可以以后再次指派它。"
+
+#: modules/trigger/trigger.admin.inc:88,87
+msgid "Action %action has been unassigned."
+msgstr "任务<em> %action </em>已经被取消指派。"
+
+#: modules/trigger/trigger.admin.inc:144
+msgid "Trigger: "
+msgstr "触发器："
+
+#: modules/trigger/trigger.admin.inc:154
+msgid "unassign"
+msgstr "取消任务"
+
+#: modules/trigger/trigger.admin.inc:171
+msgid "Assign"
+msgstr "分配"
+
+#: modules/trigger/trigger.admin.inc:176
+msgid "No available actions for this trigger."
+msgstr "没有此触发器可用的任务。"
+
+#: modules/trigger/trigger.admin.inc:192
+msgid "The action you chose is already assigned to that trigger."
+msgstr "您选择的任务已经被指派到了此触发器。"
+
+#: modules/trigger/trigger.admin.inc:218
+msgid ""
+"You have added an action that changes a the property of a post. A Save post "
+"action has been added so that the property change will be saved."
+msgstr ""
+"您已经添加了一个任务以改变一篇文章的属性。保存文本的任务已经被添加，因此属性"
+"改变也会相应被保存。"
+
+#: modules/trigger/trigger.admin.inc:238
+msgid "Operation"
+msgstr "操作"
+
+#: modules/trigger/trigger.module:14
+msgid ""
+"Triggers are system events, such as when new content is added or when a user "
+"logs in. Trigger module combines these triggers with actions (functional "
+"tasks), such as unpublishing content or e-mailing an administrator. The <a "
+"href=\"@url\">Actions settings page</a> contains a list of existing actions "
+"and provides the ability to create and configure additional actions."
+msgstr ""
+"触发事件是一些Drupal系统事件，如新内容被添加时，或有用户登入时。触发器模块将"
+"这些触发条件与任务（功能任务）结合到一起，例如当撤除内容是给管理员发e-mail。"
+"<a href=\"@url\">任务设置页面</a>包括了现有可用任务的列表，并提供了创建与配置"
+"新任务的支持。"
+
+#: modules/trigger/trigger.module:17
+msgid ""
+"Below you can assign actions to run when certain comment-related triggers "
+"happen. For example, you could promote a post to the front page when a "
+"comment is added."
+msgstr ""
+"下面您可以设置当一些与评论相关的触发条件发生时，执行指定的任务。例如当有新评"
+"论添加时，将该文章推荐到首页。"
+
+#: modules/trigger/trigger.module:19
+msgid ""
+"Below you can assign actions to run when certain content-related triggers "
+"happen. For example, you could send an e-mail to an administrator when a "
+"post is created or updated."
+msgstr ""
+"下面您可以设置当一些与内容相关的触发条件发生时，执行指定的任务。例如当创建或"
+"更新文章时，给管理员发送e-mail。"
+
+#: modules/trigger/trigger.module:21
+msgid ""
+"Below you can assign actions to run during each pass of a <a href=\"@cron"
+"\">cron maintenance task</a>."
+msgstr "下面您可以设置在每次<a href=\"@cron\">cron维护</a>时执行指定的任务。"
+
+#: modules/trigger/trigger.module:23
+msgid ""
+"Below you can assign actions to run when certain taxonomy-related triggers "
+"happen. For example, you could send an e-mail to an administrator when a "
+"term is deleted."
+msgstr ""
+"下面您可以设置当一些与分类相关的触发条件发生时，执行指定的任务。例如当术语被"
+"删除时，给管理员发送e-mail。"
+
+#: modules/trigger/trigger.module:25
+msgid ""
+"Below you can assign actions to run when certain user-related triggers "
+"happen. For example, you could send an e-mail to an administrator when a "
+"user account is deleted."
+msgstr ""
+"在下面您可以设置当特定的用户相关的触发条件发生时，执行哪些指定的任务。例如，"
+"当用户帐号被删除时，发送一封e-mail给管理员。"
+
+#: modules/trigger/trigger.module:27
+msgid ""
+"The Trigger module provides the ability to trigger <a href=\"@actions"
+"\">actions</a> upon system events, such as when new content is added or when "
+"a user logs in."
+msgstr ""
+"触发器(trigger)模块使得系统事件，比如当添加了新内容或用户登入时，自动触发指定"
+"的<a href=\"@actions\">任务</a>。"
+
+#: modules/trigger/trigger.module:28
+msgid ""
+"The combination of actions and triggers can perform many useful tasks, such "
+"as e-mailing an administrator if a user account is deleted, or automatically "
+"unpublishing comments that contain certain words. By default, there are five "
+"\"contexts\" of events (Comments, Content, Cron, Taxonomy, and Users), but "
+"more may be added by additional modules."
+msgstr ""
+"任务与触发器的不同组合可以完成许多有用的任务，例如当用户帐号被删除时给管理员"
+"发送email，或者自动撤出包括某些敏感词的内容等。Drupal默认有5种类型的系统事件"
+"（评论，内容，cron，分类与用户），模块可以定义更多类型的事件。"
+
+#: modules/trigger/trigger.module:29
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@trigger"
+"\">Trigger module</a>."
+msgstr "更多信息，请参见<a href=\"@trigger\">触发器模块</a>。"
+
+#: modules/trigger/trigger.install:28
+msgid "Maps trigger to hook and operation assignments from trigger.module."
+msgstr "将触发器对应到钩子(hook)与来自 trigger.module 的操作参数。"
+
+#: modules/trigger/trigger.install:35
+msgid ""
+"Primary Key: The name of the internal Drupal hook upon which an action is "
+"firing; for example, nodeapi."
+msgstr "主键：任务所使用的Drupal内部钩子(hook)名称，如 nodeapi 。"
+
+#: modules/trigger/trigger.install:42
+msgid ""
+"Primary Key: The specific operation of the hook upon which an action is "
+"firing: for example, presave."
+msgstr "主键：任务所使用的钩子(hook)中的特定操作参数，如presave 。"
+
+#: modules/trigger/trigger.install:49
+msgid "Primary Key: Action's {actions}.aid."
+msgstr "主键：任务的 {actions}.aid 。"
+
+#: modules/trigger/trigger.install:55
+msgid "The weight of the trigger assignment in relation to other triggers."
+msgstr "此触发器任务相对于其它触发器的权重。"
+
+#: modules/trigger/trigger.module:39
+msgid "Triggers"
+msgstr "触发器"
+
+#: modules/trigger/trigger.module:40
+msgid "Tell Drupal when to execute actions."
+msgstr "设置Drupal系统执行任务的时间"
+
+#: modules/trigger/trigger.module:85
+msgid "Cron"
+msgstr "Cron"
+
+#: modules/trigger/trigger.module:115
+msgid "Unassign an action from a trigger."
+msgstr "从触发器取消关联的任务。"
+
+#: modules/trigger/trigger.module:0
+msgid "trigger"
+msgstr "触发器"

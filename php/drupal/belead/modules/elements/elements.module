@@ -1,0 +1,139 @@
+<?php
+// $Id: elements.module,v 1.1.2.2.2.2 2008/04/05 09:52:29 heine Exp $
+
+/**
+ * Provide additional form element-types.
+ *
+ * Implementation of hook_elements.
+ *
+ * @return array
+ *   An array of element types.
+ */
+function elements_elements() {
+
+  // Provides a clean, easy way to create tables with one checkbox per row,
+  // multi-row selection and a select all checkbox, without making your code
+  // a complicated mess.
+  $types['tableselect'] = array(
+    '#input' => TRUE,
+    '#advanced_select' => TRUE,
+    '#multiple' => TRUE,
+    '#process' => array('_elements_expand_tableselect'),
+  );
+
+  // The imagebutton provides an image that acts like a submit button.
+  // Taken from Views.
+  $types['imagebutton'] = array(
+    '#input' => TRUE,
+    '#button_type' => 'submit',
+  );
+
+  return $types;
+}
+
+
+/**
+ * Implementation of hook_theme.
+ *
+ * @return array
+ */
+function elements_theme() {
+  return array(
+    'tableselect' => array(
+      'arguments' => array('element' => NULL),
+    ),
+    'imagebutton' => array(
+      'arguments' => array('element' => NULL),
+    ),
+  );
+}
+
+
+/**
+ * Theme the imagebutton form element.
+ *
+ * @param array $element
+ *
+ * @return string
+ *   HTML representation of the imagebutton.
+ */
+function theme_imagebutton($element) {
+  return '<input type="image" class="form-'. $element['#button_type'] .'" name="'. $element['#name'] .'" value="'. check_plain($element['#default_value']) .'" '. drupal_attributes($element['#attributes']) .' src="'. $element['#image'] .'" alt="'. $element['#title'] .'" title="'. $element['#title'] ."\" />\n";
+}
+
+
+/**
+ * Dummy function.
+ */
+function imagebutton_value() {
+  // null function guarantees default_value doesn't get moved to #value.
+  // Null function guarantees default_value doesn't get moved to #value.
+}
+
+
+/**
+ * Create the right amount of checkboxes or radios to populate the table.
+ *
+ * @param array $element
+ *   The unexpanded element.
+ *
+ * @return array
+ *   The element expanded to one checkbox or radio per row.
+ */
+function _elements_expand_tableselect($element) {
+
+  if ($element['#multiple']) {
+    $value = is_array($element['#value']) ? $element['#value'] : array();
+  }
+  else {
+    // Advanced select is only possible if #multiple is true.
+    $element['#advanced_select'] = FALSE;
+  }
+
+  $element['#tree'] = TRUE;
+
+  if (count($element['#options']) > 0) {
+    if (!isset($element['#default_value']) || $element['#default_value'] === 0) {
+      $element['#default_value'] = array();
+    }
+
+    foreach ($element['#options'] as $key => $choice) {
+      if ($element['#multiple']) {
+        $element[$key] = array('#type' => 'checkbox', '#processed' => TRUE, '#title' => '', '#return_value' => $key, '#default_value' => isset($value[$key]), '#attributes' => $element['#attributes']);
+      }
+      else {
+        $element[$key] = array('#type' => 'radio', '#title' => '', '#return_value' => $key, '#default_value' => ($element['#default_value'] == $key) ? $key : NULL, '#attributes' => $element['#attributes'], '#parents' => $element['#parents'], '#spawned' => TRUE);
+      }
+    }
+  }
+  return $element;
+}
+
+
+/**
+ * Generate a table with radios or checkboxes in the first column.
+ *
+ * @param array $element
+ *   A tableselect form element.
+ *
+ * @return string
+ *   HTML representation of the table.
+ */
+function theme_tableselect($element) {
+  $rows = array();
+  foreach ($element['#options'] as $key => $value) {
+    $row = array();
+
+    // Render the checkbox / radio element.
+    unset($element[$key]['#printed']);
+    $row[] = drupal_render($element[$key]);
+
+    foreach ($element['#header'] as $fieldname => $title) {
+      $row[] = $element['#options'][$key][$fieldname];
+    }
+    $rows[] = $row;
+  }
+  $first_col = $element['#advanced_select'] ? array(theme('table_select_header_cell')) : array('');
+  $header = array_merge($first_col, $element['#header']);
+  return theme('table', $header, $rows);
+}

@@ -1,0 +1,277 @@
+<?php
+// $Id: tracker2.module,v 1.14.2.3 2009/02/19 18:11:30 straussd Exp $
+/**
+ * @file
+ * Enables tracking of recent posts for users.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function tracker2_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#tracker2':
+      return '<p>'. t('The Tracker2 module is a much more efficient tracker that maintains seperate database tables of updated items.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function tracker2_menu() {
+  $base = 'tracker2';
+  $user_base = 'track2';
+  if (!module_exists('tracker')) {
+    $base = 'tracker';
+    $user_base = 'track';
+  }
+
+  $items[$base] = array(
+    'title' => 'Recent posts',
+    'page callback' => 'tracker2_page',
+    'access arguments' => array('access content'),
+    'weight' => 1,
+    'file' => 'tracker2.pages.inc',
+  );
+
+  $items[$base .'/all'] = array(
+    'title' => 'All recent posts',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items[$base .'/%user_uid_optional'] = array(
+    'title' => 'My recent posts',
+    'access callback' => '_tracker2_myrecent_access',
+    'access arguments' => array(1),
+    'page arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/settings/tracker2'] = array(
+    'title' => 'Tracker 2',
+    'description' => 'High-performance reimplementation of the Tracker module.',
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer tracker'),
+    'page arguments' => array('tracker2_admin'),
+    'file' => 'tracker2.admin.inc',
+  );
+
+  $items['user/%user/'. $user_base] = array(
+    'title' => 'Track',
+    'page callback' => 'tracker2_track_user',
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'tracker2.pages.inc',
+  );
+  $items['user/%user/'. $user_base .'/posts'] = array(
+    'title' => 'Track posts',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Access callback for tracker/%user.
+ */
+function _tracker2_myrecent_access($account) {
+  // This path is only allowed for authenticated users looking at their own posts.
+  return $account->uid && ($GLOBALS['user']->uid == $account->uid) && user_access('access content');
+}
+
+/**
+ * Access callback for user account tracker tab.
+ */
+function _tracker2_user_access($account) {
+  return user_view_access($account) && user_access('access content');
+}
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function tracker2_perm() {
+  return array('administer tracker');
+}
+
+/**
+ * Implementation of hook_cron().
+ */
+function tracker2_cron() {
+  $max_nid = variable_get('tracker2_index_nid', 0);
+  $batch_size = variable_get('tracker2_batch_size', 1000);
+  if ($max_nid) {
+    $last_nid = FALSE;
+    $res = db_query_range("SELECT nid, uid, status FROM {node} WHERE nid <= %d ORDER BY nid DESC", $max_nid, 0, $batch_size);
+    $count = 0;
+
+    while ($row = db_fetch_object($res)) {
+      // Calculate the changed timestamp for this node.
+      $changed = _tracker2_calculate_changed($row->nid);
+
+      // Remove existing data for this node.
+      db_query("DELETE FROM {tracker2_node} WHERE nid = %d", $row->nid);
+      db_query("DELETE FROM {tracker2_user} WHERE nid = %d", $row->nid);
+
+      // Insert the node-level data.
+      db_query("INSERT INTO {tracker2_node} (nid, published, changed) VALUES (%d, %d, %d)", $row->nid, $row->status, $changed);
+
+      // Insert the user-level data for the node's author.
+      db_query("INSERT INTO {tracker2_user} (nid, published, uid, changed) VALUES (%d, %d, %d, %d)", $row->nid, $row->status, $row->uid, $changed);
+
+      // Insert the user-level data for the commenters (except if a commenter is the node's author).
+      db_query("INSERT INTO {tracker2_user} (nid, published, uid, changed) SELECT DISTINCT %d AS nid, %d AS published, uid, %d AS changed FROM {comments} WHERE nid = %d AND uid <> %d AND status = %d", $row->nid, $row->status, $changed, $row->nid, $row->uid, COMMENT_PUBLISHED);
+
+      // Note that we have indexed at least one node.
+      $last_nid = $row->nid;
+
+      $count++;
+    }
+
+    if ($last_nid !== FALSE) {
+      // Prepare a starting point for the next run.
+      variable_set('tracker2_index_nid', $last_nid - 1);
+
+      watchdog('tracker2', 'Indexed %count nodes for tracking.', array('%count' => $count));
+    }
+    else {
+      // If all nodes have been indexed, set to zero to skip future cron runs.
+      variable_set('tracker2_index_nid', 0);
+    }
+  }
+}
+
+/**
+ * Create or update the tracker2 records.
+ */
+function _tracker2_add($nid, $uid, $changed) {
+  $node = db_fetch_object(db_query("SELECT nid, status, uid, changed FROM {node} WHERE nid = %d", $nid));
+
+  // Adding a comment can only increase the changed timestamp, so our calculation here is easy.
+  $changed = max($node->changed, $changed);
+
+  // Update the node-level data
+  $exists = db_result(db_query('SELECT COUNT(*) FROM {tracker2_node} WHERE nid = %d', $nid));
+  if ($exists) {
+    db_query('UPDATE {tracker2_node} SET changed = %d, published = %d WHERE nid = %d', $changed, $node->status, $nid);
+  }
+  else {
+    db_query('INSERT INTO {tracker2_node} (changed, published, nid) VALUES (%d, %d, %d)', $changed, $node->status, $nid);
+  }
+  
+  // Create or update the user-level data
+  db_query('UPDATE {tracker2_user} SET changed = %d, published = %d WHERE nid = %d', $changed, $node->status, $nid);
+  $exists = db_result(db_query('SELECT COUNT(*) FROM {tracker2_user} WHERE nid = %d AND uid = %d', $nid, $uid));
+  if (!$exists) {
+    db_query('INSERT INTO {tracker2_user} (changed, published, nid, uid) VALUES (%d, %d, %d, %d)', $changed, $node->status, $nid, $uid);
+  }
+}
+
+/**
+ * Calculate the last time the node was changed or commented upon.
+ */
+function _tracker2_calculate_changed($nid) {
+  $changed = db_result(db_query("SELECT changed FROM {node} WHERE nid = %d", $nid));
+  $comment_changed = db_result(db_query_range("SELECT timestamp FROM {comments} WHERE nid = %d AND status = %d ORDER BY timestamp DESC", $nid, COMMENT_PUBLISHED, 0, 1));
+  return max($comment_changed, $changed);
+}
+
+/**
+ * Delete from the tracker2 records.
+ */
+function _tracker2_remove($nid, $uid = NULL, $changed = NULL) {
+  $node = db_fetch_object(db_query("SELECT nid, status, uid, changed FROM {node} WHERE nid = %d", $nid));
+
+  if ($node) {
+    $keep_subscription = FALSE;
+
+    // The user only keeps his or her subscription if both of the following are true:
+    // (1) The node exists.
+    // (2) The user is either the node author or has commented on the node.
+
+    // Self-authorship is one reason to keep the user's subscription.
+    $keep_subscription = ($node->uid == $uid);
+
+    // Comments are a second reason to keep the user's subscription.
+    if (!$keep_subscription) {
+      // Check if the user has a published comment at least once on the given nid.
+      $keep_subscription = db_result(db_query_range("SELECT COUNT(*) FROM {comments} WHERE nid = %d AND uid = %d AND status = 0", $nid, $uid, 0, 1));
+    }
+
+    // If we haven't found a reason to keep the user's subscription, delete it.
+    if (!$keep_subscription) {
+      db_query("DELETE FROM {tracker2_user} WHERE nid = %d AND uid = %d", $nid, $uid);
+    }
+
+    // Now we need to update the (possibly) changed timestamps for other users and the node itself.
+
+    // We only need to do this if the removed item has a timestamp that equals
+    // or exceeds the listed changed timestamp for the node.
+    $tracker_node = db_fetch_object(db_query("SELECT nid, changed FROM {tracker2_node} WHERE nid = %d", $nid));
+    if ($tracker_node && $changed >= $tracker_node->changed) {
+      // If we're here, the item being removed is *possibly* the item that established the node's changed timestamp.
+
+      $insert = new stdClass();
+      $insert->nid = $nid;
+      $insert->published = $node->status;
+
+      // We just have to recalculate things from scratch.
+      $insert->changed = _tracker2_calculate_changed($nid);
+
+      // And then we push the out the new changed timestamp to our denormalized tables.
+      drupal_write_record('tracker2_node', $insert, 'nid');
+      drupal_write_record('tracker2_user', $insert, 'nid');
+    }
+  }
+  else {
+    // If the node doesn't exist, remove everything.
+    db_query("DELETE FROM {tracker2_node} WHERE nid = %d", $nid);
+    db_query("DELETE FROM {tracker2_user} WHERE nid = %d", $nid);
+  }
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function tracker2_nodeapi(&$node, $op) {
+  if ($op == 'insert' || $op == 'update') {
+    _tracker2_add($node->nid, $node->uid, $node->changed);
+  }
+  else if ($op == 'delete') {
+    _tracker2_remove($node->nid, $node->uid, $node->changed);
+  }
+}
+
+/**
+ * Implementation of hook_comment().
+ */
+function tracker2_comment($a1, $op) {
+  $comment = (array) $a1;
+  switch ($op) {
+    case 'insert':
+    case 'update':
+    case 'publish':
+      if ($comment['status'] == COMMENT_PUBLISHED) {
+        _tracker2_add($comment['nid'], $comment['uid'], $comment['timestamp']);
+      }
+      else {
+        _tracker2_remove($comment['nid'], $comment['uid'], $comment['timestamp']);
+      }
+      break;
+    case 'delete':
+    case 'unpublish':
+       _tracker2_remove($comment['nid'], $comment['uid'], $comment['timestamp']);
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function tracker2_theme() {
+  return array(
+    'tracker2_page' => array(
+      'arguments' => array('nodes' => array()),
+      'file' => 'tracker2.pages.inc',
+    ),
+  );
+}

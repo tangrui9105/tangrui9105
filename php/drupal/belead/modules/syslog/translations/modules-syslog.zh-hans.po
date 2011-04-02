@@ -1,0 +1,118 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from file: syslog.module,v 1.14.2.1 2008/04/09 21:11:49 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-05-01 03:48-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/syslog/syslog.module:22
+msgid ""
+"The syslog module enables Drupal to send messages to the operating system's "
+"logging facility."
+msgstr "系统日志(syslog)模块使得 Drupal 可以给操作系统的日志设备发送信息。"
+
+#: modules/syslog/syslog.module:23
+msgid ""
+"Syslog is an operating system administrative logging tool, and provides "
+"valuable information for use in system management and security auditing. "
+"Most suited to medium and large sites, syslog provides filtering tools that "
+"allow messages to be routed by type and severity. On UNIX/Linux systems, the "
+"file /etc/syslog.conf defines this routing configuration; on Microsoft "
+"Windows, all messages are sent to the Event Log. For more information on "
+"syslog facilities, severity levels, and how to set up a syslog.conf file, "
+"see <a href=\"@syslog_conf\">UNIX/Linux syslog.conf</a> and PHP's <a href="
+"\"@php_openlog\">openlog</a> and <a href=\"@php_syslog\">syslog</a> "
+"functions."
+msgstr ""
+"系统日志(syslog)是一种操作系统日志管理工具，为系统管理和安全审查提供重要信"
+"息。系统日志特别适用于中型与大型网站，它提供的过滤工具可以使讯息依类型及严重"
+"性进行配送。在 UNIX/Linux 系统，配送设置一般在 /etc/syslog.conf 文件中定义；"
+"在微软 Windows 系统中，所有的信息将写入到事件日志中。关于更多的系统日志功能、"
+"严重等级及如何设定 syslog.conf 文件的信息，请见 <a href=\"@syslog_conf"
+"\">UNIX/Linux syslog.conf</a> 和 PHP's <a href=\"@php_openlog\">openlog</a> "
+"及 <a href=\"@php_syslog\">syslog</a> 功能。"
+
+#: modules/syslog/syslog.module:24
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@syslog"
+"\">Syslog module</a>."
+msgstr "更多信息，请参考线上手册条目<a href=\"@syslog\">系统日志模块</a>。"
+
+#: modules/syslog/syslog.module:43
+msgid "Send events to this syslog facility"
+msgstr "发送事件到系统日志"
+
+#: modules/syslog/syslog.module:46
+msgid ""
+"Select the syslog facility code under which Drupal's messages should be "
+"sent. On UNIX/Linux systems, Drupal can flag its messages with the code "
+"LOG_LOCAL0 through LOG_LOCAL7; for Microsoft Windows, all messages are "
+"flagged with the code LOG_USER. Depending on the system configuration, "
+"syslog and other logging tools use this code to identify or filter Drupal "
+"messages from within the entire system log. For more information on syslog, "
+"see <a href=\"@syslog_help\">Syslog help</a>."
+msgstr ""
+"请选择Drupal信息要发送到的系统日志(syslog)设备代码。在 Unix/Linux 的操作系统"
+"上，Drupal 可以使用 LOG_LOCAL0 到 LOG_LOCAL7 代码标识信息；在微软 Windows "
+"上，所有信息都被标示以 LOG_USER 代码。根据系统的配置，syslog 和其它日志工具将"
+"透过此代码来识别或过滤在整个系统日志中的 Drupal 讯息。更多信息，请查阅线上手"
+"册的条目<a href=\"@syslog_help\">Syslog帮助</a>。"
+
+#: modules/syslog/syslog.module:56
+msgid "LOG_USER - User level messages. Use this for Windows."
+msgstr "LOG_USER －　用户级信息。用于Windows 。"
+
+#: modules/syslog/syslog.module:60
+msgid "LOG_LOCAL0 - Local 0"
+msgstr "LOG_LOCAL0 - Local 0"
+
+#: modules/syslog/syslog.module:61
+msgid "LOG_LOCAL1 - Local 1"
+msgstr "LOG_LOCAL1 - Local 1"
+
+#: modules/syslog/syslog.module:62
+msgid "LOG_LOCAL2 - Local 2"
+msgstr "LOG_LOCAL2 - Local 2"
+
+#: modules/syslog/syslog.module:63
+msgid "LOG_LOCAL3 - Local 3"
+msgstr "LOG_LOCAL3 - Local 3"
+
+#: modules/syslog/syslog.module:64
+msgid "LOG_LOCAL4 - Local 4"
+msgstr "LOG_LOCAL4 - Local 4"
+
+#: modules/syslog/syslog.module:65
+msgid "LOG_LOCAL5 - Local 5"
+msgstr "LOG_LOCAL5 - Local 5"
+
+#: modules/syslog/syslog.module:66
+msgid "LOG_LOCAL6 - Local 6"
+msgstr "LOG_LOCAL6 - Local 6"
+
+#: modules/syslog/syslog.module:67
+msgid "LOG_LOCAL7 - Local 7"
+msgstr "LOG_LOCAL7 - Local 7"
+
+#: modules/syslog/syslog.module:32
+msgid ""
+"Settings for syslog logging. Syslog is an operating system administrative "
+"logging tool used in systems management and security auditing. Most suited "
+"to medium and large sites, syslog provides filtering tools that allow "
+"messages to be routed by type and severity."
+msgstr ""
+"系统日志的设置。系统日志是操作系统管理员的日志工具，被用于系统管理和安全审"
+"核。对中大型的网站大都适用。系统日志提供了根据类型和严重程度过滤查看日志信息"
+"的工具。"
+
+#: modules/syslog/syslog.module:0
+msgid "syslog"
+msgstr "系统日志"

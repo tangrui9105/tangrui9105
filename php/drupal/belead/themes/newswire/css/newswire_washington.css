@@ -1,0 +1,286 @@
+/* $Id: newswire_washington.css,v 1.1 2008/08/21 21:59:27 jmburnz Exp $ */
+
+/*****************************
+
+  Newswire Washington styles.css
+  Theme by AdaptiveThemes.com
+  
+  #003366  very dark blue 
+  #336699  dark blue
+  #222     very dark gray
+  #BBB     medium light gray
+  #CCC     light gray
+  #EEE     silver
+  #FFF     white
+  #f7f7f7  light silver
+
+******************************/
+
+/*** Site slogan ***/
+.branding em {
+  color: #336699;
+}
+
+/*** Search Box Top ***/
+#search-box-top #edit-search-theme-form-1 {
+  color: #336699;
+  border-color: #003366;
+}
+
+#block-search-0 .form-submit,
+#search .form-submit {
+  color: #FFF;
+  background-color: #336699;
+  border: 1px solid #003366; 
+}
+
+/*** Primary Menu Links  ***/
+#main-navigation { 
+  background: #336699;
+}
+
+#primary-menu {
+  border-left: 15px solid #003366;  
+}
+
+#primary-menu ul.links li a {
+  color: #FFF;
+  background: #336699;
+}
+
+#primary-menu ul.links li a:hover {
+  color: #FFF;
+  background: #003366;
+}
+
+/*** Secondary Menu Links ***/
+#secondary-menu { 
+  border-bottom: 2px solid #336699; 
+}
+
+#secondary-menu ul.links li a:link,
+#secondary-menu ul.links li a:visited,
+#secondary-menu ul.links li a:active {
+  color: #336699;
+}
+
+#secondary-menu ul.links li {
+   border-right: 1px solid #F7F7F7;
+}
+
+/*** Suckerfish drop menus ***/
+#suckerfish {
+  border-left: 15px solid #003366;  
+}
+
+#suckerfish .block .content {
+  padding: 0;
+}
+
+#suckerfish a { 
+  background: #336699; 
+  color: #FFF;
+}
+
+#suckerfish a:active, 
+#suckerfish a:hover   { 
+  background: #003366; 
+  color: #FFF;
+}
+
+#suckerfish ul.menu li li a:link, 
+#suckerfish ul.menu li li a:visited { 
+  color: #FFF; 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li { 
+}
+
+#suckerfish ul.menu li ul a { 
+  color: #FFF;
+  border-bottom: 1px solid #003366; 
+}
+
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  color: #003366; 
+  background: #F7F7F7; 
+}
+
+#suckerfish ul.menu li li.expanded a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded a:active, 
+#suckerfish ul.menu li li.expanded a:hover { 
+  background: #F7F7F7; 
+}
+
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  background: #F7F7F7;
+  text-decoration: none;  
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a:active, 
+#suckerfish ul.menu li li.expanded ul.menu a:hover { 
+  background: #F7F7F7; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:active, 
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:hover { 
+  background: #F7F7F7;
+}
+
+/*** The Main Columns 
+     Column specific styles ***/
+
+/*** Column 2 ***/
+#content h1.category {
+  background: #f7f7f7; 
+  border: 1px solid #CCC;
+}
+
+#content h1.category em {
+  color: #336699;
+  background: #f7f7f7; 
+}
+
+#content h1.category span {
+  color: #222;
+}
+
+/*** Column 3 ***/
+#right_2 { 
+  background: #F7F7F7; 
+  border: 1px solid #EEE;
+}
+
+#right_2 .block .block-wrapper { 
+  background: transparent;
+}
+
+#right_2 .block ul li {
+  color: #EEE;
+}
+
+#right_2 .block h3.title {
+  background: transparent;
+  border-bottom: 1px solid #EEE;
+}
+
+#right_2 .block h3.title span {
+}
+
+/***  Mission ***/
+.mission { 
+  color: #222;
+  background: transparent; 
+  border-bottom: 2px solid #F7F7F7;
+}
+
+.mission a:link,
+.mission a:visited,
+.mission a:hover {
+  color: #222;
+}
+
+/*** Nodes ***/
+div.node {
+  border-bottom:1px solid #F7F7F7;
+}
+
+/*** Comments ***/
+div.comment.odd {
+  background: #EEE;
+}
+
+div.comment.even {
+  background: #F7F7F7;
+}
+
+div.comment.comment-mine {
+  background: #CCC;
+}
+
+/*** Forum ***/
+.forum-topic-navigation {
+  border-bottom:1px solid #CCC;
+  border-top:1px solid #CCC;
+}
+
+/*** Book module ***/
+.book-navigation .page-links {
+  background: #F7F7F7;
+}
+.book-navigation .menu {
+  border-color: #F7F7F7;
+}
+
+/*** Blocks ***/
+.block h3.title {
+  color: #222;
+  background: #F7F7F7;
+  border-bottom: 1px solid #EEE;
+}
+
+.block {
+  padding: 0;
+  border: 1px solid #EEE;
+}
+
+.block ul li {
+  color: #EEE;
+}
+
+/*** Footer ***/
+#footer-message {
+  color: #BBB;
+}
+
+#adaptivethemes a:link, 
+#adaptivethemes a:active, 
+#adaptivethemes a:visited {
+  color: #BBB;
+}
+
+#adaptivethemes a:hover {
+  color: #CCC;
+}
+
+/*** Tables ***/
+thead th     { border-bottom: 2px solid #CCC; }
+tr.even,
+tr.odd,
+tbody, 
+tbody th     { border: none; }
+tr.odd       { background-color: #F7F7F7; }
+tr.info      { background-color: #CCC; }
+tr.even      { background-color: #fff; }
+
+tr.odd td.active  { background-color: #EEE; }
+tr.even td.active { background-color: #CCC; }
+
+td.region, td.module, td.container {
+  border-bottom: none;
+  background-color: #F7F7F7;
+  color: #222;
+}
+
+table.system-status-report th {
+  border-bottom: none;
+}
+
+/*** Fieldsets ***/
+fieldset, fieldset legend {
+  border:1px solid #CCC;
+}

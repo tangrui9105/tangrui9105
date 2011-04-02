@@ -1,0 +1,231 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  openid.inc,v 1.8 2008/01/30 22:11:22 goba
+#  openid.pages.inc,v 1.5 2008/01/30 22:11:22 goba
+#  openid.module,v 1.19.2.1 2008/04/09 21:11:48 goba
+#  openid.install,v 1.3 2007/10/10 11:39:33 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-25 22:50-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/openid/openid.inc:44
+msgid "OpenID redirect"
+msgstr "OpenID 重定向"
+
+#: modules/openid/openid.inc:67
+msgid "Send"
+msgstr "发送"
+
+#: modules/openid/openid.pages.inc:18
+msgid "OpenID login failed."
+msgstr "使用OpenID登录失败"
+
+#: modules/openid/openid.pages.inc:21
+msgid "OpenID login cancelled."
+msgstr "OpenID登录取消。"
+
+#: modules/openid/openid.pages.inc:39
+msgid "Successfully added %identity"
+msgstr "顺利添加 %identity"
+
+#: modules/openid/openid.pages.inc:66
+msgid "Add an OpenID"
+msgstr "添加一个 OpenID"
+
+#: modules/openid/openid.pages.inc:74
+msgid "That OpenID is already in use on this site."
+msgstr "那个OpenID已经有人使用。"
+
+#: modules/openid/openid.pages.inc:88
+msgid "OpenID deleted."
+msgstr "删除了OpenID"
+
+#: modules/openid/openid.module:48
+msgid ""
+"This site supports <a href=\"@openid-net\">OpenID</a>, a secure way to log "
+"into many websites using a single username and password. OpenID can reduce "
+"the necessity of managing many usernames and passwords for many websites."
+msgstr ""
+"本站支持<a href=\"@openid-net\">OpenID</a>，OpenID提供了一种一个使用一个帐号"
+"安全登录到多个站点的机制，从而省去了在多个站点管理不同帐号的麻烦。"
+
+#: modules/openid/openid.module:49
+msgid ""
+"To use OpenID you must first establish an identity on a public or private "
+"OpenID server. If you do not have an OpenID and would like one, look into "
+"one of the <a href=\"@openid-providers\">free public providers</a>. You can "
+"find out more about OpenID at <a href=\"@openid-net\">this website</a>."
+msgstr ""
+"要使用 OpenID ，您必须先在专门的公开或私有的 OpenID 服务器上建立身份验证。如"
+"果您还没有自己的 OpenID ，可以考虑这些<a href=\"@openid-providers\">免费公开"
+"OpenID服务器</a>。您可以在<a href=\"@openid-net\">这里</a>找到更多关于 "
+"OpenID 的信息。"
+
+#: modules/openid/openid.module:50
+msgid ""
+"If you already have an OpenID, enter the URL to your OpenID server below (e."
+"g. myusername.openidprovider.com). Next time you login, you will be able to "
+"use this URL instead of a regular username and password. You can have "
+"multiple OpenID servers if you like; just keep adding them here."
+msgstr ""
+"如果您已经有自己的 OpenID ，请在下面输入您的 OpenID 服务器 URL （如："
+"myusername.openidprovider.com）。您下次就可以使用这个 URL 登录，而不再需要另"
+"建帐号。您可以使用多个 OpenID 服务器，添加到下面就可以。"
+
+#: modules/openid/openid.module:54
+msgid ""
+"OpenID is a secure method for logging into many websites with a single "
+"username and password. It does not require special software, and it does not "
+"share passwords with any site to which it is associated; including your site."
+msgstr ""
+"OpenID 提供了一种使用一个帐号安全登录到多个站点的机制。OpenID 不需要特殊软"
+"件，而且并不会与任何其它站点分享您的密码，包括本站。"
+
+#: modules/openid/openid.module:55
+msgid ""
+"Users can create accounts using their OpenID, assign one or more OpenIDs to "
+"an existing account, and log in using an OpenID. This lowers the barrier to "
+"registration, which is good for the site, and offers convenience and "
+"security to the users. OpenID is not a trust system, so email verification "
+"is still necessary. The benefit stems from the fact that users can have a "
+"single password that they can use on many websites. This means they can "
+"easily update their single password from a centralized location, rather than "
+"having to change dozens of passwords individually."
+msgstr ""
+"用户可以使用他们的 OpenID 建立帐户，为已有帐户分配一个或多个 OpenID，并且使"
+"用 OpenID 登录本站。这样在降低用户注册复杂度的同时，也为用户提供了安全简便的"
+"登录方式，对站点与用户都有好处。OpenID 并不是一个信用系统，所以仍需要使用e-"
+"mail验证。OpenID 主要的好处在于用户可以使用单一密码登录多个站点。用户可以在一"
+"台中心服务器上方便地更新密码，而不需一个一个地去修改。"
+
+#: modules/openid/openid.module:56
+msgid ""
+"The basic concept is as follows: A user has an account on an OpenID server. "
+"This account provides them with a unique URL (such as myusername."
+"openidprovider.com). When the user comes to your site, they are presented "
+"with the option of entering this URL. Your site then communicates with the "
+"OpenID server, asking it to verify the identity of the user. If the user is "
+"logged into their OpenID server, the server communicates back to your site, "
+"verifying the user. If they are not logged in, the OpenID server will ask "
+"the user for their password. At no point does your site record, or need to "
+"record the user's password."
+msgstr ""
+"基本概念如下：用户在一台 OpenID 服务器上拥有帐号。这个帐号提供一个独一无二的 "
+"URL （例如 myusername.openidprovider.com）。当该用户访问您的站点时，他们可以"
+"选择输入这个 URL 。您的网站将使用这个 URL 联系 OpenID 服务器，要求验证该用户"
+"身份。如果该用户已经登入了 OpenID 服务器，它就会返回确认信息给您的站点。如果"
+"该用户没有登入 OpenID 服务器，OpenID 服务器将会要求用户输入密码。无论在何种情"
+"况下，您的站点都不会也不需要记录用户的密码。"
+
+#: modules/openid/openid.module:57
+msgid ""
+"More information on OpenID is available at <a href=\"@openid-net\">OpenID."
+"net</a>."
+msgstr "更多关于 OpenID 的信息请查阅<a href=\"@openid-net\">OpenID.net</a>。"
+
+#: modules/openid/openid.module:58
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@handbook"
+"\">OpenID module</a>."
+msgstr ""
+"想了解更多的信息请参在线帮助手册<a href=\"@handbook\">OpenID 模块</a>。"
+
+#: modules/openid/openid.module:70
+msgid "Once you have verified your email address, you may log in via OpenID."
+msgstr "一旦验证了您的电子邮件地址，您就可以通过OpenID登录。"
+
+#: modules/openid/openid.module:92,109
+msgid "Log in using OpenID"
+msgstr "使用OpenID登录"
+
+#: modules/openid/openid.module:96
+msgid "Cancel OpenID login"
+msgstr "取消OpenID登录"
+
+#: modules/openid/openid.module:113
+msgid "What is OpenID?"
+msgstr "什么是OpenID？"
+
+#: modules/openid/openid.module:162
+msgid ""
+"Sorry, that is not a valid OpenID. Please ensure you have spelled your ID "
+"correctly."
+msgstr "对不起，这不是一个有效的OpenID帐号（ID）。请确保您的ID正确。"
+
+#: modules/openid/openid.module:397
+msgid ""
+"You must validate your email address for this account before logging in via "
+"OpenID"
+msgstr "您必须先确认您的电子邮件地址，然后才可以通过OpenID登录"
+
+#: modules/openid/openid.module:415
+msgid ""
+"OpenID registration failed for the reasons listed. You may register now, or "
+"if you already have an account you can <a href=\"@login\">log in</a> now and "
+"add your OpenID under \"My Account\""
+msgstr ""
+"由于以上原因，OpenID 注册失败。您可以在本站本地注册，或者使用本地帐号<a href="
+"\"@login\">登录</a>，然后在“我的帐号”下面添加您的 OpenID 。"
+
+#: modules/openid/openid.install:25
+msgid ""
+"Stores temporary shared key association information for OpenID "
+"authentication."
+msgstr "存储 OpenID 验证所需的临时共享密钥信息。"
+
+#: modules/openid/openid.install:30
+msgid "URI of the OpenID Provider endpoint."
+msgstr "OpenID 提供商终端的 URI 。"
+
+#: modules/openid/openid.install:36
+msgid "Primary Key: Used to refer to this association in subsequent messages."
+msgstr "主键：用于在之后的信息中代表此关联(association)。"
+
+#: modules/openid/openid.install:41
+msgid "The signature algorithm used: one of HMAC-SHA1 or HMAC-SHA256."
+msgstr "所使用的特征算法(signature algorithm)：HMAC-SHA1 或者 HMAC-SHA256"
+
+#: modules/openid/openid.install:46
+msgid ""
+"Valid association session types: \"no-encryption\", \"DH-SHA1\", and \"DH-"
+"SHA256\"."
+msgstr ""
+"有效的关联会话(association session)类型：\"no-encryption\", \"DH-SHA1\", 与 "
+"\"DH-SHA256\" 。"
+
+#: modules/openid/openid.install:51
+msgid "The MAC key (shared secret) for this association."
+msgstr "此关联(association)的MAC key（共享密钥） 。"
+
+#: modules/openid/openid.install:57
+msgid "UNIX timestamp for when the association was created."
+msgstr "此关联(association)的创建时间(Unix 时间戳）。"
+
+#: modules/openid/openid.install:63
+msgid "The lifetime, in seconds, of this association."
+msgstr "此关联(association)的有效时间（秒）"
+
+#: modules/openid/openid.module:14
+msgid "OpenID Login"
+msgstr "OpenID 登录"
+
+#: modules/openid/openid.module:21
+msgid "OpenID identities"
+msgstr "OpenID 身份"
+
+#: modules/openid/openid.module:30
+msgid "Delete OpenID"
+msgstr "删除 OpenID"
+
+#: modules/openid/openid.module:0
+msgid "openid"
+msgstr "OpenID"

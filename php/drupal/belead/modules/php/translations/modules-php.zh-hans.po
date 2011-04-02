@@ -1,0 +1,220 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  php.module,v 1.8.2.1 2008/02/05 09:29:50 goba
+#  php.install,v 1.1 2007/04/24 10:54:34 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-16 23:33-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/php/php.module:16
+msgid ""
+"The PHP filter adds the ability to include PHP code in posts. PHP is a "
+"general-purpose scripting language widely-used for web development; the "
+"content management system used by this website has been developed using PHP."
+msgstr ""
+"PHP 过滤器允许您在文章中使用 PHP 代码。PHP 是一种通用脚本语言，广泛应用于网页"
+"开发。本站所使用的内容管理系统(Drupal)及使用 PHP 开发。"
+
+#: modules/php/php.module:17
+msgid ""
+"Through the PHP filter, users with the proper permission may include custom "
+"PHP code within a page of the site. While this is a powerful and flexible "
+"feature if used by a trusted user with PHP experience, it is a significant "
+"and dangerous security risk in the hands of a malicious user. Even a trusted "
+"user may accidentally compromise the site by entering malformed or incorrect "
+"PHP code. Only the most trusted users should be granted permission to use "
+"the PHP filter, and all PHP code added through the PHP filter should be "
+"carefully examined before use."
+msgstr ""
+"拥有适当权限的用户，将可以使用 PHP 过滤器在文章中使用定制的 PHP 代码。对于有"
+"经验而负责人的用户来说，这是一个强大而灵活的功能，但是在新手或恶意用户手中将"
+"带来严重的安全问题。即便是可信赖的用户也可能不小心输入了错误的 PHP 代码而危害"
+"到这个站点。强烈建议只对最信得过的用户开放使用 PHP 过滤器的权限，而且在添加 "
+"PHP 代码之前一定要仔细检查。"
+
+#: modules/php/php.module:18,61
+msgid ""
+"<a href=\"@drupal\">Drupal.org</a> offers <a href=\"@php-snippets\">some "
+"example PHP snippets</a>, or you can create your own with some PHP "
+"experience and knowledge of the Drupal system."
+msgstr ""
+"<a href=\"@drupal\">Drupal.org</a> 有 <a href=\"@php-snippets\">一些PHP的代码"
+"片段</a>，由PHP与Drupal经验的用户也可以创建自己的代码。"
+
+#: modules/php/php.module:19
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@php\">PHP "
+"module</a>."
+msgstr "想了解更多的信息请参在线帮助手册<a href=\"@php\">PHP模块</a>。"
+
+#: modules/php/php.module:32
+msgid "You may post PHP code. You should include &lt;?php ?&gt; tags."
+msgstr "您可以发表 PHP 代码。当然，您需要包括 &lt;?php ?&gt; 标签。"
+
+#: modules/php/php.module:34
+msgid "Using custom PHP code"
+msgstr "用定制的PHP代码"
+
+#: modules/php/php.module:35
+msgid ""
+"Custom PHP code may be embedded in some types of site content, including "
+"posts and blocks. While embedding PHP code inside a post or block is a "
+"powerful and flexible feature when used by a trusted user with PHP "
+"experience, it is a significant and dangerous security risk when used "
+"improperly. Even a small mistake when posting PHP code may accidentally "
+"compromise your site."
+msgstr ""
+"在文章或区块中，可以嵌入定制的 PHP 代码。对于有经验而负责人的用户来说，这是一"
+"个强大而灵活的功能，但是在新手或恶意用户手中将带来严重的安全问题。即便是可信"
+"赖的用户也可能不小心输入了错误的 PHP 代码而危害到这个站点。"
+
+#: modules/php/php.module:36
+msgid ""
+"If you are unfamiliar with PHP, SQL, or Drupal, avoid using custom PHP code "
+"within posts. Experimenting with PHP may corrupt your database, render your "
+"site inoperable, or significantly compromise security."
+msgstr ""
+"如果您对 PHP, SQL 及 Drupal 并不熟悉，请避免在文章中嵌入 PHP 代码。测试 PHP "
+"代码可能会损坏数据库，使得您的站点瘫痪，或者带来严重的安全隐患。"
+
+#: modules/php/php.module:37
+msgid "Notes:"
+msgstr "注释："
+
+#: modules/php/php.module:38
+msgid ""
+"Remember to double-check each line for syntax and logic errors "
+"<strong>before</strong> saving."
+msgstr ""
+"在<strong>保存之前</strong>，请再次仔细检查每一行是否有语法与逻辑错误。"
+
+#: modules/php/php.module:39
+msgid "Statements must be correctly terminated with semicolons."
+msgstr "最后必须使用分号（；）标识语句结束。"
+
+#: modules/php/php.module:40
+msgid ""
+"Global variables used within your PHP code retain their values after your "
+"script executes."
+msgstr "您的 PHP 代码中的全局变量在脚本执行后将保持其值。"
+
+#: modules/php/php.module:41
+msgid ""
+"<code>register_globals</code> is <strong>turned off</strong>. If you need to "
+"use forms, understand and use the functions in <a href=\"@formapi\">the "
+"Drupal Form API</a>."
+msgstr ""
+"<code>register_globals</code><strong>已关闭</strong>。如果您需要使用表单，请"
+"学习使用<a href=\"@formapi\">Drupal Form API</a>。"
+
+#: modules/php/php.module:42
+msgid ""
+"Use a <code>print</code> or <code>return</code> statement in your code to "
+"output content."
+msgstr "使用 <code>print</code> 或者 <code>return</code> 语句输出内容。"
+
+#: modules/php/php.module:43
+msgid ""
+"Develop and test your PHP code using a separate test script and sample "
+"database before deploying on a production site."
+msgstr ""
+"在正式站点上使用之前，请务必在使用另外的测试数据库的测试站点上开发测试 PHP 代"
+"码。"
+
+#: modules/php/php.module:44
+msgid ""
+"Consider including your custom PHP code within a site-specific module or "
+"<code>template.php</code> file rather than embedding it directly into a post "
+"or block."
+msgstr ""
+"请考虑将您的定制 PHP 代码写入站点制定模块或者<code>template.php</code>文件，"
+"而不是直接嵌入到网页或区块中。"
+
+#: modules/php/php.module:45
+msgid ""
+"Be aware that the ability to embed PHP code within content is provided by "
+"the PHP Filter module. If this module is disabled or deleted, then blocks "
+"and posts with embedded PHP may display, rather than execute, the PHP code."
+msgstr ""
+"请注意 PHP 过滤器模块提供了将 PHP 代码嵌入页面的功能。如果此模块被禁用或删"
+"除，所有使用了嵌入代码的页面和区块将直接显示 PHP 源代码，而不是执行后的效果。"
+
+#: modules/php/php.module:46
+msgid ""
+"A basic example: <em>Creating a \"Welcome\" block that greets visitors with "
+"a simple message.</em>"
+msgstr "一个简单的例子：<em>创建一个“欢迎”区块问候站点访客。</em>"
+
+#: modules/php/php.module:47
+msgid ""
+"<p>Add a custom block to your site, named \"Welcome\". With its input format "
+"set to \"PHP code\" (or another format supporting PHP input), add the "
+"following in the Block body:</p>\n"
+"<pre>\n"
+"print t('Welcome visitor! Thank you for visiting.');\n"
+"</pre>"
+msgstr ""
+"<p>给您的站点添加自定义区块：“欢迎”。先将输入格式设为“PHP代码”格式（或者其它"
+"支持 PHP 输入的格式），然后在区块正文部分添加下面代码：<p>\n"
+"<pre>\n"
+"print t('欢迎您访问本站！');\n"
+"</pre>"
+
+#: modules/php/php.module:51
+msgid ""
+"<p>To display the name of a registered user, use this instead:</p>\n"
+"<pre>\n"
+"global $user;\n"
+"if ($user->uid) {\n"
+"  print t('Welcome @name! Thank you for visiting.', array('@name' => $user-"
+">name));\n"
+"}\n"
+"else {\n"
+"  print t('Welcome visitor! Thank you for visiting.');\n"
+"}\n"
+"</pre>"
+msgstr ""
+"<p>要想显示注册用户的名字，请使用下面代码：</p>\n"
+"<pre>\n"
+"global $user;\n"
+"if ($user->uid) {\n"
+"  print t(' @name ，欢迎您访问本站！', array('@name' => $user->name));\n"
+"}\n"
+"else {\n"
+"  print t('欢迎您访问本站！');\n"
+"}\n"
+"</pre>"
+
+#: modules/php/php.module:75
+msgid "PHP evaluator"
+msgstr "PHP 运行器"
+
+#: modules/php/php.module:80
+msgid ""
+"Executes a piece of PHP code. The usage of this filter should be restricted "
+"to administrators only!"
+msgstr "运行一段 PHP 代码，此过滤器应该只让管理员使用！"
+
+#: modules/php/php.install:20
+msgid "A !php-code input format has been created."
+msgstr "输入格式 !php-code 已创建。"
+
+#: modules/php/php.install:28
+msgid ""
+"The PHP module has been disabled. Please note that any existing content that "
+"was using the PHP filter will now be visible in plain text. This might pose "
+"a security risk by exposing sensitive information, if any, used in the PHP "
+"code."
+msgstr ""
+"PHP 模块已禁用。请注意所有使用 PHP 过滤器的内容都将以纯文本形式显示（将显示源"
+"代码，而不是代码运行后的结果）。如果您的 PHP 代码中包括有敏感信息，将带来安全"
+"问题。"

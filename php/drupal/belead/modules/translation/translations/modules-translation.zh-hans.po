@@ -1,0 +1,211 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  translation.pages.inc,v 1.2 2008/01/07 13:18:40 goba
+#  translation.module,v 1.23 2008/01/28 11:38:58 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:18-0400\n"
+"PO-Revision-Date: 2008-04-27 03:57-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/translation/translation.pages.inc:41
+msgid "outdated"
+msgstr "过时"
+
+#: modules/translation/translation.pages.inc:50
+msgid "add translation"
+msgstr "添加翻译"
+
+#: modules/translation/translation.pages.inc:52
+msgid "Not translated"
+msgstr "尚未翻译"
+
+#: modules/translation/translation.pages.inc:57
+msgid "Translations of %title"
+msgstr "%tilte 的翻译"
+
+#: modules/translation/translation.module:34
+msgid ""
+"The content translation module allows content to be translated into "
+"different languages. Working with the <a href=\"@locale\">locale module</a> "
+"(which manages enabled languages and provides translation for the site "
+"interface), the content translation module is key to creating and "
+"maintaining translated site content."
+msgstr ""
+"内容翻译模块使得站点文章可以被翻译为其它语言。内容翻译模块与<a href=\"@locale"
+"\">本地化模块</a>（locale模块用于系统界面的翻译，并用于管理并开启指定的语言）"
+"一道，用于创建并维护对站点内容的翻译。"
+
+#: modules/translation/translation.module:35
+msgid "Configuring content translation and translation-enabled content types:"
+msgstr "设置内容翻译与开启翻译支持的内容类型。"
+
+#: modules/translation/translation.module:36
+msgid ""
+"Assign the <em>translate content</em> permission to the appropriate user "
+"roles at the <a href=\"@permissions\">Permissions configuration page</a>."
+msgstr ""
+"在<a href=\"@permissions\">权限设置页面</a>给适当的用户角色分配<em>翻译内容</"
+"em>的权限。"
+
+#: modules/translation/translation.module:37
+msgid ""
+"Add and enable desired languages at the <a href=\"@languages\">Languages "
+"configuration page</a>."
+msgstr "在<a href=\"@languages\">语言设置页面</a>添加并启用想要的语言。"
+
+#: modules/translation/translation.module:38
+msgid ""
+"Determine which <a href=\"@content-types\">content types</a> should support "
+"translation features. To enable translation support for a content type, edit "
+"the type and at the <em>Multilingual support</em> drop down, select "
+"<em>Enabled, with translation</em>. (<em>Multilingual support</em> is "
+"located within <em>Workflow settings</em>.) Be sure to save each content "
+"type after enabling multilingual support."
+msgstr ""
+"决定哪些<a href=\"@content-types\">内容类型</a>支持翻译功能。要对某内容类型开"
+"启翻译支持，进入类型编辑页面，在<em>多语种支持</em>下拉框中选择<em>启用，包括"
+"翻译</em>选项。（<em>多语种支持</em>框在<em>流程设置</em>一栏下。）记住在启用"
+"多语种支持后保存该内容类型。"
+
+#: modules/translation/translation.module:39
+msgid "Working with translation-enabled content types:"
+msgstr "设置启用了翻译支持的内容类型："
+
+#: modules/translation/translation.module:40
+msgid ""
+"Use the <em>Language</em> drop down to select the appropriate language when "
+"creating or editing posts."
+msgstr "在创建或编辑文章时，使用<em>语言</em>下拉框选择恰当的语言。"
+
+#: modules/translation/translation.module:41
+msgid ""
+"Provide new or edit current translations for existing posts via the "
+"<em>Translation</em> tab. Only visible while viewing a post as a user with "
+"the <em>translate content</em> permission, this tab allows translations to "
+"be added or edited using a specialized editing form that also displays the "
+"content being translated."
+msgstr ""
+"在<em>翻译</em>页签处为文章添加新翻译或编辑已有翻译。此翻译页签(tab)使用一个"
+"特制的编辑表单，在显示原文的同时，允许添加新的翻译或编辑已有翻译。只有拥有"
+"<em>翻译内容</em>权限的用户才能看到此页签。"
+
+#: modules/translation/translation.module:42
+msgid ""
+"Update translations as needed, so that they accurately reflect changes in "
+"the content of the original post. The translation status flag provides a "
+"simple method for tracking outdated translations. After editing a post, for "
+"example, select the <em>Flag translations as outdated</em> check box to mark "
+"all of its translations as outdated and in need of revision. Individual "
+"translations may be marked for revision by selecting the <em>This "
+"translation needs to be updated</em> check box on the translation editing "
+"form."
+msgstr ""
+"翻译要及时更新，已准确反映原文内容。翻译状态标志提供了一种跟踪失效翻译的简便"
+"方式。例如，当编辑文章后，勾选<em>将翻译标记为过期</em>选项，标记文章翻译已失"
+"效需要修订。每个翻译还可以通过在翻译编辑表单中，勾选<em>此翻译版本需要更新</"
+"em>选择框，来标志此翻译版本需要修订。"
+
+#: modules/translation/translation.module:43
+msgid ""
+"The <a href=\"@content-node\">Content management administration page</a> "
+"displays the language of each post, and also allows filtering by language or "
+"translation status."
+msgstr ""
+"<a href=\"@content-node\">内容管理页面</a>显示了每篇文章的语言，并且可以按语"
+"言或翻译状态显示列表。"
+
+#: modules/translation/translation.module:44
+msgid ""
+"Use the <a href=\"@blocks\">language switcher block</a> provided by locale "
+"module to allow users to select a language. If available, both the site "
+"interface and site content are presented in the language selected."
+msgstr ""
+"本地化(locale)模块提供的<a href=\"@blocks\">语言切换区块</a>使用户可以自行选"
+"择语言版本。"
+
+#: modules/translation/translation.module:45
+msgid ""
+"For more information, see the online handbook entry for <a href="
+"\"@translation\">Translation module</a>."
+msgstr "更多信息，请参见<a href=\"@translation\">翻译模块</a>。"
+
+#: modules/translation/translation.module:48
+msgid ""
+"Translations of a piece of content are managed with translation sets. Each "
+"translation set has one source post and any number of translations in any of "
+"the <a href=\"!languages\">enabled languages</a>. All translations are "
+"tracked to be up to date or outdated based on whether the source post was "
+"modified significantly."
+msgstr ""
+"内容的翻译是通过翻译集合(translation sets)来完成的。每个翻译集合包括一个源文"
+"本与所有<a href=\"!languages\">启用语言</a>下的一系列翻译文本。根据源文本是否"
+"发生了大的变化，可以跟踪翻译是否仍有效还是已过时。"
+
+#: modules/translation/translation.module:102
+msgid "Enabled, with translation"
+msgstr "激活，并有翻译"
+
+#: modules/translation/translation.module:104
+msgid ""
+"Enable multilingual support for this content type. If enabled, a language "
+"selection field will be added to the editing form, allowing you to select "
+"from one of the <a href=\"!languages\">enabled languages</a>. You can also "
+"turn on translation for this content type, which lets you have content "
+"translated to any of the enabled languages. If disabled, new posts are saved "
+"with the default language. Existing content will not be affected by changing "
+"this option."
+msgstr ""
+"对此内容类型开启多语种支持。开启后，内容编辑表格会增加一个语言选择栏，允许您"
+"从所有<a href=\"!languages\">已开启的语言</a>中选择一种。您还可以对此内容类型"
+"开启翻译支持，从而可以把内容翻译到任意已启用的语言。 "
+
+#: modules/translation/translation.module:127
+msgid "Translation settings"
+msgstr "翻译设置"
+
+#: modules/translation/translation.module:138
+msgid "Flag translations as outdated"
+msgstr "标示翻译为过时的"
+
+#: modules/translation/translation.module:140
+msgid ""
+"If you made a significant change, which means translations should be "
+"updated, you can flag all translations of this post as outdated. This will "
+"not change any other property of those posts, like whether they are "
+"published or not."
+msgstr ""
+"如果您对源文本作了大的更改，也就是说原有翻译已不再适用，您可以编辑此翻译为已"
+"过时。这不会改变文章的其它属性，例如文章是否发布等。"
+
+#: modules/translation/translation.module:147
+msgid "This translation needs to be updated"
+msgstr "此翻译需要更新。"
+
+#: modules/translation/translation.module:149
+msgid ""
+"When this option is checked, this translation needs to be updated because "
+"the source post has changed. Uncheck when the translation is up to date "
+"again."
+msgstr ""
+"当此选项被选中时表明此翻译因源文本已改变而需要更新。当此翻译已经是最新的时请"
+"取消选中。"
+
+#: modules/translation/translation.module:89
+msgid "translate content"
+msgstr "翻译内容"
+
+#: modules/translation/translation.module:59
+msgid "Translate"
+msgstr "翻译"
+
+#: modules/translation/translation.module:0
+msgid "translation"
+msgstr "译文"

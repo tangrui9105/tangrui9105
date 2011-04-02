@@ -1,0 +1,918 @@
+<?php
+// $Id: belead_news.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+/**
+ * @file
+ * This is an example outlining how a module can be used to define a new
+ * node type.
+ *
+ * Our example node type will allow users to specify a "color" and a "quantity"
+ * for their nodes; some kind of rudimentary inventory-tracking system, perhaps?
+ * To store this extra information, we need an auxiliary database table.
+ *
+ * Database definition:
+ * @code
+ *   CREATE TABLE belead_news (
+ *     vid int(10) unsigned NOT NULL default '0',
+ *     nid int(10) unsigned NOT NULL default '0',
+ *     color varchar(255) NOT NULL default '',
+ *     quantity int(10) unsigned NOT NULL default '0',
+ *     PRIMARY KEY (vid, nid),
+ *     KEY `belead_news_nid` (nid)
+ *   )
+ * @endcode
+ */
+
+/**
+ * Implementation of hook_node_info(). This function replaces hook_node_name()
+ * and hook_node_types() from 4.6. Drupal 5 expands this hook significantly.
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e. if the
+ *   module is belead_news_foo then belead_news_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   show up when a user accesses the "Create content" page for that node type.
+ *
+ * The other optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label": the label for the title field of this content type.
+ * - "has_body": boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label": the label for the body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ */
+define(BELEAD_NEWS_CREATE_CONTENT, 'create belead news content');
+define(BELEAD_NEWS_EDIT_ANY_CONTENT, 'edit any belead news content');
+define(BELEAD_NEWS_EDIT_OWN_CONTENT, 'edit own belead news content');
+define(BELEAD_NEWS_DELETE_ANY_CONTENT, 'delete any belead news content');
+define(BELEAD_NEWS_DELETE_OWN_CONTENT, 'delete own belead news content');
+define(BELEAD_NEWS_MANAGE, 'manage belead news');
+function belead_news_node_info() {
+	return array(
+			'belead_news' => array(
+				'name' => t('Belead News'),
+				'module' => 'belead_news',
+				'description' => t("This is belead news node type."),
+				'has_title' => TRUE,
+				'title_label' => t('News Title'),
+				'has_body' => TRUE,
+				'body_label' => t('News Body'),
+				)
+		    );
+}
+
+/**
+ * Implementation of hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function belead_news_access($op, $node, $account) {
+	if ($op == 'create') {
+		return user_access(BELEAD_NEWS_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(BELEAD_NEWS_EDIT_ANY_CONTENT, $account) || (user_access(BELEAD_NEWS_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(BELEAD_NEWS_DELETE_ANY_CONTENT, $account) || (user_access(BELEAD_NEWS_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function belead_news_perm() {
+	return array(
+			BELEAD_NEWS_CREATE_CONTENT,
+			BELEAD_NEWS_EDIT_ANY_CONTENT,
+			BELEAD_NEWS_EDIT_OWN_CONTENT,
+			BELEAD_NEWS_DELETE_ANY_CONTENT,
+			BELEAD_NEWS_DELETE_OWN_CONTENT,
+			BELEAD_NEWS_MANAGE,
+		    );
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array with
+ * a sub array containing information for each element in the form.
+ */
+function belead_news_form(&$node) {
+	// The site admin can decide if this node type has a title and body, and how
+	// the fields should be labeled. We need to load these settings so we can
+	// build the node form correctly.
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		// In Drupal 6, we can use node_body_field() to get the body and filter
+		// elements. This replaces the old textarea + filter_form() method of
+		// setting this up. It will also ensure the teaser splitter gets set up
+		// properly.
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	// Now we define the form elements specific to our node type.
+	$form['color'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Color'),
+			'#default_value' => isset($node->color) ? $node->color : '',
+			);
+	$form['quantity'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Quantity'),
+			'#default_value' => isset($node->quantity) ? $node->quantity : 0,
+			'#size' => 10,
+			'#maxlength' => 10
+			);
+
+	return $form;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function belead_news_validate(&$node) {
+	if ($node->quantity) {
+		if (!is_numeric($node->quantity)) {
+			form_set_error('quantity', t('The quantity must be a number.'));
+		}
+	}
+	else {
+		// Let an empty field mean "zero."
+		$node->quantity = 0;
+	}
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * As a new node is being inserted into the database, we need to do our own
+ * database inserts.
+ */
+function belead_news_insert($node) {
+	db_query("INSERT INTO {belead_news} (vid, nid, color, quantity) VALUES (%d, %d, '%s', %d)", $node->vid, $node->nid, $node->color, $node->quantity);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates.
+ */
+function belead_news_update($node) {
+	// if this is a new node or we're adding a new revision,
+	if ($node->revision) {
+		belead_news_insert($node);
+	}
+	else {
+		db_query("UPDATE {belead_news} SET color = '%s', quantity = %d WHERE vid = %d", $node->color, $node->quantity, $node->vid);
+	}
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * When a node revision is deleted, we need to remove the corresponding record
+ * from our table. The only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ */
+function belead_news_nodeapi(&$node, $op, $teaser, $page) {
+	switch ($op) {
+		case 'delete revision':
+			// Notice that we're matching a single revision based on the node's vid.
+			db_query('DELETE FROM {belead_news} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+/**
+ * Implementation of hook_delete().
+ *
+ * When a node is deleted, we need to remove all related records from out table.
+ */
+function belead_news_delete($node) {
+	// Notice that we're matching all revision, by using the node's nid.
+	db_query('DELETE FROM {belead_news} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node back out. This hook is called
+ * every time a node is loaded, and allows us to do some loading of our own.
+ */
+function belead_news_load($node) {
+	$additions = db_fetch_object(db_query('SELECT color, quantity FROM {belead_news} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function belead_news_view($node, $teaser = FALSE, $page = FALSE) {
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+
+	/* Full node content view */
+	drupal_set_title(theme('belead_news_page_title', $node));
+	if (isset($_GET['news_id']) || isset($_GET['page'])) {
+		if ($_GET['action'] == 'edit') {
+			$node->content['belead_news_script'] = array (
+					'#value' => theme_belead_news_script($node),
+					'#weight' => 1
+					);
+			$form = drupal_get_form('belead_news_edit_form', $node);
+			$node->content['belead_news_edit'] = array (
+					'#value' => $form,
+					'#weight' => 2
+					);
+		} elseif ($_GET['action'] == 'delete') {
+			$form = drupal_get_form('belead_news_delete_form', $node);
+			$node->content['belead_news_delete'] = array (
+					'#value' => $form,
+					'#weight' => 2
+					);
+		} else {
+			$node->content['belead_news_main'] = array (
+					'#value' => theme('belead_news_main', $node),
+					'#weight' => 1
+					);
+		}
+	} else {
+		$node->content['belead_news_main'] = array (
+				'#value' => theme('belead_news_main', $node),
+				'#weight' => 1
+				);
+		if (user_access(BELEAD_NEWS_MANAGE)) {
+			/*
+			$form = drupal_get_form('belead_news_config_form', $node);
+			$node->content['belead_news_config']= array (
+					'#value' => $form,
+					'#weight' => 2
+					);
+			*/
+			$node->content['belead_news_script'] = array (
+					'#value' => theme_belead_news_script($node),
+					'#weight' => 2
+					);
+			$form = drupal_get_form('belead_news_add_form', $node);
+			$node->content['belead_news_add']= array (
+					'#value' => $form,
+					'#weight' => 3
+					);
+		}
+	}
+
+	return $node;
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function belead_news_theme()
+{
+	return array (
+			'belead_news_main' => array (
+				'arguments' => array ('node'),
+				),
+			'belead_news_information' => array (
+				'arguments' => array ('node'),
+				),
+			'belead_news_script' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'belead_news_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_belead_news_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_belead_news_script(& $node)
+{
+	$output = '<script type="text/javascript" src="sites/all/libraries/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>';
+	$output .= '<script type="text/javascript">tinyMCE.init({
+			mode : "textareas",
+		       	theme : "advanced",
+		       	skin : "o2k7",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_resizing : true,
+			theme_advanced_buttons1 : "cut, copy, paste, separator, undo, redo, separator, bold, italic, underline, strikethrough, separator, justifyleft, justifycenter, justifyright, justifyfull, separator, bullist, numlist, separator, formatselect, styleselect, fontselect, fontsizeselect",
+			theme_advanced_buttons2 : "outdent, indent, separator, link, unlink, anchor, separator, image, hr, separator, sub, sup, separator, forecolor, backcolor, separator, charmap, visualaid, separator, blockquote, removeformat, cleanup, newdocument, code",
+			theme_advanced_buttons3 : "",
+		       	width : "704",
+		       	height : "300"
+			});</script>';
+
+	$output .= '<style type="text/css">';
+	$output .= '#edit-belead-news-body {color: 005858;}';
+	$output .= '</style>';
+
+	return $output;
+}
+
+function belead_news_config_form($form_state, $node) {
+	$result = db_query("select * from belead_news where vid = $node->vid");
+	$row = db_fetch_array($result);
+	$form = array ();
+	$form['belead_news_configs'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('News Configuration'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Here are some news display configurations.'),
+			'#prefix' => '<div class="belead_news_set_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][] = 'belead_news_config_form_submit';
+	$form['#validate'][ ]= 'belead_news_config_form_validate';
+	$form['belead_news_configs']['belead_news_quantity'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Page Size'),
+			'#default_value' => $row['quantity'],
+			'#size' => 85
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_news_configs']['belead_news_button'] = array (
+			'#type' => 'submit',
+			'#value' => t('OK'),
+			'#name' => 'config'
+			);
+	$form['belead_news_configs']['belead_news_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $node->vid,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function belead_news_config_form_validate($form, & $form_state)
+{
+}
+
+function belead_news_config_form_submit($form, & $form_state)
+{
+	$result = db_query('update {belead_news} set quantity = %d where vid = %d', $form_state['values']['belead_news_quantity'], $form_state['values']['belead_news_hidden']);
+}
+
+function belead_news_add_form($form_state, $node) {
+	$form = array ();
+	$form['belead_news_adds'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Add News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Added News will be the latest news.'),
+			'#prefix' => '<div class="belead_news_add_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][] = 'belead_news_add_form_submit';
+	$form['#validate'][ ]= 'belead_news_add_form_validate';
+	$form['belead_news_adds']['belead_news_title'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Title'),
+			'#size' => 85
+			);
+	$form['belead_news_adds']['belead_news_body'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Body'),
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_news_adds']['belead_news_button'] = array (
+			'#type' => 'submit',
+			'#value' => t('Add It'),
+			'#name' => 'add'
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for add form.
+ */
+function belead_news_add_form_validate($form, & $form_state) {
+	$title = $form_state['values']['belead_news_title'];
+	if (empty($title)) {
+		form_error($form['belead_news_adds']['belead_news_title'], t("This news title cannot be empty."));
+	}
+	if (strlen($title) > 255) {
+		form_error($form['belead_news_adds']['belead_news_title'], t("This news title lenght is too long."));
+	}
+	$body = $form_state['values']['belead_news_body'];
+	if (empty($body)) {
+		form_error($form['belead_news_adds']['belead_news_body'], t("This news body cannot be empty."));
+	}
+	$picture_name= $_FILES['files']['name']['belead_news_picture'];
+	if (!empty($picture_name)) {
+		$node= $form {
+			'#node' };
+		if (!empty($node->allowed_uploaded_files) && !belead_news_match_path($file_name, $node->allowed_uploaded_files)) {
+			form_error($form['belead_news_adds']['belead_news_picture'], t("Sorry, you can't upload this kind of picture."));
+		}
+	}
+}
+
+/**
+ * hook_submit implementation for add form.
+ */
+function belead_news_add_form_submit($form, & $form_state) {
+	$node= $form {
+		'#node' };
+	$time = date("Y-m-d H:i:s");
+	$title = $form_state['values']['belead_news_title'];
+	$body = $form_state['values']['belead_news_body'];
+	$sql = "insert into belead_news_content (title, body, time, nid) values ('$title', '$body', '$time', $node->nid)";
+	db_query($sql);
+}
+
+function belead_news_edit_form($form_state, $node)
+{ 
+	$news_id = intval($_GET['news_id']);
+	$result = db_query("select * from belead_news_content where id = $news_id");
+	$rows = db_fetch_array($result);
+
+	$form = array ();
+	$form['belead_news_edits'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Edit News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#prefix' => '<div class="belead_news_edit_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_news_edit_form_validate';
+	$form['belead_news_edits']['belead_news_title'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Title'),
+			'#default_value' => $rows['title'],
+			'#size' => 85
+			);
+	$form['belead_news_edits']['belead_news_body'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Body'),
+			'#default_value' => $rows['body'],
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_news_edits']['belead_news_button_edit'] = array (
+			'#type' => 'submit',
+			'#value' => t('Update'),
+			'#name' => 'update',
+			'#submit' => array('belead_news_edit_form_submit_update')
+			);
+	$form['belead_news_edits']['belead_news_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_news_edit_form_submit_cancel')
+			);
+	$form['belead_news_deletes']['belead_news_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $news_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for edit form.
+ */
+function belead_news_edit_form_validate($form, & $form_state) {
+	$title = $form_state['values']['belead_news_title'];
+	if (empty($title)) {
+		form_error($form['belead_news_edits']['belead_news_title'], t("This news title cannot be empty."));
+	}
+	if (strlen($title) > 255) {
+		form_error($form['belead_news_edits']['belead_news_title'], t("This news title lenght is too long."));
+	}
+	$body = $form_state['values']['belead_news_body'];
+	if (empty($body)) {
+		form_error($form['belead_news_edits']['belead_news_body'], t("This news body cannot be empty."));
+	}
+}
+
+/**
+ * hook_submit implementation for edit form.
+ */
+function belead_news_edit_form_submit_update($form, & $form_state)
+{
+	$title = $form_state['values']['belead_news_title'];
+	$body = $form_state['values']['belead_news_body'];
+	$id = $form_state['values']['belead_news_hidden'];
+	$sql = "update belead_news_content set title = '$title', body = '$body' where id = $id";
+	db_query($sql);
+}
+
+/**
+ * hook_submit implementation for edit form.
+ */
+function belead_news_edit_form_submit_cancel($form, & $form_state)
+{
+}
+
+function belead_news_delete_form($node)
+{
+	$news_id = intval($_GET['news_id']);
+	$result = db_query("select * from belead_news_content where id = $news_id");
+	$rows = db_fetch_array($result);
+
+	$form = array();
+	$form['belead_news_deletes'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Delete News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#description' => t('Are you sure to delete this news?'),
+			'#prefix' => '<div class="belead_news_delete_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_news_delete_form_validate';
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_news_deletes']['belead_news_button_delete'] = array (
+			'#type' => 'submit',
+			'#value' => t('Delete'),
+			'#name' => 'delete',
+			'#submit' => array('belead_news_delete_form_submit_delete')
+			);
+	$form['belead_news_deletes']['belead_news_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_news_delete_form_submit_cancel')
+			);
+	$form['belead_news_deletes']['belead_news_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $news_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for delete form.
+ */
+function belead_news_delete_form_validate($form, & $form_state)
+{
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function belead_news_delete_form_submit_delete($form, & $form_state)
+{
+	$id = $form_state['values']['belead_news_hidden'];
+	$sql = "delete from belead_news_content where id = $id";
+	db_query($sql);
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function belead_news_delete_form_submit_cancel($form, & $form_state)
+{
+}
+
+function theme_belead_news_main($node)
+{
+	$output = '<div class="belead_news_main">';
+
+	$result = db_query('select * from belead_news_content where nid = %d order by id desc ', $node->nid);
+	while ($row = db_fetch_array($result)) {
+		$output .= '<fieldset class="collapsible collapsed">';
+		$output .= '<legend>';
+		$output .= $row['title'];
+		$output .= '</legend>';
+		$output .= '<label>';
+		$output .= $row['body'];
+		if (user_access(BELEAD_HIRE_MANAGE)) {
+			$output .= '<p>';
+			$output .= l(t('Edit'), "node/$node->nid", array ('query' => array ('news_id' => $row['id'], 'action' => 'edit')));
+			$output .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+			$output .= l(t('Delete'), "node/$node->nid", array ('query' => array ('news_id' => $row['id'], 'action' => 'delete')));
+			$output .= '</p>';
+		}
+		$output .= '</label>';
+		$output .= '</fieldset>';
+	}
+	$output .= '</div>';
+	return $output;
+}
+
+/**
+ * A custom theme function.
+ *
+ * By using this function to format our node-specific information, themes
+ * can override this presentation if they wish. We also wrap the default
+ * presentation in a CSS class that is prefixed by the module name. This
+ * way, style sheets can modify the output without requiring theme code.
+ */
+function theme_belead_news_information($node)
+{
+	$output = '<div class="belead_information">';
+
+	$result = db_query('select quantity from {belead_news} where vid = %d', $node->vid);
+	$rows = db_fetch_array($result);
+	$page_size = $rows['quantity'];
+	$result = db_query('select count(*) from belead_news_content');
+	$rows = db_fetch_array($result);
+	$rows_num = $rows['count(*)'];
+	$pages_num = intval($rows_num / $page_size);
+	if ($rows_num % $page_size) {
+		$pages_num++;
+	}
+	if (isset($_GET['page'])) {
+		$page = intval($_GET['page']);
+	} elseif (isset($_GET['news_id'])) {
+		$news_id = intval($_GET['news_id']);
+		$result = db_query("select * from belead_news_content order by id desc");
+		$index = 0;
+		while ($row = db_fetch_array($result)) {
+			$index = $index + 1;
+			if ($row['id'] == $news_id) {
+				break;
+			}
+		}
+		$page = ceil($index / $page_size);
+		db_query("insert into develop (id, value) values (%d, '%s')", $index, 'hello');
+	} else {
+		$page = 1;
+	}
+	$offset = $page_size * ($page - 1);
+	$result = db_query("select * from belead_news_content order by id desc limit $offset, $page_size");
+	while ($row = db_fetch_array($result)) {
+		$output .= '<tr>';
+		$output .= '<td>';
+		$output .= '<p class="belead-p">';
+		$output .= '<h4 class="belead-h4">';
+		$output .= $row['title'];
+		$output .= '</h4>';
+		$output .= '<h5 class="belead-h5-italic">';
+		$output .= t('Published at ');
+		$output .= $row['time'];
+		$output .= '</h5>';
+		$output .= '<p class="belead-p">';
+		$output .= $row['body'];
+		$output .= '</p>';
+		if (user_access(BELEAD_NEWS_MANAGE)) {
+			$output .= "<a href=\"?q=node/$node->nid&news_id=";
+			$output .= $row['id'];
+			$output .= '&action=edit';
+			$output .= '">';
+			$output .= t('Edit');
+			$output .= '</a>';
+			$output .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+			$output .= "<a href=\"?q=node/$node->nid&news_id=";
+			$output .= $row['id'];
+			$output .= '&action=delete';
+			$output .= '">';
+			$output .= t('Delete');
+			$output .= '</a>';
+		}
+		$output .= '</p>';
+		$output .= '<table class="hr"><tr><td></td></tr></table>';
+	}
+	$output .= '</table>';
+
+	$first = 1;
+	$prev = $page - 1;
+	$next = $page + 1;
+	$last = $pages_num;
+	$output .= '<p class="belead-p-center">';
+	if ($page == 1 && $pages_num > 1)
+	{
+		$output .= t('First Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Prev Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $next;
+		$output .= '">';
+		$output .= t('Next Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $last;
+		$output .= '">';
+		$output .= t('Last Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= '<a href="?q=news" class="return">';
+		$output .= t('Title Page');
+		$output .= '</a>';
+		$output .= ' (';
+		$output .= t('Total: ');
+		$output .= $pages_num;
+		$output .= t(' Pages');
+		$output .= ', ';
+		$output .= t('Current: ');
+		$output .= $page;
+		$output .= t(' Page');
+		$output .= ')';
+	} elseif ($page >= 1 && $page != $pages_num && $rows_num > 0) {
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $first;
+		$output .= '">';
+		$output .= t('First Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $prev;
+		$output .= '">';
+		$output .= t('Prev Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $next;
+		$output .= '">';
+		$output .= t('Next Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $last;
+		$output .= '">';
+		$output .= t('Last Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= '<a href="?q=news" class="return">';
+		$output .= t('Title Page');
+		$output .= '</a>';
+		$output .= ' (';
+		$output .= t('Total: ');
+		$output .= $pages_num;
+		$output .= t(' Pages');
+		$output .= ', ';
+		$output .= t('Current: ');
+		$output .= $page;
+		$output .= t(' Page');
+		$output .= ')';
+	} elseif ($page == $pages_num && $page != 1) {
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $first;
+		$output .= '">';
+		$output .= t('First Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= "<a href=\"?q=node/$node->nid&page=";
+		$output .= $prev;
+		$output .= '">';
+		$output .= t('Prev Page');
+		$output .= '</a>';
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Next Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Last Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= '<a href="?q=news" class="return">';
+		$output .= t('Title Page');
+		$output .= '</a>';
+		$output .= ' (';
+		$output .= t('Total: ');
+		$output .= $pages_num;
+		$output .= t(' Pages');
+		$output .= ', ';
+		$output .= t('Current: ');
+		$output .= $page;
+		$output .= t(' Page');
+		$output .= ')';
+	} elseif ($page == $pages_num) {
+		$output .= t('First Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Prev Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Next Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Last Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= '<a href="?q=news" class="return">';
+		$output .= t('Title Page');
+		$output .= '</a>';
+		$output .= ' (';
+		$output .= t('Total: ');
+		$output .= $pages_num;
+		$output .= t(' Pages');
+		$output .= ', ';
+		$output .= t('Current: ');
+		$output .= $page;
+		$output .= t(' Page');
+		$output .= ')';
+	} else {
+		$output .= t('First Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Prev Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Next Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= t('Last Page');
+		$output .= '<span class="separator"> | </span>';
+		$output .= '<a href="?q=news" class="return">';
+		$output .= t('Title Page');
+		$output .= '</a>';
+		$output .= ' (';
+		$output .= t('Total: ');
+		$output .= $pages_num;
+		$output .= t(' Pages');
+		$output .= ', ';
+		$output .= t('Current: ');
+		$output .= $page;
+		$output .= t(' Page');
+		$output .= ')';
+	}
+	$output .= '</p>';
+	$output .= '</div>';
+	return $output;
+}
+
+function belead_news_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}

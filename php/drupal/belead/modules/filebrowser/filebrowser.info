@@ -1,0 +1,18 @@
+; $Id: filebrowser.info,v 1.18 2009/05/18 22:09:51 ulhume Exp $
+name = Filebrowser
+description = Provides FTP-like browsing capabilities.
+core = 6.x
+package = File management
+; Information added by drupal.org packaging script on 2008-08-25
+version = "6.x-2.x-RC10"
+core = "6.x"
+project = "filebrowser"
+datestamp = "1219622668"
+
+
+; Information added by drupal.org packaging script on 2009-05-18
+version = "6.x-2.0-rc10"
+core = "6.x"
+project = "filebrowser"
+datestamp = "1242684935"
+

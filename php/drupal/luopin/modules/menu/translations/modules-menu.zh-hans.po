@@ -1,0 +1,376 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  menu.admin.inc,v 1.26.2.3 2008/02/11 15:12:53 goba
+#  menu.module,v 1.157.2.2 2008/04/09 21:11:48 goba
+#  menu.install,v 1.9 2008/01/30 20:27:28 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-26 23:26-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/menu/menu.admin.inc:54
+msgid "There are no menu items yet."
+msgstr "没有菜单项"
+
+#: modules/menu/menu.admin.inc:104
+msgid "reset"
+msgstr "重设"
+
+#: modules/menu/menu.admin.inc:175
+msgid "Menu item"
+msgstr "菜单项"
+
+#: modules/menu/menu.admin.inc:177,299
+msgid "Expanded"
+msgstr "展开"
+
+#: modules/menu/menu.admin.inc:260
+msgid ""
+"The path this menu item links to. This can be an internal Drupal path such "
+"as %add-node or an external URL such as %drupal. Enter %front to link to the "
+"front page."
+msgstr ""
+"此菜单项所链接的路径。这里可以是 Drupal 的路径，比如 %add-node，或者外部 "
+"URL，比如 %drupal。输入 %front 可以链接到首页。"
+
+#: modules/menu/menu.admin.inc:281
+msgid ""
+"The link text corresponding to this item that should appear in the menu."
+msgstr "此菜单项应该显示在菜单中的链接文字。"
+
+#: modules/menu/menu.admin.inc:289
+msgid "The description displayed when hovering over a menu item."
+msgstr "当鼠标悬停在菜单项上所显示的描述。"
+
+#: modules/menu/menu.admin.inc:295
+msgid "Menu items that are not enabled will not be listed in any menu."
+msgstr "为启用的菜单项将不会显示在菜单中。"
+
+#: modules/menu/menu.admin.inc:301
+msgid ""
+"If selected and this menu item has children, the menu will always appear "
+"expanded."
+msgstr "如果被选中并且该菜单项还有子菜单，菜单将总是以展开方式显示。"
+
+#: modules/menu/menu.admin.inc:403
+msgid "Menu name"
+msgstr "菜单标题"
+
+#: modules/menu/menu.admin.inc:405
+msgid ""
+"The machine-readable name of this menu. This text will be used for "
+"constructing the URL of the <em>menu overview</em> page for this menu. This "
+"name must contain only lowercase letters, numbers, and hyphens, and must be "
+"unique."
+msgstr ""
+"本菜单的机读名称。该文本用于本菜单的<em>菜单概要</em>页面的URL构建。这一名称"
+"只能包含小写字母、连字符，并且具有唯一性。"
+
+#: modules/menu/menu.admin.inc:460
+msgid "Are you sure you want to delete the custom menu %title?"
+msgstr "您真的要删除自定义的菜单项 %item 吗？"
+
+#: modules/menu/menu.admin.inc:492
+msgid "The custom menu %title has been deleted."
+msgstr "菜单项 %title 已删除。"
+
+#: modules/menu/menu.admin.inc:502
+msgid ""
+"The menu name may only consist of lowercase letters, numbers, and hyphens."
+msgstr "菜单名称只能由构成的小写英文字母，数字及连字符构成。"
+
+#: modules/menu/menu.admin.inc:512
+msgid "The menu already exists."
+msgstr "菜单已经存在。"
+
+#: modules/menu/menu.admin.inc:564
+msgid "Are you sure you want to delete the custom menu item %item?"
+msgstr "您真的要删除自定义的菜单项 %item 吗？"
+
+#: modules/menu/menu.admin.inc:574
+msgid "The menu item %title has been deleted."
+msgstr "删除了菜单项目 %title 。"
+
+#: modules/menu/menu.admin.inc:584
+msgid "Are you sure you want to reset the item %item to its default values?"
+msgstr "您真的要将 %item 恢复到默认值吗？"
+
+#: modules/menu/menu.admin.inc:584
+msgid "Any customizations will be lost. This action cannot be undone."
+msgstr "任何自定义的改变将会丢失。此操作不可恢复！"
+
+#: modules/menu/menu.admin.inc:593
+msgid "The menu item was reset to its default settings."
+msgstr "对菜单项的设置已被恢复到默认值。"
+
+#: modules/menu/menu.admin.inc:603
+msgid ""
+"The menu module allows on-the-fly creation of menu links in the content "
+"authoring forms. The following option sets the default menu in which a new "
+"link will be added."
+msgstr ""
+"菜单(menu)模块允许在内容发布表单中，即时为文章创建相应的菜单链接。使用下面的"
+"选项设定所添加的新链接所属的默认菜单。"
+
+#: modules/menu/menu.admin.inc:609
+msgid "Default menu for content"
+msgstr "内容的默认菜单"
+
+#: modules/menu/menu.admin.inc:612
+msgid ""
+"Choose the menu to be the default in the menu options in the content "
+"authoring form."
+msgstr "选择在内容发布信息表单中，哪个菜单作为默认的菜单选择。"
+
+#: modules/menu/menu.admin.inc:616
+msgid "No primary links"
+msgstr "没有主导航链接"
+
+#: modules/menu/menu.admin.inc:619
+msgid "Source for the primary links"
+msgstr "主导航菜单来源"
+
+#: modules/menu/menu.admin.inc:623
+msgid "Select what should be displayed as the primary links."
+msgstr "选定主导航链接。"
+
+#: modules/menu/menu.admin.inc:626
+msgid "No secondary links"
+msgstr "没有次导航链接"
+
+#: modules/menu/menu.admin.inc:629
+msgid "Source for the secondary links"
+msgstr "次级菜单来源"
+
+#: modules/menu/menu.admin.inc:633
+msgid ""
+"Select what should be displayed as the secondary links. You can choose the "
+"same menu for secondary links as for primary links (currently %primary). If "
+"you do this, the children of the active primary menu link will be displayed "
+"as secondary links."
+msgstr ""
+"选定次导航链接。您可以选择和主链接相同的菜单（现在是 %primary），这时主链接菜"
+"单下的子链接将显示为次链接。"
+
+#: modules/menu/menu.admin.inc:493
+msgid "Deleted custom menu %title and all its menu items."
+msgstr "删除了自定义的菜单 %title 及其所有菜单项。"
+
+#: modules/menu/menu.admin.inc:575
+msgid "Deleted menu item %title."
+msgstr "删除菜单项 %title。"
+
+#: modules/menu/menu.admin.inc:457
+msgid ""
+"<strong>Warning:</strong> There is currently 1 menu item in %title. It will "
+"be deleted (system-defined items will be reset)."
+msgid_plural ""
+"<strong>Warning:</strong> There are currently @count menu items in %title. "
+"They will be deleted (system-defined items will be reset)."
+msgstr[0] ""
+"<strong>警告：</strong> %title 中现有1 个菜单项。此菜单项将被删除（系统定义的"
+"菜单项将被重置）。"
+msgstr[1] ""
+"<strong>警告：</strong> %title 中现有@count 个菜单项。此菜单项将被删除（系统"
+"定义的菜单项将被重置）。"
+
+#: modules/menu/menu.admin.inc:505
+msgid "The menu name can't be longer than 1 character."
+msgid_plural "The menu name can't be longer than @count characters."
+msgstr[0] "菜单名不能超过 1 个字符。"
+msgstr[1] "菜单名不能超过 @count 个字符。"
+
+#: modules/menu/menu.module:21
+msgid ""
+"The menu module provides an interface to control and customize Drupal's "
+"powerful menu system. Menus are a hierarchical collection of links, or menu "
+"items, used to navigate a website, and are positioned and displayed using "
+"Drupal's flexible block system. By default, three menus are created during "
+"installation: <em>Navigation</em>, <em>Primary links</em>, and <em>Secondary "
+"links</em>. The <em>Navigation</em> menu contains most links necessary for "
+"working with and navigating your site, and is often displayed in either the "
+"left or right sidebar. Most Drupal themes also provide support for "
+"<em>Primary links</em> and <em>Secondary links</em>, by displaying them in "
+"either the header or footer of each page. By default, <em>Primary links</em> "
+"and <em>Secondary links</em> contain no menu items but may be configured to "
+"contain custom menu items specific to your site."
+msgstr ""
+"菜单(menu)模块提供了一个管理与定制Drupal的强大菜单系统的用户界面。菜单实际上"
+"是按层次结构组织的一组链接（或菜单项），用于帮助用户浏览站点。菜单的排放与显"
+"示通常使用Drupal灵活的区块系统。在安装后，Drupal 默认有3个菜单：<em>导航</"
+"em>，<em>主导航链接</em>与<em>次导航链接</em>。<em>导航菜单</em>包括访问浏览"
+"您的站点所需要的大多数链接，通常被安排在左、右边栏中。大多数Drupal外观主题都"
+"支持<em>主导航链接</em>与<em>此导航链接</em>，通常将它们排放在页头或页脚的位"
+"置。<em>主导航链接</em>与<em>此导航链接</em>默认不包括任何菜单项，您需要根据"
+"站点需要自行定制。"
+
+#: modules/menu/menu.module:22
+msgid ""
+"The <a href=\"@menu\">menus page</a> displays all menus currently available "
+"on your site. Select a menu from this list to add or edit a menu item, or to "
+"rearrange items within the menu. Create new menus using the <a href=\"@add-"
+"menu\">add menu page</a> (the block containing a new menu must also be "
+"enabled on the <a href=\"@blocks\">blocks administration page</a>)."
+msgstr ""
+"<a href=\"@menu\">菜单页面</a> 显示您的站点上所有可用的菜单。从这一列表选择一"
+"个菜单以增加或编辑一个菜单条目，或重新安排菜单中的条目。创建新的菜单使用<a "
+"href=\"@add-menu\">添加菜单页面</a>（含有新的菜单的块应当在<a href=\"@blocks"
+"\">块管理页面</a>予以许可）。"
+
+#: modules/menu/menu.module:23
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@menu"
+"\">Menu module</a>."
+msgstr "更多信息，参见在线手册条目<a href=\"@menu\">菜单模块</a>。"
+
+#: modules/menu/menu.module:26
+msgid ""
+"Menus are a collection of links (menu items) used to navigate a website. The "
+"menus currently available on your site are displayed below. Select a menu "
+"from this list to manage its menu items."
+msgstr ""
+"菜单由一组链接（菜单项）组成，用于帮助站点导航浏览。您站点可用的菜单列在下"
+"面，从这个列表中选择菜单进行菜单项的管理。"
+
+#: modules/menu/menu.module:28
+msgid ""
+"Enter the name for your new menu. Remember to enable the newly created block "
+"in the <a href=\"@blocks\">blocks administration page</a>."
+msgstr ""
+"输入新菜单的名字。记得要在<a href=\"@blocks\">区块管理页面</a>中启用新建区"
+"块。"
+
+#: modules/menu/menu.module:30
+msgid ""
+"To rearrange menu items, grab a drag-and-drop handle under the <em>Menu "
+"item</em> column and drag the items (or group of items) to a new location in "
+"the list. (Grab a handle by clicking and holding the mouse while hovering "
+"over a handle icon.) Remember that your changes will not be saved until you "
+"click the <em>Save configuration</em> button at the bottom of the page."
+msgstr ""
+"要重新安排菜单条目，拖住 <em>菜单条目</em>列下拖放手柄，将条目（或条目组）拖"
+"到列表新的位置。（点下一个手柄，保持鼠标点下状态移动手柄图标）。要记住，您的"
+"改变不会被保存，直到您按下页面底部的<em>保存配置</em> 按钮。"
+
+#: modules/menu/menu.module:32
+msgid "Enter the title and path for your new menu item."
+msgstr "输入新的菜单项的名称和路径"
+
+#: modules/menu/menu.module:380
+msgid "Delete this menu item."
+msgstr "删除这个菜单项。"
+
+#: modules/menu/menu.module:395
+msgid ""
+"The link text corresponding to this item that should appear in the menu. "
+"Leave blank if you do not wish to add this post to the menu."
+msgstr "显示在菜单中的链接文字。如果您不想将本篇文章加入菜单，请不要填写。"
+
+#: modules/menu/menu.install:31
+msgid ""
+"Holds definitions for top-level custom menus (for example, Primary Links)."
+msgstr "顶层定制菜单（如主导航链接）的定义内容。"
+
+#: modules/menu/menu.install:38
+msgid ""
+"Primary Key: Unique key for menu. This is used as a block delta so length is "
+"32."
+msgstr "主键：菜单的唯一键值。这个值用于区块的偏移量，长度为32 。"
+
+#: modules/menu/menu.install:45
+msgid "Menu title; displayed at top of block."
+msgstr "菜单标题，在区块顶部显示。"
+
+#: modules/menu/menu.install:50
+msgid "Menu description."
+msgstr "菜单描述。"
+
+#: modules/menu/menu.install:12
+msgid ""
+"The navigation menu is provided by Drupal and is the main interactive menu "
+"for any site. It is usually the only menu that contains personalized links "
+"for authenticated users, and is often not even visible to anonymous users."
+msgstr ""
+"Drupal 所提供的导航菜单，是网站主要的互动菜单。它通常是唯一包括了注册用户个人"
+"化链接的菜单，匿名用户通常看不到此菜单。"
+
+#: modules/menu/menu.install:13
+msgid ""
+"Primary links are often used at the theme layer to show the major sections "
+"of a site. A typical representation for primary links would be tabs along "
+"the top."
+msgstr ""
+"主导航链接通常是使用在外观主题中，用于引导用户到网站的主要单元。一个主导航链"
+"接的典型呈现方式，是在网站上方的页签(tab)式链接。"
+
+#: modules/menu/menu.install:14
+msgid ""
+"Secondary links are often used for pages like legal notices, contact "
+"details, and other secondary navigation items that play a lesser role than "
+"primary links"
+msgstr ""
+"次导航链接通常用来使用条款、联络我们和其它一些重要性较低的次要导航链接，"
+
+#: modules/menu/menu.module:40
+msgid "administer menu"
+msgstr "管理菜单"
+
+#: modules/menu/menu.module:48
+msgid "Menus"
+msgstr "菜单"
+
+#: modules/menu/menu.module:49
+msgid ""
+"Control your site's navigation menu, primary links and secondary links. as "
+"well as rename and reorganize menu items."
+msgstr ""
+"控制您的站点导航菜单、主要链接以及次级链接。同时也可以更名或者重新设定菜单"
+"项。"
+
+#: modules/menu/menu.module:57
+msgid "List menus"
+msgstr "菜单列表"
+
+#: modules/menu/menu.module:63
+msgid "Add menu"
+msgstr "增加菜单"
+
+#: modules/menu/menu.module:80
+msgid "Customize menu"
+msgstr "自定义菜单"
+
+#: modules/menu/menu.module:90
+msgid "List items"
+msgstr "菜单项列表"
+
+#: modules/menu/menu.module:96
+msgid "Add item"
+msgstr "增加菜单项"
+
+#: modules/menu/menu.module:104
+msgid "Edit menu"
+msgstr "编辑菜单"
+
+#: modules/menu/menu.module:112
+msgid "Delete menu"
+msgstr "删除菜单"
+
+#: modules/menu/menu.module:120
+msgid "Edit menu item"
+msgstr "编辑菜单项"
+
+#: modules/menu/menu.module:128
+msgid "Reset menu item"
+msgstr "重置菜单项"
+
+#: modules/menu/menu.module:136
+msgid "Delete menu item"
+msgstr "删除菜单项"

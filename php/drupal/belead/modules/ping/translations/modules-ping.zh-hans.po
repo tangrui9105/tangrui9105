@@ -1,0 +1,53 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from file: ping.module,v 1.52 2007/12/19 17:45:42 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-05-01 03:28-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/ping/ping.module:15
+msgid ""
+"The ping module is useful for notifying interested sites that your site has "
+"changed. It automatically sends notifications, or \"pings\", to the <a href="
+"\"@external-http-pingomatic-com\">pingomatic</a> service about new or "
+"updated content. In turn, <a href=\"@external-http-pingomatic-com"
+"\">pingomatic</a> notifies other popular services, including weblogs.com, "
+"Technorati, blo.gs, BlogRolling, Feedster.com, and Moreover."
+msgstr ""
+"Ping 模块用于通知其它站点您站点上的内容已更新。它自动将新建或更新的内容通知发"
+"送\"pings\"给<a href=\"@external-http-pingomatic-com\">pingomatic</a>。接下"
+"来，<a href=\"@external-http-pingomatic-com\">pingomatic</a> 将再通知其它一些"
+"热门站点，如 weblogs.com, Technorati, blo.gs, BlogRolling, Feedster.com 等"
+"等。"
+
+#: modules/ping/ping.module:16
+msgid ""
+"The ping module requires a correctly configured <a href=\"@cron\">cron "
+"maintenance task</a>."
+msgstr "Ping模块需要正确的配置和运行 <a href=\"@cron\">Cron维护任务</a>。"
+
+#: modules/ping/ping.module:17
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@ping"
+"\">Ping module</a>."
+msgstr "更多的信息，请参阅在线帮助手册的条目<a href=\"@ping\">Ping 模块</a>。"
+
+#: modules/ping/ping.module:55
+msgid "directory ping"
+msgstr "ping 目录"
+
+#: modules/ping/ping.module:55
+msgid "Failed to notify pingomatic.com (site)."
+msgstr "通知pingomatic.com 失败。"
+
+#: modules/ping/ping.module:0
+msgid "ping"
+msgstr "ping"

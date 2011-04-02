@@ -1,0 +1,365 @@
+/*$Id: layout-DEV.css,v 1.3 2008/08/21 21:58:40 jmburnz Exp $ */
+
+/*****************************************************************
+   layout-DEV.css
+   This is the full version of layout.css, use this as a guide 
+   if you need to modify layout.css
+   
+*****************************************************************/
+
+/* #container wraps all the cols  */
+div#container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+
+/* Use this class on any div.width or the main 
+   wrapper (#container) to see the grid.  */
+.viewgrid { 
+  background: url(images/gridtile.gif); 
+}
+
+
+/* Body margin */
+body {
+  margin:1.5em 0;	
+}
+
+
+/* The 48 Columns
+   Sets up basic grid floating and margin.
+   For your cols to span the entire width they should always add 
+   up to 48 columns (if your #container is 960px).
+   Schema: .width - number of columns spanned - col width in pixels  */
+.width-1-10,
+.width-2-30,
+.width-3-50,
+.width-4-70,
+.width-5-90,
+.width-6-110,
+.width-7-130,
+.width-8-150,
+.width-9-170,
+.width-10-190,
+.width-11-210,
+.width-12-230,
+.width-13-250,
+.width-14-270,
+.width-15-290,
+.width-16-310,
+.width-17-330,
+.width-18-350,
+.width-19-370,
+.width-20-390,
+.width-21-410,
+.width-22-430,
+.width-23-450,
+.width-24-470,
+.width-25-490,
+.width-26-510,
+.width-27-530,
+.width-28-550,
+.width-29-570,
+.width-30-590,
+.width-31-610,
+.width-32-630,
+.width-33-650,
+.width-34-670,
+.width-35-690,
+.width-36-710,
+.width-37-730,
+.width-38-750,
+.width-39-770,
+.width-40-790,
+.width-41-710,
+.width-42-830,
+.width-43-850,
+.width-44-870,
+.width-45-890,
+.width-46-910,
+.width-47-930,
+.width-48-950  {
+  float: left;
+  margin-right: 10px; 
+}
+
+
+/* Margin Reset
+   The last column in a row needs this class
+   to prevent it wrapping below the others  */
+div.last    { margin-right: 0; }
+
+
+/* Float reset
+   Useful for divs that span the entire width.
+   - reset the float to none
+   - clear all floats
+   - reset margin-right  */
+div.nofloat { float: none; clear: both; margin-right: 0; }
+
+
+/* width-960 
+   For cols that span the total width */
+.width-960  { float: none; clear: both; margin-right: 0; }
+
+
+/* DIV Widths
+   Use these classes to set the width of a column. 
+   Classes need to be set in page.tpl.php.
+   For the main content colums you need to set the width in 
+   template.php also - see function atf_col_width. */
+.width-1-10     { width: 10px; }
+.width-2-30     { width: 30px; }
+.width-3-50     { width: 50px; }
+.width-4-70     { width: 70px; }
+.width-5-90     { width: 90px; }
+.width-6-110    { width: 110px; }
+.width-7-130    { width: 130px; }
+.width-8-150    { width: 150px; }
+.width-9-170    { width: 170px; }
+.width-10-190   { width: 190px; }
+.width-11-210   { width: 210px; }
+.width-12-230   { width: 230px; }
+.width-13-250   { width: 250px; }
+.width-14-270   { width: 270px; }
+.width-15-290   { width: 290px; }
+.width-16-310   { width: 310px; }
+.width-17-330   { width: 330px; }
+.width-18-350   { width: 350px; }
+.width-19-370   { width: 370px; }
+.width-20-390   { width: 390px; }
+.width-21-410   { width: 410px; }
+.width-22-430   { width: 430px; }
+.width-23-450   { width: 450px; }
+.width-24-470   { width: 470px; }
+.width-25-490   { width: 490px; }
+.width-26-510   { width: 510px; }
+.width-27-530   { width: 530px; }
+.width-28-550   { width: 550px; }
+.width-29-570   { width: 570px; }
+.width-30-590   { width: 590px; }
+.width-31-610   { width: 610px; }
+.width-32-630   { width: 630px; }
+.width-33-650   { width: 650px; }
+.width-34-670   { width: 670px; }
+.width-35-690   { width: 690px; }
+.width-36-710   { width: 710px; }
+.width-37-730   { width: 730px; }
+.width-38-750   { width: 750px; }
+.width-39-770   { width: 770px; }
+.width-40-790   { width: 790px; }
+.width-41-710   { width: 810px; }
+.width-42-830   { width: 830px; }
+.width-43-850   { width: 850px; }
+.width-44-870   { width: 870px; }
+.width-45-890   { width: 890px; }
+.width-46-910   { width: 910px; }
+.width-47-930   { width: 930px; }
+.width-48-950, 
+div.width-48-950 { width: 950px; margin: 0; }
+.width-960       { width: 960px; margin: 0; }
+
+
+/* Padding right
+   Add these to a column to add padding-right. */
+.pad-right-1-20    { padding-right: 20px; }  
+.pad-right-2-40    { padding-right: 40px; } 
+.pad-right-3-60    { padding-right: 60px; } 
+.pad-right-4-80    { padding-right: 80px; } 
+.pad-right-5-100   { padding-right: 100px; }
+.pad-right-6-120   { padding-right: 120px; }  
+.pad-right-7-140   { padding-right: 140px; }
+.pad-right-8-160   { padding-right: 160px; }  
+.pad-right-9-180   { padding-right: 180px; }
+.pad-right-10-200  { padding-right: 200px; }  
+.pad-right-11-220  { padding-right: 220px; }
+.pad-right-12-240  { padding-right: 240px; }  
+.pad-right-13-260  { padding-right: 260px; }
+.pad-right-14-280  { padding-right: 280px; }  
+.pad-right-15-300  { padding-right: 300px; }
+.pad-right-16-320  { padding-right: 320px; }  
+.pad-right-17-340  { padding-right: 340px; }
+.pad-right-18-360  { padding-right: 360px; }  
+.pad-right-19-380  { padding-right: 380px; }
+.pad-right-20-400  { padding-right: 400px; }  
+.pad-right-21-420  { padding-right: 420px; }
+.pad-right-22-440  { padding-right: 440px; }  
+.pad-right-23-460  { padding-right: 460px; }
+.pad-right-24-480  { padding-right: 480px; }  
+.pad-right-25-500  { padding-right: 500px; }
+.pad-right-26-520  { padding-right: 520px; }  
+.pad-right-27-540  { padding-right: 540px; }
+.pad-right-28-560  { padding-right: 560px; }  
+.pad-right-29-580  { padding-right: 580px; }
+.pad-right-30-600  { padding-right: 600px; }  
+.pad-right-31-620  { padding-right: 620px; } 
+.pad-right-32-640  { padding-right: 640px; } 
+.pad-right-33-660  { padding-right: 660px; }
+.pad-right-34-680  { padding-right: 680px; }  
+.pad-right-35-700  { padding-right: 700px; }
+.pad-right-36-720  { padding-right: 720px; }  
+.pad-right-37-740  { padding-right: 740px; }
+.pad-right-38-760  { padding-right: 760px; }  
+.pad-right-39-780  { padding-right: 780px; }
+.pad-right-40-800  { padding-right: 800px; }  
+.pad-right-41-820  { padding-right: 820px; }
+.pad-right-42-840  { padding-right: 840px; }  
+.pad-right-43-860  { padding-right: 860px; }
+.pad-right-44-880  { padding-right: 880px; }  
+.pad-right-45-900  { padding-right: 900px; } 
+.pad-right-46-920  { padding-right: 920px; } 
+.pad-right-47-940  { padding-right: 940px; } 
+
+
+/* Padding left
+   Add these to a column to add padding-left. */
+.pad-left-1-20    { padding-left: 20px; }  
+.pad-left-2-40    { padding-left: 40px; } 
+.pad-left-3-60    { padding-left: 60px; } 
+.pad-left-4-80    { padding-left: 80px; } 
+.pad-left-5-100   { padding-left: 100px; }
+.pad-left-6-120   { padding-left: 120px; }  
+.pad-left-7-140   { padding-left: 140px; }
+.pad-left-8-160   { padding-left: 160px; }  
+.pad-left-9-180   { padding-left: 180px; }
+.pad-left-10-200  { padding-left: 200px; }  
+.pad-left-11-220  { padding-left: 220px; }
+.pad-left-12-240  { padding-left: 240px; }  
+.pad-left-13-260  { padding-left: 260px; }
+.pad-left-14-280  { padding-left: 280px; }  
+.pad-left-15-300  { padding-left: 300px; }
+.pad-left-16-320  { padding-left: 320px; }  
+.pad-left-17-340  { padding-left: 340px; }
+.pad-left-18-360  { padding-left: 360px; }  
+.pad-left-19-380  { padding-left: 380px; }
+.pad-left-20-400  { padding-left: 400px; }  
+.pad-left-21-420  { padding-left: 420px; }
+.pad-left-22-440  { padding-left: 440px; }  
+.pad-left-23-460  { padding-left: 460px; }
+.pad-left-24-480  { padding-left: 480px; }  
+.pad-left-25-500  { padding-left: 500px; }
+.pad-left-26-520  { padding-left: 520px; }  
+.pad-left-27-540  { padding-left: 540px; }
+.pad-left-28-560  { padding-left: 560px; }  
+.pad-left-29-580  { padding-left: 580px; }
+.pad-left-30-600  { padding-left: 600px; }  
+.pad-left-31-620  { padding-left: 620px; } 
+.pad-left-32-640  { padding-left: 640px; } 
+.pad-left-33-660  { padding-left: 660px; }
+.pad-left-34-680  { padding-left: 680px; }  
+.pad-left-35-700  { padding-left: 700px; }
+.pad-left-36-720  { padding-left: 720px; }  
+.pad-left-37-740  { padding-left: 740px; }
+.pad-left-38-760  { padding-left: 760px; }  
+.pad-left-39-780  { padding-left: 780px; }
+.pad-left-40-800  { padding-left: 800px; }  
+.pad-left-41-820  { padding-left: 820px; }
+.pad-left-42-840  { padding-left: 840px; }  
+.pad-left-43-860  { padding-left: 860px; }
+.pad-left-44-880  { padding-left: 880px; }  
+.pad-left-45-900  { padding-left: 900px; } 
+.pad-left-46-920  { padding-left: 920px; } 
+.pad-left-47-940  { padding-left: 940px; } 
+
+
+/* Border on right hand side of a column. */
+div.border-right {
+  padding-right: 4px;
+  margin-right: 5px;
+  border-right: 1px solid #eee;
+}
+
+/* Border with more whitespace, widths one column. */
+div.border-right-extra {
+  padding-right: 24px;
+  margin-right: 25px;
+  border-right: 1px solid #eee;
+}
+
+
+/* Use the following classes on an element to pushit it into the 
+   next column, or to pullit it into the previous column.  */
+
+.pullit-1  { margin-left: -20px; }
+.pullit-2  { margin-left: -40px; }
+.pullit-3  { margin-left: -60px; }
+.pullit-4  { margin-left: -80px; }
+.pullit-5  { margin-left: -100px; }
+.pullit-6  { margin-left: -120px; }
+.pullit-7  { margin-left: -140px; }
+.pullit-8  { margin-left: -160px; }
+.pullit-9  { margin-left: -180px; }
+.pullit-10 { margin-left: -200px; }
+
+.pullit-1, .pullit-2, .pullit-3, .pullit-4, .pullit-5, 
+.pullit-6, .pullit-7, .pullit-8, .pullit-9, .pullit-10 {
+  float:left;
+  position:relative;
+}
+
+.pushit-1  { margin: 0 -20px 1.5em 20px; }
+.pushit-2  { margin: 0 -40px 1.5em 40px; }
+.pushit-3  { margin: 0 -60px 1.5em 60px; }
+.pushit-4  { margin: 0 -80px 1.5em 80px; }
+.pushit-5  { margin: 0 -100px 1.5em 100px; }
+.pushit-6  { margin: 0 -120px 1.5em 120px; }
+.pushit-7  { margin: 0 -140px 1.5em 140px; }
+.pushit-8  { margin: 0 -160px 1.5em 160px; }
+.pushit-9  { margin: 0 -180px 1.5em 180px; }
+.pushit-10 { margin: 0 -200px 1.5em 200px; }
+
+.pushit-1, .pushit-2, .pushit-3, .pushit-4, .pushit-5,
+.pushit-6, .pushit-7, .pushit-8, .pushit-9, .pushit-10 { 
+  float: right;
+  position:relative;
+}
+
+
+/* Misc classes and elements
+*******************************/
+
+/* Use .padded-box to create a padded box inside a column.  */ 
+.padded-box { 
+  padding: 1em; 
+  margin-bottom: 1.5em; 
+  background: #F1F1F1; 
+}
+
+/* Use this to create a horizontal rule across a column. */
+hr {
+  background: #eee; 
+  color: #eee;
+  clear: both; 
+  float: none; 
+  width: 100%; 
+  height: .1em;
+  margin: 0 0 1.45em;
+  border: none; 
+}
+
+hr.space {
+  background: #fff;
+  color: #fff;
+}
+
+
+/* Clearing floats without extra markup
+   http://www.positioniseverything.net/easyclearing.html */
+.clearfix:after, .container:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix, div.container {display: inline-block;}
+* html .clearfix,
+* html .container {height: 1%;}
+.clearfix, div.container {display: block;}
+
+/* Regular clearing
+   Apply to an element that should clear both. */
+
+.clear { clear:both; }

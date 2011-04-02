@@ -1,0 +1,8 @@
+; $Id$
+name = Belead Page
+description = This is belead page node type.
+core = 6.x
+
+package = "Belead Page"
+
+version = "6.x-0.1-dev"

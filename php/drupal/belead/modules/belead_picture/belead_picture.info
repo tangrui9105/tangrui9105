@@ -1,0 +1,8 @@
+; $Id$
+name = Belead Picture
+description = This is belead picture node type.
+core = 6.x
+
+package = "Belead Picture"
+
+version = "6.x-0.1-dev"

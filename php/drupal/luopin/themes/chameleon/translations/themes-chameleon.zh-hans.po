@@ -1,0 +1,22 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from file: chameleon.theme,v 1.76 2008/01/24 09:42:53 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:18-0400\n"
+"PO-Revision-Date: 2008-04-27 04:02-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: themes/chameleon/chameleon.theme:135,158
+msgid "By !author at @date"
+msgstr "由 !author 在 @date"
+
+#: themes/chameleon/chameleon.theme:0
+msgid "chameleon"
+msgstr "chameleon"

@@ -1,0 +1,643 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  comment-folded.tpl.php,v 1.2 2007/08/07 08:39:35 goba
+#  comment.admin.inc,v 1.4 2008/01/08 10:35:41 goba
+#  comment.pages.inc,v 1.2.2.1 2008/02/07 18:53:38 goba
+#  comment.module,v 1.617.2.1 2008/04/09 21:11:46 goba
+#  comment.install,v 1.19 2008/01/16 21:45:30 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-28 13:28-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/comment/comment-folded.tpl.php:20
+msgid "by"
+msgstr "作者："
+
+#: modules/comment/comment.admin.inc:56
+msgid "Posted in"
+msgstr "发布于"
+
+#: modules/comment/comment.admin.inc:86
+msgid "Please select one or more comments to perform the update on."
+msgstr "请选择一条或多条评论进行更新操作。"
+
+#: modules/comment/comment.admin.inc:142
+msgid "No comments available."
+msgstr "没有评论。"
+
+#: modules/comment/comment.admin.inc:183
+msgid ""
+"There do not appear to be any comments to delete or your selected comment "
+"was deleted by another administrator."
+msgstr "没有任何可删除的评论，或者您所选择的评论已被其它管理员删除。"
+
+#: modules/comment/comment.admin.inc:188
+msgid "Are you sure you want to delete these comments and all their children?"
+msgstr "您真的要删除这些评论及其下所有回复么？"
+
+#: modules/comment/comment.admin.inc:190
+msgid "Delete comments"
+msgstr "删除评论"
+
+#: modules/comment/comment.admin.inc:207
+msgid "The comments have been deleted."
+msgstr "评论已被删除。"
+
+#: modules/comment/comment.admin.inc:228
+msgid "The comment no longer exists."
+msgstr "该评论已不存在。"
+
+#: modules/comment/comment.admin.inc:245
+msgid "Are you sure you want to delete the comment %title?"
+msgstr "您真的要删除 %title 这条评论吗？"
+
+#: modules/comment/comment.admin.inc:247
+msgid "Any replies to this comment will be lost. This action cannot be undone."
+msgstr "任何对此评论的回复将丢失。此操作不可恢复。"
+
+#: modules/comment/comment.admin.inc:257
+msgid "The comment and all its replies have been deleted."
+msgstr "评论及其回复已经全部删除。"
+
+#: modules/comment/comment.admin.inc:280
+msgid "Cannot delete non-existent comment."
+msgstr "不能删除不存在的评论"
+
+#: modules/comment/comment.admin.inc:286
+msgid "Comment: deleted %subject."
+msgstr "评论：删除了 %subject。"
+
+#: modules/comment/comment.pages.inc:65,105
+msgid "You are not authorized to post comments."
+msgstr "您没有发表评论的权限。"
+
+#: modules/comment/comment.pages.inc:78,87
+msgid "The comment you are replying to does not exist."
+msgstr "您想要回复的评论不存在。"
+
+#: modules/comment/comment.pages.inc:98
+msgid "This discussion is closed: you can't post new comments."
+msgstr "评论功能已关闭：您不能发表新评论。"
+
+#: modules/comment/comment.pages.inc:102
+msgid "Reply"
+msgstr "回复"
+
+#: modules/comment/comment.pages.inc:111
+msgid "You are not authorized to view comments."
+msgstr "您没有查看评论的权限。"
+
+#: modules/comment/comment.module:129
+msgid ""
+"The comment module allows visitors to comment on your posts, creating ad hoc "
+"discussion boards. Any <a href=\"@content-type\">content type</a> may have "
+"its <em>Default comment setting</em> set to <em>Read/Write</em> to allow "
+"comments, or <em>Disabled</em>, to prevent comments. Comment display "
+"settings and other controls may also be customized for each content type "
+"(some display settings are customizable by individual users)."
+msgstr ""
+"<a href=\"@content-type\">内容类型</a> 的评论设置可以默认为<em>读/写</em>（允"
+"许评论）或<em>关闭</em>（禁止评论）。评论显示设置和其他控制可针对每一种内容类"
+"型分别设置（某些显示设置针对个别用户单独设置）。"
+
+#: modules/comment/comment.module:130
+msgid ""
+"Comment permissions are assigned to user roles, and are used to determine "
+"whether anonymous users (or other roles) are allowed to comment on posts. If "
+"anonymous users are allowed to comment, their individual contact information "
+"may be retained in cookies stored on their local computer for use in later "
+"comment submissions. When a comment has no replies, it may be (optionally) "
+"edited by its author. The comment module uses the same input formats and "
+"HTML tags available when creating other forms of content."
+msgstr ""
+"评论权限是按用户角色来分配的，可以用来决定匿名用户或其他角色是否可以发表评"
+"论。如果允许匿名用户评论，他们的个人联系信息将被保留在用户本地计算机的 "
+"cookies中，以供其以后发表评论之用。当评论没有回复时，它（可选的）可以被作者编"
+"辑。评论模块与创建其他内容时使用同样的输入格式和html标签。"
+
+#: modules/comment/comment.module:131
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@comment"
+"\">Comment module</a>."
+msgstr "更多信息请参阅在线手册条目中的<a href=\"@comment\">评论模块</a>。"
+
+#: modules/comment/comment.module:134
+msgid ""
+"Below is a list of the latest comments posted to your site. Click on a "
+"subject to see the comment, the author's name to edit the author's user "
+"information, 'edit' to modify the text, and 'delete' to remove their "
+"submission."
+msgstr ""
+"下面是最近发表在您的站点上的评论。点击标题查看评论、作者名字并编辑作者的用户"
+"信息。点击 “编辑” 以编辑内容，点击“删除” 以删除该评论。"
+
+#: modules/comment/comment.module:136
+msgid ""
+"Below is a list of the comments posted to your site that need approval. To "
+"approve a comment, click on 'edit' and then change its 'moderation status' "
+"to Approved. Click on a subject to see the comment, the author's name to "
+"edit the author's user information, 'edit' to modify the text, and 'delete' "
+"to remove their submission."
+msgstr ""
+"下面是发表在您的站点上需要审核的评论。要允许某篇评论被发表，点击“编辑”并将他"
+"的“审核状态”改为“通过”。点击主题查看评论、作者名字并编辑作者的用户信息。点"
+"击“编辑”以编辑文字，点击“删除”以删除评论。"
+
+#: modules/comment/comment.module:285,289
+msgid "Recent comments"
+msgstr "最新评论"
+
+#: modules/comment/comment.module:421
+msgid "Jump to the first comment of this posting."
+msgstr "跳转到本文第一条评论。"
+
+#: modules/comment/comment.module:432
+msgid "Jump to the first new comment of this posting."
+msgstr "跳转到本文第一条新评论。"
+
+#: modules/comment/comment.module:441,462
+msgid "Add new comment"
+msgstr "添加新评论"
+
+#: modules/comment/comment.module:443
+msgid "Add a new comment to this page."
+msgstr "针对此文章发表新的评论。"
+
+#: modules/comment/comment.module:464
+msgid "Share your thoughts and opinions related to this posting."
+msgstr "分享您有关本文的看法与观点。"
+
+#: modules/comment/comment.module:493,576
+msgid "Comment settings"
+msgstr "评论设置"
+
+#: modules/comment/comment.module:499
+msgid "Default comment setting"
+msgstr "默认评论设置"
+
+#: modules/comment/comment.module:501,585
+msgid "Read only"
+msgstr "只读"
+
+#: modules/comment/comment.module:501,585
+msgid "Read/Write"
+msgstr "读/写"
+
+#: modules/comment/comment.module:502
+msgid ""
+"Users with the <em>administer comments</em> permission will be able to "
+"override this setting."
+msgstr "具有<em>管理评论</em>权限的用户将可以覆盖此设置。"
+
+#: modules/comment/comment.module:506
+msgid "Default display mode"
+msgstr "默认显示模式"
+
+#: modules/comment/comment.module:509
+msgid ""
+"The default view for comments. Expanded views display the body of the "
+"comment. Threaded views keep replies together."
+msgstr ""
+"评论默认显示模式。展开模式下，评论正文将被显示。而主题模式则会将同主题回复组"
+"织在一起显示。"
+
+#: modules/comment/comment.module:513
+msgid "Default display order"
+msgstr "默认显示顺序"
+
+#: modules/comment/comment.module:516
+msgid ""
+"The default sorting for new users and anonymous users while viewing "
+"comments. These users may change their view using the comment control panel. "
+"For registered users, this change is remembered as a persistent user "
+"preference."
+msgstr ""
+"给新用户和游客的默认评论显示顺序。这些用户可以通过评论控制面板来改变显示顺"
+"序。对于已注册用户，他们偏好的显示习惯会保存在用户参数中。"
+
+#: modules/comment/comment.module:520
+msgid "Default comments per page"
+msgstr "每页默认评论数量"
+
+#: modules/comment/comment.module:523
+msgid ""
+"Default number of comments for each page: more comments are distributed in "
+"several pages."
+msgstr ""
+"默认情况下每页显示的评论数量，如果评论数量超过该设定值，那么更多的评论将分页"
+"显示。"
+
+#: modules/comment/comment.module:527
+msgid "Comment controls"
+msgstr "评论控制"
+
+#: modules/comment/comment.module:530
+msgid "Display above the comments"
+msgstr "在评论上方显示"
+
+#: modules/comment/comment.module:531
+msgid "Display below the comments"
+msgstr "在评论下方显示"
+
+#: modules/comment/comment.module:532
+msgid "Display above and below the comments"
+msgstr "在评论的上方和下方都显示"
+
+#: modules/comment/comment.module:533
+msgid "Do not display"
+msgstr "不显示"
+
+#: modules/comment/comment.module:534
+msgid ""
+"Position of the comment controls box. The comment controls let the user "
+"change the default display mode and display order of comments."
+msgstr "评论控制面板的显示位置，它可以使用户改变评论默认的显示模式和排序模式。"
+
+#: modules/comment/comment.module:538
+msgid "Anonymous commenting"
+msgstr "匿名评论"
+
+#: modules/comment/comment.module:541
+msgid "Anonymous posters may not enter their contact information"
+msgstr "匿名用户无权输入联系信息"
+
+#: modules/comment/comment.module:542
+msgid "Anonymous posters may leave their contact information"
+msgstr "匿名用户可以输入联系信息"
+
+#: modules/comment/comment.module:543
+msgid "Anonymous posters must leave their contact information"
+msgstr "匿名用户必须输入联系信息"
+
+#: modules/comment/comment.module:544
+msgid ""
+"This option is enabled when anonymous users have permission to post comments "
+"on the <a href=\"@url\">permissions page</a>."
+msgstr ""
+"此选项只有在您允许匿名评论时才有用，参见<a href=\"@url\">权限页面</a>。"
+
+#: modules/comment/comment.module:551
+msgid "Comment subject field"
+msgstr "评论标题字段"
+
+#: modules/comment/comment.module:554
+msgid "Can users provide a unique subject for their comments?"
+msgstr "用户能否为他们的评论输入一个单独的标题？"
+
+#: modules/comment/comment.module:558,1426
+msgid "Preview comment"
+msgstr "预览评论"
+
+#: modules/comment/comment.module:561
+msgid ""
+"Forces a user to look at their comment by clicking on a 'Preview' button "
+"before they can actually add the comment"
+msgstr "强制用户发表其评论之前必须电击‘预览’按钮查看其评论"
+
+#: modules/comment/comment.module:565
+msgid "Location of comment submission form"
+msgstr "评论提交表单的位置"
+
+#: modules/comment/comment.module:567
+msgid "Display on separate page"
+msgstr "在单独的页面显示"
+
+#: modules/comment/comment.module:567
+msgid "Display below post or comments"
+msgstr "在评论或文章下方显示"
+
+#: modules/comment/comment.module:779
+msgid ""
+"Your comment has been queued for moderation by site administrators and will "
+"be published after approval."
+msgstr "您的评论已提交到审核队列，待管理员审核后方可发表。"
+
+#: modules/comment/comment.module:792,791
+msgid ""
+"Comment: unauthorized comment submitted or comment submitted to a closed "
+"post %subject."
+msgstr "评论：提交的未经认证的评论或提交到已关闭的主题 %subject的评论"
+
+#: modules/comment/comment.module:815
+msgid "parent"
+msgstr "上层"
+
+#: modules/comment/comment.module:832,844
+msgid "reply"
+msgstr "回复"
+
+#: modules/comment/comment.module:1049
+msgid "Post new comment"
+msgstr "发表新评论"
+
+#: modules/comment/comment.module:1070,1082
+msgid "Publish the selected comments"
+msgstr "发布选中评论"
+
+#: modules/comment/comment.module:1071,1077,1084
+msgid "Delete the selected comments"
+msgstr "删除选中的评论"
+
+#: modules/comment/comment.module:1076,1083
+msgid "Unpublish the selected comments"
+msgstr "撤下选中的评论"
+
+#: modules/comment/comment.module:1193
+msgid "You have to specify a valid author."
+msgstr "您必须指定一个有效的作者。"
+
+#: modules/comment/comment.module:1204
+msgid "The name you used belongs to a registered user."
+msgstr "您输入的用户名属于其他已注册用户。"
+
+#: modules/comment/comment.module:1209
+msgid "You have to leave your name."
+msgstr "您必须输入您的名字。"
+
+#: modules/comment/comment.module:1214
+msgid "The e-mail address you specified is not valid."
+msgstr "您输入了不正确的电子邮件地址。"
+
+#: modules/comment/comment.module:1218
+msgid "You have to leave an e-mail address."
+msgstr "您必须输入您的电子邮件地址。"
+
+#: modules/comment/comment.module:1223
+msgid ""
+"The URL of your homepage is not valid. Remember that it must be fully "
+"qualified, i.e. of the form <code>http://example.com/directory</code>."
+msgstr ""
+"您的主页地址非法。注意必须输入完整地址。例如<code>http://example.com/"
+"directory</code>。"
+
+#: modules/comment/comment.module:1279
+msgid "Administration"
+msgstr "管理"
+
+#: modules/comment/comment.module:1322,1347,1354
+msgid "Homepage"
+msgstr "主页"
+
+#: modules/comment/comment.module:1528
+msgid "(No subject)"
+msgstr "(无主题)"
+
+#: modules/comment/comment.module:1614
+msgid "!a comments per page"
+msgstr "每页 !a 条评论"
+
+#: modules/comment/comment.module:1641
+msgid ""
+"Select your preferred way to display the comments and click \"Save settings"
+"\" to activate your changes."
+msgstr "选择您喜欢的显示评论的模式，并点击“保存设置”来保存您所做的改变。"
+
+#: modules/comment/comment.module:1642
+msgid "Comment viewing options"
+msgstr "评论查看选项"
+
+#: modules/comment/comment.module:1795
+msgid ""
+"<a href=\"@login\">Login</a> or <a href=\"@register\">register</a> to post "
+"comments"
+msgstr ""
+"要发表评论，请先<a href=\"@login\">登录</a> 或 <a href=\"@register\">注册</a>"
+
+#: modules/comment/comment.module:1799
+msgid "<a href=\"@login\">Login</a> to post comments"
+msgstr "要发表评论，请先<a href=\"@login\">登录</a>"
+
+#: modules/comment/comment.module:1827
+msgid "Submitted by !username on @datetime."
+msgstr "由 !username 在 @datetime 发表。"
+
+#: modules/comment/comment.module:1842
+msgid "Flat list - collapsed"
+msgstr "平板式列表—折叠"
+
+#: modules/comment/comment.module:1843
+msgid "Flat list - expanded"
+msgstr "平板式列表—展开"
+
+#: modules/comment/comment.module:1844
+msgid "Threaded list - collapsed"
+msgstr "主题式列表—折叠"
+
+#: modules/comment/comment.module:1845
+msgid "Threaded list - expanded"
+msgstr "主题式列表—展开"
+
+#: modules/comment/comment.module:2001
+msgid "After saving a new comment"
+msgstr "在保存新的评论之后"
+
+#: modules/comment/comment.module:2004
+msgid "After saving an updated comment"
+msgstr "在更新评论之后"
+
+#: modules/comment/comment.module:2007
+msgid "After deleting a comment"
+msgstr "在删除评论后"
+
+#: modules/comment/comment.module:2010
+msgid "When a comment is being viewed by an authenticated user"
+msgstr "当评论正在被注册用户查看时"
+
+#: modules/comment/comment.module:2023
+msgid "Unpublish comment"
+msgstr "撤除评论"
+
+#: modules/comment/comment.module:2031
+msgid "Unpublish comment containing keyword(s)"
+msgstr "撤除包含关键字的评论"
+
+#: modules/comment/comment.module:2071
+msgid ""
+"The comment will be unpublished if it contains any of the character "
+"sequences above. Use a comma-separated list of character sequences. Example: "
+"funny, bungee jumping, \"Company, Inc.\". Character sequences are case-"
+"sensitive."
+msgstr ""
+"含有上述任何字符的评论将不被发布。使用英文逗号分隔词条，如： funny, bungee "
+"jumping, \"Company, Inc.\". 等等。字符区分大小写。"
+
+#: modules/comment/comment.module:769
+msgid "Comment: added %subject."
+msgstr "评论：添加了%subject。"
+
+#: modules/comment/comment.module:2059,2099
+msgid "Unpublished comment %subject."
+msgstr "撤除了评论%subject。"
+
+#: modules/comment/comment.module:429
+msgid "1 new comment"
+msgid_plural "@count new comments"
+msgstr[0] "1条新评论"
+msgstr[1] "@count 条新评论"
+
+#: modules/comment/comment.install:76
+msgid "Stores comments and associated data."
+msgstr "保存评论和相关数据"
+
+#: modules/comment/comment.install:81
+msgid "Primary Key: Unique comment ID."
+msgstr "主键：唯一评论id "
+
+#: modules/comment/comment.install:87
+msgid ""
+"The {comments}.cid to which this comment is a reply. If set to 0, this "
+"comment is not a reply to an existing comment."
+msgstr ""
+"本评论所回复的评论cid为 {comments}.cid 。如果设为0，则此评论所回复的不是其它"
+"已存在的评论。"
+
+#: modules/comment/comment.install:93
+msgid "The {node}.nid to which this comment is a reply."
+msgstr "本评论所回复的节点nid为 {node}.nid"
+
+#: modules/comment/comment.install:99
+msgid ""
+"The {users}.uid who authored the comment. If set to 0, this comment was "
+"created by an anonymous user."
+msgstr "发布评论作者的 {users}.uid 。如果设为0，评论由匿名用户创建。"
+
+#: modules/comment/comment.install:106
+msgid "The comment title."
+msgstr "评论标题"
+
+#: modules/comment/comment.install:112
+msgid "The comment body."
+msgstr "评论正文"
+
+#: modules/comment/comment.install:119
+msgid "The author's host name."
+msgstr "作者主机名"
+
+#: modules/comment/comment.install:125
+msgid ""
+"The time that the comment was created, or last edited by its author, as a "
+"Unix timestamp."
+msgstr "评论创建时间，或被作者最后修改的时间。以Unix 时间戳表示"
+
+#: modules/comment/comment.install:133
+msgid "The published status of a comment. (0 = Published, 1 = Not Published)"
+msgstr "评论的发布状态：0 已发布，1 未发布"
+
+#: modules/comment/comment.install:140
+msgid "The {filter_formats}.format of the comment body."
+msgstr "评论内容的格式 {filter_formats}.format"
+
+#: modules/comment/comment.install:146
+msgid "The vancode representation of the comment's place in a thread."
+msgstr "vancode代表本条评论在主题中位置 。"
+
+#: modules/comment/comment.install:152
+msgid ""
+"The comment author's name. Uses {users}.name if the user is logged in, "
+"otherwise uses the value typed into the comment form."
+msgstr ""
+"评论作者的用户名。如果用户登录，则使用 {users}.name ，否则使用评论表单中输入"
+"的值。"
+
+#: modules/comment/comment.install:158
+msgid ""
+"The comment author's e-mail address from the comment form, if user is "
+"anonymous, and the 'Anonymous users may/must leave their contact "
+"information' setting is turned on."
+msgstr ""
+"来自评论表单的作者邮件地址。当作者是匿名用户并且“匿名用户必须留下联系信息”设"
+"置被启用时有效。"
+
+#: modules/comment/comment.install:164
+msgid ""
+"The comment author's home page address from the comment form, if user is "
+"anonymous, and the 'Anonymous users may/must leave their contact "
+"information' setting is turned on."
+msgstr ""
+"来自评论表单的作者的主页地址。当作者是匿名用户并且“匿名用户必须留下联系信"
+"息”设置被启用时有效。"
+
+#: modules/comment/comment.install:176
+msgid ""
+"Maintains statistics of node and comments posts to show \"new\" and \"updated"
+"\" flags."
+msgstr "维护节点和评论统计数据，显示“新”或“更新”标志"
+
+#: modules/comment/comment.install:183
+msgid "The {node}.nid for which the statistics are compiled."
+msgstr "统计数据所针对的节点{node}.nid"
+
+#: modules/comment/comment.install:189
+msgid ""
+"The Unix timestamp of the last comment that was posted within this node, "
+"from {comments}.timestamp."
+msgstr "本节点最后评论的Unix时间戳，来自{comments}.timestamp."
+
+#: modules/comment/comment.install:195
+msgid ""
+"The name of the latest author to post a comment on this node, from "
+"{comments}.name."
+msgstr "针对本节点发表最后评论的作者的用户名，来自 {comments}.name"
+
+#: modules/comment/comment.install:201
+msgid ""
+"The user ID of the latest author to post a comment on this node, from "
+"{comments}.uid."
+msgstr "针对本节点发表最后评论的作者用户id，来自 {comments}.uid."
+
+#: modules/comment/comment.install:208
+msgid "The total number of comments on this node."
+msgstr "本节点的评论总数"
+
+#: modules/comment/comment.module:275
+msgid "access comments"
+msgstr "访问评论"
+
+#: modules/comment/comment.module:275
+msgid "post comments"
+msgstr "发表评论"
+
+#: modules/comment/comment.module:275
+msgid "administer comments"
+msgstr "管理评论"
+
+#: modules/comment/comment.module:275
+msgid "post comments without approval"
+msgstr "无需审批直接发表评论"
+
+#: modules/comment/comment.module:199
+msgid "List and edit site comments and the comment moderation queue."
+msgstr "列出和编辑网站评论以及等待验证的评论"
+
+#: modules/comment/comment.module:207
+msgid "Published comments"
+msgstr "已发布的评论"
+
+#: modules/comment/comment.module:212
+msgid "Approval queue"
+msgstr "审核队列"
+
+#: modules/comment/comment.module:220
+msgid "Delete comment"
+msgstr "删除评论"
+
+#: modules/comment/comment.module:228
+msgid "Edit comment"
+msgstr "编辑评论"
+
+#: modules/comment/comment.module:235
+msgid "Reply to comment"
+msgstr "回复评论"
+
+#: modules/comment/comment.module:0
+msgid "comment"
+msgstr "评论"

@@ -1,0 +1,50 @@
+<?php
+// $Id: belead_hire.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function belead_hire_install() {
+	drupal_install_schema('belead_hire');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function belead_hire_uninstall() {
+	drupal_uninstall_schema('belead_hire');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function belead_hire_schema() {  
+	$schema['belead_hire'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	$schema['belead_hire_content'] = array(
+			'fields' => array(
+				'id' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'auto_increment' => TRUE),
+				'nid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'name' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'department' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'post' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'location' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'gender' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'age' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'headcount' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'openingdate' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'closingdate' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'description' => array('type' => 'text', 'not null' => FALSE, 'default' => '', 'size' => 'big'),
+				'requirement' => array('type' => 'text', 'not null' => FALSE, 'default' => '', 'size' => 'big'),
+				),
+			'primary key' => array('id'),
+			);
+
+	return $schema;
+}

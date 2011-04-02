@@ -1,0 +1,282 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  poll.pages.inc,v 1.4 2007/12/14 09:50:41 goba
+#  poll.module,v 1.263 2008/01/15 07:57:46 dries
+#  poll.install,v 1.13 2007/12/18 12:59:21 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-26 23:30-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/poll/poll.pages.inc:20
+msgid "open"
+msgstr "开放"
+
+#: modules/poll/poll.pages.inc:20
+msgid "closed"
+msgstr "关闭"
+
+#: modules/poll/poll.pages.inc:32
+msgid ""
+"This table lists all the recorded votes for this poll. If anonymous users "
+"are allowed to vote, they will be identified by the IP address of the "
+"computer they used when they voted."
+msgstr ""
+"这个列表给出了这个投票项目的所有投票结果。如果允许匿名用户投票，其投票被标示"
+"为他们参与投票时使用计算机的ip地址。"
+
+#: modules/poll/poll.module:16
+msgid ""
+"The poll module can be used to create simple polls for site users. A poll is "
+"a simple, multiple choice questionnaire which displays the cumulative "
+"results of the answers to the poll. Having polls on the site is a good way "
+"to receive feedback from community members."
+msgstr ""
+"投票模块用于为站点用户创建一个简单的投票项目。投票箱目是一个简单的、多项选择"
+"的问卷，它显示参与投票的统计结果。在站点设置投票项目是获取站点会员的反馈信息"
+"的一个很好的途径。"
+
+#: modules/poll/poll.module:17
+msgid ""
+"When creating a poll, enter the question being posed, as well as the "
+"potential choices (and beginning vote counts for each choice). The status "
+"and duration (length of time the poll remains active for new votes) can also "
+"be specified. Use the <a href=\"@poll\">poll</a> menu item to view all "
+"current polls. To vote in or view the results of a specific poll, click on "
+"the poll itself."
+msgstr ""
+"创建一个投票时，需填写问题，并提供可能的答案（包括目前的每一选项投票计数）。"
+"可以指定投票的状态和投票期间（新的投票保持生效的时间延续长短）。使用 <a href="
+"\"@poll\">投票</a>按钮查看当前所有的投票。参与投票或查看某一投票的结果，只要"
+"点击该投票项目本身。"
+
+#: modules/poll/poll.module:18
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@poll"
+"\">Poll module</a>."
+msgstr "想了解更多的信息请参在线帮助手册<a href=\"@poll\">投票模块</a>。"
+
+#: modules/poll/poll.module:133
+msgid "Most recent poll"
+msgstr "最新的投票调查"
+
+#: modules/poll/poll.module:174
+msgid ""
+"A <em>poll</em> is a question with a set of possible responses. A <em>poll</"
+"em>, once created, automatically provides a simple running count of the "
+"number of votes received for each response."
+msgstr ""
+" <em>投票</em>是带有一系列可能答案的一个问题。 <em>投票</em>一旦创建，就能自"
+"动地一个简单的计数功能，统计每一个可选答案投票的数量。"
+
+#: modules/poll/poll.module:175
+msgid "Question"
+msgstr "问题"
+
+#: modules/poll/poll.module:237
+msgid "More choices"
+msgstr "更多选项"
+
+#: modules/poll/poll.module:238
+msgid ""
+"If the amount of boxes above isn't enough, click here to add more choices."
+msgstr "如果上面的输入框不够，点击这里增加更多的选择。"
+
+#: modules/poll/poll.module:251
+msgid "Closed"
+msgstr "关闭"
+
+#: modules/poll/poll.module:257
+msgid "Poll settings"
+msgstr "投票设置"
+
+#: modules/poll/poll.module:263
+msgid "Poll status"
+msgstr "投票状态"
+
+#: modules/poll/poll.module:266
+msgid "When a poll is closed, visitors can no longer vote for it."
+msgstr "当调查关闭时，用户将不能对其投票。"
+
+#: modules/poll/poll.module:271
+msgid "Poll duration"
+msgstr "投票期间"
+
+#: modules/poll/poll.module:274
+msgid "After this period, the poll will be closed automatically."
+msgstr "在此时间后，投票将自动关闭。"
+
+#: modules/poll/poll.module:306
+msgid "Choice @n"
+msgstr "选项 @n"
+
+#: modules/poll/poll.module:314
+msgid "Votes for choice @n"
+msgstr "第 @n 个选项的票数"
+
+#: modules/poll/poll.module:385
+msgid "Negative values are not allowed."
+msgstr "不允许使用负数值。"
+
+#: modules/poll/poll.module:390
+msgid "You must fill in at least two choices."
+msgstr "您必须至少输入两个选项。"
+
+#: modules/poll/poll.module:511
+msgid "Older polls"
+msgstr "以前的投票"
+
+#: modules/poll/poll.module:511
+msgid "View the list of polls on this site."
+msgstr "显示站点投票列表。"
+
+#: modules/poll/poll.module:513,98
+msgid "Results"
+msgstr "结果"
+
+#: modules/poll/poll.module:513
+msgid "View the current poll results."
+msgstr "显示当前投票结果。"
+
+#: modules/poll/poll.module:593
+msgid ""
+"Your vote could not be recorded because you did not select any of the "
+"choices."
+msgstr "由于没有选择任何选项，您的投票没有被记录。"
+
+#: modules/poll/poll.module:616
+msgid "Your vote was recorded."
+msgstr "您的投票已被记录。"
+
+#: modules/poll/poll.module:672
+msgid "Add another choice"
+msgstr "添加另一个选项"
+
+#: modules/poll/poll.module:676
+msgid "Choice"
+msgstr "选项"
+
+#: modules/poll/poll.module:677
+msgid "Vote count"
+msgstr "投票统计"
+
+#: modules/poll/poll.module:759
+msgid "Cancel your vote"
+msgstr "取消您的投票"
+
+#: modules/poll/poll.install:25
+msgid "Stores poll-specific information for poll nodes."
+msgstr "存储投票节点的特定投票信息。"
+
+#: modules/poll/poll.install:32
+msgid "The poll's {node}.nid."
+msgstr "投票的{node}.nid。"
+
+#: modules/poll/poll.install:38
+msgid ""
+"The number of seconds past {node}.created during which the poll is open."
+msgstr "投票自 {node}.created 以来已开放的时间（秒）"
+
+#: modules/poll/poll.install:45
+msgid "Boolean indicating whether or not the poll is open."
+msgstr "表示投票是否开放的布尔值。"
+
+#: modules/poll/poll.install:52
+msgid "Stores information about all choices for all {poll}s."
+msgstr "存储所有投票{poll}的所有选项信息。"
+
+#: modules/poll/poll.install:58
+msgid "Unique identifier for a poll choice."
+msgstr "投票选项的唯一识别码。"
+
+#: modules/poll/poll.install:65
+msgid "The {node}.nid this choice belongs to."
+msgstr "本选项属于 {node}.nid "
+
+#: modules/poll/poll.install:72
+msgid "The text for this choice."
+msgstr "本选项的文本"
+
+#: modules/poll/poll.install:78
+msgid "The total number of votes this choice has received by all users."
+msgstr "本选项的总票数"
+
+#: modules/poll/poll.install:84
+msgid "The sort order of this choice among all choices for the same node."
+msgstr "本选项在同一节点所有选项中的位次"
+
+#: modules/poll/poll.install:94
+msgid "Stores per-{users} votes for each {poll}."
+msgstr "存储每一{users}的每一{poll}的投票信息."
+
+#: modules/poll/poll.install:100
+msgid "The {poll} node this vote is for."
+msgstr "本投票所在的 {poll} 节点"
+
+#: modules/poll/poll.install:107
+msgid "The {users}.uid this vote is from unless the voter was anonymous."
+msgstr "本投票来自 {users}.uid ，除非是匿名投票。"
+
+#: modules/poll/poll.install:113
+msgid "The {users}'s vote for this poll."
+msgstr " {users}对本投票项目 的投票结果"
+
+#: modules/poll/poll.install:120
+msgid "The IP address this vote is from unless the voter was logged in."
+msgstr "当投票者为登录时，记录其 IP 地址。"
+
+#: modules/poll/poll.module:57
+msgid "create poll content"
+msgstr "创建投票内容"
+
+#: modules/poll/poll.module:57
+msgid "delete own poll content"
+msgstr "删除自己的投票"
+
+#: modules/poll/poll.module:57
+msgid "delete any poll content"
+msgstr "删除任意的投票"
+
+#: modules/poll/poll.module:57
+msgid "edit any poll content"
+msgstr "编辑任意投票内容"
+
+#: modules/poll/poll.module:57
+msgid "edit own poll content"
+msgstr "编辑自己的投票内容"
+
+#: modules/poll/poll.module:57
+msgid "vote on polls"
+msgstr "投票"
+
+#: modules/poll/poll.module:57
+msgid "cancel own vote"
+msgstr "取消自己的选票"
+
+#: modules/poll/poll.module:57
+msgid "inspect all votes"
+msgstr "审查所有的选票"
+
+#: modules/poll/poll.module:79
+msgid "Polls"
+msgstr "投票"
+
+#: modules/poll/poll.module:87
+msgid "Votes"
+msgstr "选票"
+
+#: modules/poll/poll.module:109
+msgid "Javascript Choice Form"
+msgstr "Javascript 选单"
+
+#: modules/poll/poll.module:0
+msgid "poll"
+msgstr "投票"

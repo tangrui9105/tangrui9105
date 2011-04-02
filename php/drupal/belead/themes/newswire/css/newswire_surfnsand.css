@@ -1,0 +1,327 @@
+/* $Id: newswire_surfnsand.css,v 1.4 2008/09/16 01:51:26 jmburnz Exp $ */
+
+/*****************************
+
+  Newswire Surn-n-Sand styles.css
+  Theme by AdaptiveThemes.com
+  
+  #003366  very dark blue
+  #336699  dark blue
+  #222     very dark gray
+  #E1CAA1  tan
+  #ECDDC3  med tan
+  #F4ECDD  light tan
+
+******************************/
+
+/*** Site slogan ***/
+.branding em {
+  color: #336699;
+}
+
+/*** Search Box Top ***/
+#search-box-top #edit-search-theme-form-1 {
+  color: #336699;
+  border-color: #003366;
+}
+
+#block-search-0 .form-submit,
+#search .form-submit {
+  color: #FFF;
+  background-color: #336699;
+  border: 1px solid #003366; 
+}
+
+/*** Primary Menu Links  ***/
+#main-navigation { 
+  background: #336699;
+}
+
+#primary-menu {
+  border-left: 15px solid #003366;  
+}
+
+#primary-menu ul.links li a {
+  color: #FFF;
+  background: #336699;
+}
+
+#primary-menu ul.links li a:hover {
+  color: #FFF;
+  background: #003366;
+}
+
+/*** Secondary Menu Links ***/
+#secondary-menu { 
+  border-bottom: 2px solid #336699; 
+}
+
+#secondary-menu ul.links li a:link,
+#secondary-menu ul.links li a:visited,
+#secondary-menu ul.links li a:active {
+  color: #336699;
+}
+
+#secondary-menu ul.links li {
+   border-right: 1px solid #F4ECDD;
+}
+
+/*** Suckerfish drop menus ***/
+#suckerfish {
+  border-left: 15px solid #003366;  
+}
+
+#suckerfish .block .content {
+  padding: 0;
+}
+
+#suckerfish a { 
+  background: #336699; 
+  color: #FFF; 
+}
+
+#suckerfish a:active, 
+#suckerfish a:hover { 
+  background: #003366; 
+  color: #FFF;
+}
+
+#suckerfish ul.menu li li a:link, 
+#suckerfish ul.menu li li a:visited { 
+  color: #FFF; 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li { 
+}
+
+#suckerfish ul.menu li ul a { 
+  color: #FFF; 
+  border-bottom: 1px solid #B9C7D5; 
+}
+
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  color: #003366; 
+  background: #ECEFF4; 
+}
+
+#suckerfish ul.menu li li.expanded a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded a:active, 
+#suckerfish ul.menu li li.expanded a:hover { 
+  background: #ECEFF4; 
+}
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  background: #ECEFF4;
+  text-decoration: none;  
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a:active, 
+#suckerfish ul.menu li li.expanded ul.menu a:hover { 
+  background: #ECEFF4; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a { 
+  background: #336699; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:active, 
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:hover { 
+  background: #ECEFF4;
+}
+
+/*** The Main Columns 
+     Column specific styles ***/
+   
+/*** Column 1 ***/
+#left .block {
+  background: url(../images/blue/block-gradiant-tan.png) repeat-x left bottom;
+}
+
+#left .block .block-wrapper {
+  background: #FFF;
+  border: 1px solid #E1CAA1;
+}
+
+/*** Column 2 ***/
+#content h1.category {
+  background: #F4ECDD; 
+  border: 1px solid #E1CAA1;
+}
+
+#content h1.category em {
+  color: #000;
+  background: #F4ECDD; 
+}
+
+#content h1.category span {
+  color: #356AA0;
+}
+
+/*** Column 3 ***/
+#right_2 { 
+  background: #F4ECDD; 
+  border: 1px solid #ECDDC3;
+}
+
+#right_2 .block .block-wrapper { 
+  background: transparent;
+}
+
+#right_2 .block ul li {
+  color: #ECDDC3;
+}
+
+#right_2 .block h3.title {
+  background: transparent;
+  border-bottom: 1px solid #E1CAA1;
+}
+
+#right_2 .block h3.title span {
+}
+
+/*** Column 4 ***/
+#right .block {
+  padding: 0;
+  border: 1px solid #E1CAA1;
+}
+
+/***  Mission ***/
+.mission { 
+  color: #222;
+  background: transparent; 
+  border-bottom: 2px solid #F4ECDD;
+}
+
+.mission a:link,
+.mission a:visited,
+.mission a:hover {
+  color: #222;
+}
+
+/*** Nodes ***/
+div.node {
+  border-bottom:1px solid #F4ECDD;
+}
+
+/*** Comments ***/
+div.comment.odd {
+  background: #ECDDC3;
+}
+
+div.comment.even {
+  background: #F4ECDD;
+}
+
+div.comment.comment-mine {
+  background: #E1CAA1;
+}
+
+/*** Forum ***/
+.forum-topic-navigation {
+  border-bottom:1px solid #E1CAA1;
+  border-top:1px solid #E1CAA1;
+} 
+
+/*** Book module ***/
+.book-navigation .page-links {
+  background: #F4ECDD;
+}
+.book-navigation .menu {
+  border-color: #F4ECDD;
+}
+
+/*** Blocks ***/
+.block h3.title {
+  color: #003366;
+  background: #F4ECDD;
+  border-bottom: 1px solid #E1CAA1;
+}
+
+.block ul li {
+  color: #E1CAA1; 
+}
+
+/*** Footer ***/
+#footer-message {
+  color: #E1CAA1;
+}
+
+#adaptivethemes a:link, 
+#adaptivethemes a:active, 
+#adaptivethemes a:visited {
+  color: #F4ECDD;
+}
+
+#adaptivethemes a:hover {
+  color: #E1CAA1;
+}
+
+/*** Tables ***/
+thead th     { border-bottom: 2px solid #E1CAA1; }
+tr.even,
+tr.odd,
+tbody, 
+tbody th     { border: none; }
+tr.odd       { background-color: #F4ECDD; }
+tr.info      { background-color: #E1CAA1; }
+tr.even      { background-color: #fff; }
+
+tr.odd td.active  { background-color: #ECDDC3; }
+tr.even td.active { background-color: #E1CAA1; }
+
+td.region, td.module, td.container {
+  border-bottom: none;
+  background-color: #F4ECDD;
+  color: #222;
+}
+
+table.system-status-report th {
+  border-bottom: none;
+}
+
+/*** Forms ***/
+input.text, input.title, textarea, select,
+fieldset, fieldset legend,
+input.form-text, textarea {
+  border: 1px solid #E1CAA1;
+}
+.resizable-textarea .grippie {
+  background-color: #ECDDC3 ;
+  border-color: #E1CAA1;
+}
+
+/*** Tabs ***/
+.tabs ul.primary {
+  border-bottom: 1px solid #E1CAA1;
+}
+.tabs ul.primary li a {
+  background-color: #F4ECDD;
+  border-color: #E1CAA1;
+}
+.tabs ul.primary li.active a {
+  border-color: #E1CAA1 #E1CAA1 #FFFFFF;
+  background-color: #FFFFFF;
+}
+.tabs ul.primary li a:hover {
+  background-color: #ECDDC3;
+  border-color: #E1CAA1;
+  border-bottom-color: #E1CAA1;
+}
+.tabs ul.secondary {
+  border-bottom: 1px solid #E1CAA1;
+}
+.tabs ul.secondary li {
+  border-right: 1px solid #E1CAA1; /* LTR */
+}
+.tabs ul.secondary a.active {
+  border-bottom: 4px solid #E1CAA1;
+}

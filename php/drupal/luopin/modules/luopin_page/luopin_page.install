@@ -1,0 +1,31 @@
+<?php
+// $Id: luopin_page.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function luopin_page_install() {
+	drupal_install_schema('luopin_page');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function luopin_page_uninstall() {
+	drupal_uninstall_schema('luopin_page');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function luopin_page_schema() {  
+	$schema['luopin_page'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	return $schema;
+}

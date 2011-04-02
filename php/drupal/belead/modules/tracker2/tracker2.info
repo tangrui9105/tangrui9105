@@ -1,0 +1,12 @@
+; $Id: tracker2.info,v 1.10 2009/01/12 22:09:35 toddnienkerk Exp $
+name = Tracker 2
+description = Enables tracking of recent posts for users.
+dependencies[] = comment
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-02-20
+version = "6.x-1.1"
+core = "6.x"
+project = "tracker2"
+datestamp = "1235159163"
+

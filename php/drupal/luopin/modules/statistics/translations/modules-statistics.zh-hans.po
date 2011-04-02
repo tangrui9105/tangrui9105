@@ -1,0 +1,390 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  statistics.admin.inc,v 1.6 2008/01/08 10:35:42 goba
+#  statistics.module,v 1.272 2008/01/04 09:31:48 goba
+#  statistics.install,v 1.13 2007/12/18 12:59:22 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-05-04 11:36-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/statistics/statistics.admin.inc:50,79,115
+msgid "Hits"
+msgstr "点击数"
+
+#: modules/statistics/statistics.admin.inc:52
+msgid "Average page generation time"
+msgstr "平均页面生成时间"
+
+#: modules/statistics/statistics.admin.inc:53,81
+msgid "Total page generation time"
+msgstr "总页面生成时间"
+
+#: modules/statistics/statistics.admin.inc:60
+msgid "%time ms"
+msgstr "%time 毫秒"
+
+#: modules/statistics/statistics.admin.inc:67
+msgid "Top pages in the past %interval"
+msgstr "最近 %interval 内的热门页面"
+
+#: modules/statistics/statistics.admin.inc:92
+msgid "unban"
+msgstr "解禁"
+
+#: modules/statistics/statistics.admin.inc:92
+msgid "ban"
+msgstr "禁止"
+
+#: modules/statistics/statistics.admin.inc:100
+msgid "Top visitors in the past %interval"
+msgstr "最近 %interval 内活跃的用户"
+
+#: modules/statistics/statistics.admin.inc:112
+msgid "Top referrers in the past %interval"
+msgstr "最近 %interval 内的热门来源"
+
+#: modules/statistics/statistics.admin.inc:116
+msgid "Url"
+msgstr "Url"
+
+#: modules/statistics/statistics.admin.inc:117
+msgid "Last visit"
+msgstr "上次访问"
+
+#: modules/statistics/statistics.admin.inc:191
+msgid "Enable access log"
+msgstr "启用访问日志"
+
+#: modules/statistics/statistics.admin.inc:194
+msgid "Log each page access. Required for referrer statistics."
+msgstr "记录每个页面访问。这是来源统计所需要的。"
+
+#: modules/statistics/statistics.admin.inc:198
+msgid "Discard access logs older than"
+msgstr "删除此前的访问日志"
+
+#: modules/statistics/statistics.admin.inc:201
+msgid ""
+"Older access log entries (including referrer statistics) will be "
+"automatically discarded. (Requires a correctly configured <a href=\"@cron"
+"\">cron maintenance task</a>.)"
+msgstr ""
+"之前的访问记录(包括来源统计)将会自动删除。需要<a href=\"@cron\">cron 正常运行"
+"</a>。"
+
+#: modules/statistics/statistics.admin.inc:206
+msgid "Content viewing counter settings"
+msgstr "页面访问计数器设置"
+
+#: modules/statistics/statistics.admin.inc:209
+msgid "Count content views"
+msgstr "统计页面访问次数"
+
+#: modules/statistics/statistics.admin.inc:212
+msgid "Increment a counter each time content is viewed."
+msgstr "当页面被访问时计数器加 1。"
+
+#: modules/statistics/statistics.module:15
+msgid ""
+"The statistics module keeps track of numerous site usage statistics, "
+"including the number of times, and from where, each of your posts is viewed. "
+"These statistics are useful in determining how users are interacting with "
+"each other and with your site, and are required for the display of some "
+"Drupal blocks."
+msgstr ""
+"统计模块跟踪站点的多项统计数据，包括每篇文章阅读次数及读者的来源等。这些统计"
+"信息可以帮助了解用户之间如何互动，以及用户如何访问您的站点。一些统计信息显示"
+"区块需要启用统计模块。"
+
+#: modules/statistics/statistics.module:16
+msgid "The statistics module provides:"
+msgstr "统计模块提供："
+
+#: modules/statistics/statistics.module:17
+msgid ""
+"a counter for each post on your site that increments each time the post is "
+"viewed. (Enable <em>Count content views</em> on the <a href=\"@accesslog"
+"\">access log settings page</a>, and determine if the post access counters "
+"should be visible to any user roles on the <a href=\"@permissions"
+"\">permissions page</a>.)"
+msgstr ""
+"站点上每篇文章的点击计数器。（您可以在<a href=\"@accesslog\">访问日志设置页面"
+"</a>开启<em>统计内容阅读次数</em>，并在<a href=\"@permissions\">权限页面</a>"
+"设置哪些用户角色可以查看此统计数据。"
+
+#: modules/statistics/statistics.module:18
+msgid ""
+"a <a href=\"@recent-hits\">recent hits</a> log that displays information "
+"about the latest activity on your site, including the URL and title of the "
+"page accessed, the user name (if available) and IP address of the accessing "
+"party."
+msgstr ""
+"<a href=\"@recent-hits\">最近点击</a>日志，显示站点最近的访问情况，包括被访问"
+"页面的URL与标题，来访用户的用户名或IP地址。"
+
+#: modules/statistics/statistics.module:19
+msgid ""
+"a <a href=\"@top-referrers\">top referrers</a> log that displays the "
+"referring parties for your site visits (where your visitors came from)."
+msgstr ""
+"<a href=\"@top-referrers\">热门来源</a>日志，显示您的站点访客是从哪些网站来到"
+"您的站点的。"
+
+#: modules/statistics/statistics.module:20
+msgid ""
+"a <a href=\"@top-pages\">top pages</a> log that displays site content in "
+"descending order by number of views."
+msgstr ""
+"<a href=\"@top-pages\">热门页面</a>日志，按浏览次数从多到少显示站点内容列表。"
+
+#: modules/statistics/statistics.module:21
+msgid ""
+"a <a href=\"@top-visitors\">top visitors</a> log that displays the most "
+"active users on your site."
+msgstr ""
+"<a href=\"@top-visitor\">活跃用户</a>日志，显示站点上最活跃的用户列表。"
+
+#: modules/statistics/statistics.module:22
+msgid ""
+"a <em>Popular content</em> block that displays the day's most viewed "
+"content, the all-time most viewed content, and the last content viewed. "
+"(Enable the <em>Popular content</em> block on the <a href=\"@blocks\">blocks "
+"administration page</a>.)"
+msgstr ""
+"<em>热门内容</em>区块，显示今日被浏览次数最多的内容，自创建以来被浏览次数最多"
+"的内容，以及最近被查看的内容列表。(您可以在<a href=\"@blocks\">区块管理页面</"
+"a>开启<em>热门内容</em>区块。）"
+
+#: modules/statistics/statistics.module:23
+msgid "Configuring the statistics module"
+msgstr "设置统计模块"
+
+#: modules/statistics/statistics.module:24
+msgid ""
+"When the <em>Enable access log</em> setting on the <a href=\"@accesslog"
+"\">access log settings page</a> is enabled, data about every page accessed "
+"(including the remote host's IP address, referrer, node accessed, and user "
+"name) is stored in the access log. The access log must be enabled for the <a "
+"href=\"@recent-hits\">recent hits</a>, <a href=\"@top-referrers\">top "
+"referrers</a>, <a href=\"@top-pages\">top pages</a>, and <a href=\"@top-"
+"visitors\">top visitors</a> log pages to function. Enabling the access log "
+"adds one additional database call per page displayed by Drupal."
+msgstr ""
+"当<a href=\"@accesslog\">访问日志设置页面</a>上的<em>启用访问日志</em>被选中"
+"后，所有页面访问的数据（包括访问者的主机IP地址、来源链接、所访问节点及来访用"
+"户名等）都会被存储在访问日志中。必须先启用访问日志，才能使用<a href="
+"\"@recent-hits\">最新点击</a>, <a href=\"@top-referrers\">热门来源</a>, <a "
+"href=\"@top-pages\">热门页面</a>与<a href=\"@top-visitors\">活跃用户</a>等功"
+"能。启用访问日志将会在每个Drupal页面显示时，增加一次额外的数据库操作。 "
+
+#: modules/statistics/statistics.module:25
+msgid ""
+"The <em>Discard access logs older than</em> setting on the <a href="
+"\"@accesslog\">access log settings page</a> specifies the length of time "
+"entries are retained in the access log before they are deleted. Automatic "
+"access log entry deletion requires a correctly configured <a href=\"@cron"
+"\">cron maintenance task</a>."
+msgstr ""
+"<a href=\"@accesslog\">日志设置页面</a>上的<em>删除过期日志</em>用于设置日志"
+"项要保存多久才会被永久删除。自动日志清除需要正确设置<a href=\"@cron\">cron</"
+"a>。"
+
+#: modules/statistics/statistics.module:26
+msgid ""
+"The <em>Count content views</em> setting on the <a href=\"@accesslog"
+"\">access log settings page</a> enables a counter for each post on your site "
+"that increments each time the post is viewed. This option must be enabled to "
+"provide post-specific access counts. Enabling this option adds one "
+"additional database call per each post displayed by Drupal."
+msgstr ""
+"<a href=\"@accesslog\">访问日志设置页面</a>上的<em>统计内容浏览次数</em>选项"
+"为每篇文章启用一个计数器，用于统计该文章被浏览的次数。要统计每篇文章的点击次"
+"数，必须启用此选项。此项功能在每个Drupal页面显示时，增加一个额外的数据库操"
+"作。"
+
+#: modules/statistics/statistics.module:27
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@statistics"
+"\">Statistics module</a>."
+msgstr "更多信息，请参见<a href=\"@statistics\">统计模块</a>线上帮助。"
+
+#: modules/statistics/statistics.module:30
+msgid ""
+"Settings for the statistical information that Drupal will keep about the "
+"site. See <a href=\"@statistics\">site statistics</a> for the actual "
+"information."
+msgstr ""
+"设定Drupal保存哪些站点统计信息。请到 <a href=\"@statistics\">网站统计</a> 页"
+"面查看具体信息。"
+
+#: modules/statistics/statistics.module:32
+msgid "This page displays the site's most recent hits."
+msgstr "此页面显示了最近的点击数。"
+
+#: modules/statistics/statistics.module:34
+msgid ""
+"This page displays all external referrers, or external references to your "
+"website."
+msgstr "本页显示所有站点访客来自的外部来源链接。"
+
+#: modules/statistics/statistics.module:36
+msgid ""
+"When you ban a visitor, you prevent the visitor's IP address from accessing "
+"your site. Unlike blocking a user, banning a visitor works even for "
+"anonymous users. This is most commonly used to block resource-intensive bots "
+"or web crawlers."
+msgstr ""
+"屏蔽访客，意味着阻止他的 IP 访问您的站点。这不同于禁止一个用户，屏蔽IP意味着"
+"来自该IP的匿名用户也无法访问。此功能最常见的用途就是拒绝耗费太多资源的网络机"
+"器人程序。"
+
+#: modules/statistics/statistics.module:246,288
+msgid "Popular content"
+msgstr "热门文章"
+
+#: modules/statistics/statistics.module:256
+msgid "Number of day's top views to display"
+msgstr "每日热门文章显示的篇数"
+
+#: modules/statistics/statistics.module:256
+msgid "How many content items to display in \"day\" list."
+msgstr "在 \"每日\" 列表中显示文章的篇数。"
+
+#: modules/statistics/statistics.module:257
+msgid "Number of all time views to display"
+msgstr "总热门文章显示的篇数"
+
+#: modules/statistics/statistics.module:257
+msgid "How many content items to display in \"all time\" list."
+msgstr "在“总体”列表中显示多少内容。"
+
+#: modules/statistics/statistics.module:258
+msgid "Number of most recent views to display"
+msgstr "显示最新热门文章的篇数"
+
+#: modules/statistics/statistics.module:258
+msgid "How many content items to display in \"recently viewed\" list."
+msgstr "在 \"最新发表\"中显示文章的篇数。"
+
+#: modules/statistics/statistics.module:272
+msgid "Today's:"
+msgstr "今日头条："
+
+#: modules/statistics/statistics.module:277
+msgid "All time:"
+msgstr "全部头条："
+
+#: modules/statistics/statistics.module:282
+msgid "Last viewed:"
+msgstr "上次访问："
+
+#: modules/statistics/statistics.module:85
+msgid "1 read"
+msgid_plural "@count reads"
+msgstr[0] "1 次点击"
+msgstr[1] "@count 次点击"
+
+#: modules/statistics/statistics.install:52
+msgid "Stores site access information for statistics."
+msgstr "保存统计模块的站点访问信息。"
+
+#: modules/statistics/statistics.install:57
+msgid "Primary Key: Unique accesslog ID."
+msgstr "主键：唯一的访问 ID 。"
+
+#: modules/statistics/statistics.install:64
+msgid "Browser session ID of user that visited page."
+msgstr "访问页面的用户浏览器会话(session) ID 。"
+
+#: modules/statistics/statistics.install:70
+msgid "Title of page visited."
+msgstr "被访问页面的标题。"
+
+#: modules/statistics/statistics.install:76
+msgid "Internal path to page visited (relative to Drupal root.)"
+msgstr "被访问页面的内部路径（相对于Drupal根目录）。"
+
+#: modules/statistics/statistics.install:82
+msgid "Referrer URI."
+msgstr "外部来源 URI 。"
+
+#: modules/statistics/statistics.install:88
+msgid "Hostname of user that visited the page."
+msgstr "访问页面的用户主机名。"
+
+#: modules/statistics/statistics.install:95
+msgid "User {users}.uid that visited the page."
+msgstr "访问页面的用户 {users}.uid 。"
+
+#: modules/statistics/statistics.install:102
+msgid "Time in milliseconds that the page took to load."
+msgstr "加载页面所需时间（毫秒）。"
+
+#: modules/statistics/statistics.install:109
+msgid "Timestamp of when the page was visited."
+msgstr "页面被访问的时间。"
+
+#: modules/statistics/statistics.module:72
+msgid "access statistics"
+msgstr "访问统计信息"
+
+#: modules/statistics/statistics.module:72
+msgid "view post access counter"
+msgstr "查看文章点击数"
+
+#: modules/statistics/statistics.module:97
+msgid "Recent hits"
+msgstr "最近点击"
+
+#: modules/statistics/statistics.module:98
+msgid "View pages that have recently been visited."
+msgstr "查看最近被浏览的页面"
+
+#: modules/statistics/statistics.module:104
+msgid "Top pages"
+msgstr "热门页面"
+
+#: modules/statistics/statistics.module:105
+msgid "View pages that have been hit frequently."
+msgstr "查看经常被点击的页面"
+
+#: modules/statistics/statistics.module:112
+msgid "Top visitors"
+msgstr "浏览者排行"
+
+#: modules/statistics/statistics.module:113
+msgid "View visitors that hit many pages."
+msgstr "查看点击大量页面的浏览者"
+
+#: modules/statistics/statistics.module:120
+msgid "Top referrers"
+msgstr "外部来源排行"
+
+#: modules/statistics/statistics.module:121
+msgid "View top referrers."
+msgstr "查看热门来源"
+
+#: modules/statistics/statistics.module:128
+msgid "View access log."
+msgstr "查看访问日志"
+
+#: modules/statistics/statistics.module:137
+msgid "Control details about what and how your site logs."
+msgstr "详细设置您网站的日志和日志内容"
+
+#: modules/statistics/statistics.module:146
+msgid "Track page visits"
+msgstr "跟踪页面点击"
+
+#: modules/statistics/statistics.module:0
+msgid "statistics"
+msgstr "统计信息"

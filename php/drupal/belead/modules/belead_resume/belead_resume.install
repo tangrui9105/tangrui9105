@@ -1,0 +1,49 @@
+<?php
+// $Id: belead_resume.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function belead_resume_install() {
+	drupal_install_schema('belead_resume');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function belead_resume_uninstall() {
+	drupal_uninstall_schema('belead_resume');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function belead_resume_schema() {  
+	$schema['belead_resume'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	$schema['belead_resume_content'] = array(
+			'fields' => array(
+				'id' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'auto_increment' => TRUE),
+				'name' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'gender' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'position' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'birthday' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'school' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'major' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'phone' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'email' => array('type' => 'varchar', 'length' => 100, 'not null' => TRUE, 'default' => ''),
+				'language' => array('type' => 'text', 'not null' => TRUE, 'default' => '', 'size' => 'big'),
+				'profession' => array('type' => 'text', 'not null' => TRUE, 'default' => '', 'size' => 'big'),
+				'experience' => array('type' => 'text', 'not null' => TRUE, 'default' => '', 'size' => 'big'),
+				),
+			'primary key' => array('id'),
+			);
+
+	return $schema;
+}

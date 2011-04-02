@@ -1,0 +1,227 @@
+<?php
+// $Id: counter.module,v 1.19 2009/03/27 11:06:28 thenicespider Exp $
+
+/**
+ * @file
+ * The counter module used for displaying Site Counter.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function counter_help($section) {
+  switch ($section) {
+    case 'admin/help#Counter':
+      $output = "The counter module used for displaying Site Counter.";
+	return $output;
+    case 'admin/modules#description':
+      return 'The counter module used for displaying Site Counter';
+  }
+}
+
+/**
+ * Implementation of hook_perm
+ */
+function counter_perm() {
+  return array('access counter', 'administer counter');
+}
+ 
+/**
+ * Menu callback. Prints a listing of active nodes on the site.
+ */
+
+function counter_menu() {
+  $items = array();
+
+  $items['admin/settings/counter'] = array(
+    'title' => 'Counter settings',
+    'description' => 'Show Site Counter, Client IP, and Unique Visitor.',
+    'access arguments' => array('administer counter'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('counter_admin_settings'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'counter.settings.inc',
+  );
+  
+  $items['counter/report'] = array(
+    'title' => 'Counter Report',
+    'description' => 'View Counter Report',
+    'access arguments' => array('administer counter'),
+    'page callback' => 'counter_report',
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'counter.report.inc',
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_block().
+ *
+ */
+function counter_block($op = 'list', $delta = 0) {
+  if ($op == 'list') 
+  {
+    $blocks[0]['info'] = t("Counter Report");
+	return $blocks;
+  }
+  
+  if ($op == 'view') 
+  {
+    $counter_show_site_counter   = variable_get('counter_show_site_counter',1);
+    $counter_show_unique_visitor = variable_get('counter_show_unique_visitor',1);
+	  $counter_registered_user     = variable_get('counter_registered_user',1);
+    $counter_unregistered_user   = variable_get('counter_unregistered_user',1);
+    $counter_published_node      = variable_get('counter_published_node',1);
+    $counter_unpublished_node    = variable_get('counter_unpublished_node',1);
+    
+    $counter_show_server_ip      = variable_get('counter_show_server_ip',1);
+    $counter_show_ip             = variable_get('counter_show_ip',1);
+    $counter_show_counter_since  = variable_get('counter_show_counter_since',1);
+    
+    $counter_show_administer_only = variable_get('counter_show_administer_only',0);
+    $counter_record_interval      = variable_get('counter_record_interval',1);
+    
+    $counter_initial_counter        = variable_get('counter_initial_counter', 0);
+    $counter_initial_unique_visitor = variable_get('counter_initial_unique_visitor', 0);
+    $counter_initial_since          = variable_get('counter_initial_since', '');
+    
+    switch($delta) {
+      case 0:
+        $block['subject'] = t("Counter");    
+        
+        $output  = '';
+        
+		$counter_ip     = $_SERVER['REMOTE_ADDR'];
+		$counter_svr_ip = $_SERVER['SERVER_ADDR'];	
+		
+		$counter_page = arg(0);	
+		if (arg(1)<>'') { $counter_page .= ",".arg(1); }
+		if (arg(2)<>'') { $counter_page .= ",".arg(2); }
+		if (arg(3)<>'') { $counter_page .= ",".arg(3); }
+		
+		if ($counter_record_interval == 0) { $counter_date = date('Y-m-d');}
+		if ($counter_record_interval == 1) { $counter_date = date('Y-m-d H:i');}
+		if ($counter_record_interval == 2) { $counter_date = date('Y-m-d H:i:s');}
+		
+		//Check database
+		$sql = " SELECT count(*) AS total FROM {counter}"
+          ." WHERE counter_ip='%s' AND counter_date='%s' AND counter_page='%s'";
+             
+    $results = db_query($sql,$counter_ip,$counter_date,$counter_page);
+
+		$data = db_fetch_object($results);
+		$counter_check = $data->total;
+		  
+		if (!$counter_check) {
+		  $sql = " INSERT IGNORE INTO {counter}  "
+            ." (counter_ip, counter_date, counter_page) VALUES "
+            ." ('%s', '%s', '%s') ";
+             
+      $results = db_query($sql,$counter_ip,$counter_date,$counter_page);		
+		}
+		  
+		$output  .= '<ul>';
+		if ($counter_show_site_counter) {
+		  $sql = " SELECT count(*) as total FROM {counter} c ";
+          $results = db_query($sql);
+          $data = db_fetch_object($results);
+		  $counter_total = $data->total;
+          /*$output .= '<li>'.t('Site Counter: '). number_format($counter_initial_counter+$counter_total).'</li>';*/
+          $output .= '<li class="counter"><span class="counter-span">'.t('Site Counter: '). number_format($counter_initial_counter+$counter_total).'</span></li>';
+		}
+		
+		/*
+		if ($counter_show_unique_visitor) {
+		  $sql = " SELECT count(*) as total FROM (SELECT counter_ip FROM {counter} GROUP BY counter_ip) c";
+          $results = db_query($sql);
+          $data = db_fetch_object($results);
+		  $counter_unique = $data->total;  
+		  $output .= '<li>'.t('Unique Visitor: '). number_format($counter_initial_unique_visitor+$counter_unique).'</li>';
+		}
+		*/
+		
+		if ($counter_registered_user) {
+		  $sql = " SELECT count(*) as total FROM {users} WHERE status=1 and uid<>0";
+          $results = db_query($sql);
+          $data    = db_fetch_object($results);
+		  $total   = $data->total;
+		  $output .= '<li class="counter"><span class="counter-span">'.t('Registered Users: '). number_format($total).'</span></li>';
+		  /*$output .= '<li>'.t('Registered Users: '). number_format($total).'</li>';*/
+		}
+		
+		/*
+		if ($counter_unregistered_user) {
+		  $sql = " SELECT count(*) as total FROM {users} WHERE status=0 and uid<>0";
+          $results = db_query($sql);
+          $data    = db_fetch_object($results);
+		  $total   = $data->total;
+		  $output .= '<li>'.t('Unregistered Users: '). number_format($total).'</li>';
+		}
+  		*/
+		
+		if ($counter_published_node) {
+		  $sql = " SELECT count(*) as total FROM {node} WHERE status=1";
+          $results = db_query($sql);
+          $data    = db_fetch_object($results);
+		  $total   = $data->total;
+		  $output .= '<li class="counter"><span class="counter-span">'.t('Published Nodes: '). number_format($total).'</span></li>';
+		  /*$output .= '<li>'.t('Published Nodes: '). number_format($total).'</li>';*/
+		}
+		
+		/*
+		if ($counter_unpublished_node) {
+		  $sql = " SELECT count(*) as total FROM {node} WHERE status=0";
+          $results = db_query($sql);
+          $data    = db_fetch_object($results);
+		  $total   = $data->total;
+		  $output .= '<li>'.t('Unpublished Nodes: '). number_format($total).'</li>';
+		}
+		*/
+		
+		
+		if ($counter_show_server_ip) {
+		  /*$output .= '<li>'.t("Server IP: ").$counter_svr_ip.'</li>';*/
+		  $output .= '<li class="counter"><span class="counter-span">'.t("Server IP: ").$counter_svr_ip.'</span></li>';	
+		}
+		
+		if ($counter_show_ip) {
+		  /*$output .= '<li>'.t("Your IP: ").$counter_ip.'</li>';*/	
+		  $output .= '<li class="counter"><span class="counter-span">'.t("Your IP: ").$counter_ip.'</span></li>';	
+		}
+		
+		if ($counter_show_counter_since) {
+		  $sql = " SELECT counter_date FROM {counter} order by counter_date ASC LIMIT 1";
+          $results = db_query($sql);
+          $data = db_fetch_object($results);
+		  $counter_since = $data->counter_date;
+		  
+		  if ($counter_initial_since=="") {
+		    /*$output .= '<li>'.t("Since: "). $counter_since.'</li>';*/
+		    $output .= '<li class="counter"><span class="counter-span">'.t("Since: "). $counter_since.'</span></li>';	
+		  } else {
+		    /*$output .= '<li>'.t("Since: "). $counter_initial_since.'</li>';*/
+		    $output .= '<li class="counter"><span class="counter-span">'.t("Since: "). $counter_initial_since.'</span></li>';	
+		  }		  
+		  
+		}
+				
+		$output  .= '</ul>';    
+            
+        $block['content'] = $output;
+        
+        break;  
+    }
+    
+    if ($counter_show_administer_only && !user_access('administer counter')) {
+		return;
+	} else {
+	  return $block;	
+	}
+    
+  }
+}
+
+
+
+?>

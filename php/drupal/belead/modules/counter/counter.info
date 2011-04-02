@@ -1,0 +1,14 @@
+; $Id: counter.info,v 1.17 2009/03/27 11:06:28 thenicespider Exp $
+name = Counter
+description = "This module used for displaying a Site Counter, Node Count, Unique Visitor and Client IP."
+core = 6.x
+version = "6.x-1.7"
+package = "Easy Module"
+project = "counter"
+
+; Information added by drupal.org packaging script on 2009-03-27
+version = "6.x-1.8"
+core = "6.x"
+project = "counter"
+datestamp = "1238152822"
+

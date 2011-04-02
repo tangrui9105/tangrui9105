@@ -1,0 +1,264 @@
+/* $Id: newswire_sunset.css,v 1.1 2008/08/21 21:59:27 jmburnz Exp $ */
+
+/*****************************
+
+  Newswire Sunset styles.css
+  Theme by AdaptiveThemes.com
+  
+  #FF5300 Shiny bright ornage
+  #FF7C00 Matt orange
+  #222    very dark gray
+  #BBB    medium light gray
+  #CCC    light gray
+  #EEE    silver
+  #FFF    white
+  #f7f7f7 light silver
+
+******************************/
+
+/*** Site slogan ***/
+.branding em {
+  color: #FF7C00;
+}
+
+/*** Search Box Top ***/
+#search-box-top #edit-search-theme-form-1 {
+  color: #222;
+  border-color: #FF5300;
+}
+
+#block-search-0 .form-submit,
+#search .form-submit {
+  color: #FFF;
+  background-color: #FF7C00;
+  border: 1px solid #FF5300; 
+}
+
+/*** Primary Menu Links  ***/
+#main-navigation { 
+  background: #FF7C00;
+}
+
+#primary-menu {
+  border-left: 15px solid #FF5300;  
+}
+
+#primary-menu ul.links li a {
+  color: #FFF;
+  background: #FF7C00;
+}
+
+#primary-menu ul.links li a:hover {
+  color: #FFF;
+  background: #FF5300;
+}
+
+/*** Secondary Menu Links ***/
+#secondary-menu { 
+  border-bottom: 2px solid #FF7C00; 
+}
+
+#secondary-menu ul.links li a:link,
+#secondary-menu ul.links li a:visited,
+#secondary-menu ul.links li a:active {
+  color: #FF7C00;
+}
+
+#secondary-menu ul.links li {
+   border-right: 1px solid #F7F7F7;
+}
+
+/*** Suckerfish drop menus ***/
+#suckerfish {
+  border-left: 15px solid #FF5300;  
+}
+#suckerfish .block .content {
+  padding: 0;
+}
+#suckerfish a         { background: #FF7C00; color: #FFF; }
+#suckerfish a:active, 
+#suckerfish a:hover   { background: #FF5300; color: #FFF;}
+#suckerfish ul.menu li li a:link, 
+#suckerfish ul.menu li li a:visited { 
+  color: #FFF; 
+  background: #FF7C00; 
+}
+#suckerfish ul.menu li li          { }
+#suckerfish ul.menu li ul a        { color: #FFF; border-bottom: 1px solid #FF5300; }
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover   { color: #FF5300; background: #FFF5EC; }
+
+#suckerfish ul.menu li li.expanded a { 
+  background: #FF7C00; 
+}
+#suckerfish ul.menu li li.expanded a:active, 
+#suckerfish ul.menu li li.expanded a:hover { 
+  background: #FFF5EC; 
+}
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  background: #FFF5EC;
+  text-decoration: none;  
+}
+#suckerfish ul.menu li li.expanded ul.menu a { 
+  background: #FF7C00; 
+}
+#suckerfish ul.menu li li.expanded ul.menu a:active, 
+#suckerfish ul.menu li li.expanded ul.menu a:hover { 
+  background: #FFF5EC; 
+}
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a { 
+  background: #FF7C00; 
+}
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:active, 
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:hover { 
+  background: #FFF5EC;
+}
+
+/*** The Main Columns 
+     Column specific styles ***/
+
+/*** Column 2 ***/
+#content h1.category {
+  background: #f7f7f7; 
+  border: 1px solid #CCC;
+}
+
+#content h1.category em {
+  color: #FF7C00;
+  background: #f7f7f7; 
+}
+
+#content h1.category span {
+  color: #222;
+}
+
+/*** Column 3 ***/
+#right_2 { 
+  background: #F7F7F7; 
+  border: 1px solid #EEE;
+}
+
+#right_2 .block .block-wrapper { 
+  background: transparent;
+}
+
+#right_2 .block ul li {
+  color: #EEE;
+}
+
+#right_2 .block h3.title {
+  background: transparent;
+  border-bottom: 1px solid #EEE;
+}
+
+#right_2 .block h3.title span {
+}
+
+/***  Mission ***/
+.mission { 
+  color: #222;
+  background: transparent; 
+  border-bottom: 2px solid #F7F7F7;
+}
+
+.mission a:link,
+.mission a:visited,
+.mission a:hover {
+  color: #222;
+}
+
+/*** Nodes ***/
+div.node {
+  border-bottom:1px solid #F7F7F7;
+}
+
+/*** Comments ***/
+div.comment.odd {
+  background: #EEE;
+}
+
+div.comment.even {
+  background: #F7F7F7;
+}
+
+div.comment.comment-mine {
+  background: #CCC;
+}
+
+/*** Forum ***/
+.forum-topic-navigation {
+  border-bottom:1px solid #CCC;
+  border-top:1px solid #CCC;
+}
+
+/*** Book module ***/
+.book-navigation .page-links {
+  background: #F7F7F7;
+}
+.book-navigation .menu {
+  border-color: #F7F7F7;
+}
+
+/*** Blocks ***/
+.block h3.title {
+  color: #222;
+  background: #F7F7F7;
+  border-bottom: 1px solid #EEE;
+}
+
+.block {
+  padding: 0;
+  border: 1px solid #EEE;
+}
+
+.block ul li {
+  color: #EEE;
+}
+
+/*** Footer ***/
+#footer-message {
+  color: #BBB;
+}
+
+#adaptivethemes a:link, 
+#adaptivethemes a:active, 
+#adaptivethemes a:visited {
+  color: #BBB;
+}
+
+#adaptivethemes a:hover {
+  color: #CCC;
+}
+
+/*** Tables  
+  #CCC dark tan
+  #EEE med tan
+  #F7F7F7 light tan
+***/
+thead th     { border-bottom: 2px solid #CCC; }
+tr.even,
+tr.odd,
+tbody, 
+tbody th     { border: none; }
+tr.odd       { background-color: #F7F7F7; }
+tr.info      { background-color: #CCC; }
+tr.even      { background-color: #fff; }
+
+tr.odd td.active  { background-color: #EEE; }
+tr.even td.active { background-color: #CCC; }
+
+td.region, td.module, td.container {
+  border-bottom: none;
+  background-color: #F7F7F7;
+  color: #222;
+}
+
+table.system-status-report th {
+  border-bottom: none;
+}
+
+/*** Fieldsets ***/
+fieldset, fieldset legend {
+  border:1px solid #CCC;
+}

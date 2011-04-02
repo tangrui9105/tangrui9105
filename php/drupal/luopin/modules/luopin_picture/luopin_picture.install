@@ -1,0 +1,42 @@
+<?php
+// $Id: luopin_picture.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function luopin_picture_install() {
+	drupal_install_schema('luopin_picture');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function luopin_picture_uninstall() {
+	drupal_uninstall_schema('luopin_picture');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function luopin_picture_schema() {  
+	$schema['luopin_picture'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	$schema['luopin_picture_content'] = array(
+			'fields' => array(
+				'id' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'auto_increment' => TRUE),
+				'name' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'location' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'description' => array('type' => 'text', 'not null' => FALSE, 'default' => '', 'size' => 'big'),
+				'time' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				),
+			'primary key' => array('id'),
+			);
+
+	return $schema;
+}

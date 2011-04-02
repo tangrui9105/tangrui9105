@@ -1,0 +1,102 @@
+<?php
+
+// $Id: tracker2.install,v 1.9 2009/01/12 22:09:35 toddnienkerk Exp $
+
+/**
+ * @file
+ * The (un)install and update code for the tracker2 module.
+ *
+ * @ingroup tracker2
+ */
+
+function tracker2_install() {
+  drupal_install_schema('tracker2');
+  tracker2_update_6001();
+}
+
+function tracker2_uninstall() {
+  drupal_uninstall_schema('tracker2');
+  variable_del('tracker2_index_nid');
+  variable_del('tracker2_batch_size');
+  variable_del('tracker2_pager');
+  db_drop_index($ret, 'comments', 'tracker_changed');
+  db_drop_index($ret, 'comments', 'tracker_subscription');
+}
+
+function tracker2_enable() {
+  $max_nid = db_result(db_query('SELECT MAX(nid) FROM {node}'));
+  variable_set('tracker2_index_nid', $max_nid);
+  if ($max_nid) {
+    drupal_set_message(t('Tracker will index from node %nid downward.', array('%nid' => $max_nid)));
+  }
+}
+
+function tracker2_update_6001() {
+  $ret = array();
+  db_add_index($ret, 'comments', 'tracker_changed', array('nid', 'status', 'timestamp'));
+  db_add_index($ret, 'comments', 'tracker_subscription', array('uid', 'nid', 'status'));
+  return $ret;
+}
+
+function tracker2_schema() {
+  $schema['tracker2_node'] = array(
+    'description' => 'Track changes to content',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "{node}.nid",
+      ),
+      'published' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'description' => "True if {node}.status == 1",
+      ),
+      'changed' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "{node}.changed",
+      ),
+    ),
+    'primary key' => array('nid'),
+    'indexes' => array(
+      'tracker' => array('published', 'changed'),
+    ),
+  );
+  $schema['tracker2_user'] = array(
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "{node}.nid"
+      ),
+     'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "{user}.uid",
+      ),
+      'published' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'description' => "True if {node}.status == 1",
+      ),
+      'changed' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "{node}.changed",
+      ),
+    ),
+    'primary key' => array('nid', 'uid'),
+    'indexes' => array(
+      'tracker' => array('uid', 'published', 'changed'),
+    ),
+  );
+  return $schema;
+}

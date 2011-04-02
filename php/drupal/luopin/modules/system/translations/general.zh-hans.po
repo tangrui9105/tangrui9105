@@ -1,0 +1,1795 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  install.php,v 1.113.2.2 2008/02/08 22:00:45 goba
+#  taxonomy.admin.inc,v 1.22.2.1 2008/02/07 20:46:57 goba
+#  system.admin.inc,v 1.63.2.1 2008/03/25 11:58:16 goba
+#  system.js,v 1.14.2.1 2008/02/07 18:23:30 goba
+#  install.inc,v 1.56.2.2 2008/02/11 15:10:26 goba
+#  system.module,v 1.585.2.11 2008/04/09 21:11:49 goba
+#  node.module,v 1.947.2.6 2008/04/09 21:11:48 goba
+#  user.admin.inc,v 1.18 2008/01/16 22:54:41 goba
+#  user.module,v 1.892.2.2 2008/04/09 21:11:51 goba
+#  block.admin.inc,v 1.14.2.1 2008/02/27 12:07:42 goba
+#  comment.module,v 1.617.2.1 2008/04/09 21:11:46 goba
+#  locale.module,v 1.212.2.1 2008/04/09 21:11:48 goba
+#  statistics.admin.inc,v 1.6 2008/01/08 10:35:42 goba
+#  statistics.module,v 1.272 2008/01/04 09:31:48 goba
+#  system.install,v 1.238.2.1 2008/02/08 17:07:55 goba
+#  upload.module,v 1.197.2.1 2008/02/11 15:08:09 goba
+#  locale.inc,v 1.174 2008/01/09 21:36:13 goba
+#  menu.admin.inc,v 1.26.2.3 2008/02/11 15:12:53 goba
+#  actions.inc,v 1.8 2007/12/31 14:51:04 goba
+#  trigger.admin.inc,v 1.5 2008/01/08 10:35:43 goba
+#  batch.inc,v 1.14 2007/12/20 11:57:20 goba
+#  unicode.inc,v 1.29 2007/12/28 12:02:50 dries
+#  common.inc,v 1.756.2.9 2008/04/09 21:11:44 goba
+#  upload.admin.inc,v 1.7 2008/01/10 20:22:57 goba
+#  dblog.admin.inc,v 1.6 2008/01/08 10:35:41 goba
+#  update.report.inc,v 1.10.2.1 2008/02/05 09:59:21 goba
+#  image.inc,v 1.24 2008/01/28 16:05:17 goba
+#  php.module,v 1.8.2.1 2008/02/05 09:29:50 goba
+#  database.mysql.inc,v 1.89 2008/01/24 10:46:54 goba
+#  database.mysqli.inc,v 1.54 2008/01/23 09:59:29 goba
+#  file.inc,v 1.121.2.1 2008/02/07 18:20:37 goba
+#  user.pages.inc,v 1.11 2008/01/08 10:35:43 goba
+#  form.inc,v 1.265.2.4 2008/02/11 14:45:57 goba
+#  filter.module,v 1.204.2.1 2008/04/09 21:11:47 goba
+#  node.admin.inc,v 1.19.2.1 2008/03/21 22:01:05 goba
+#  filter.admin.inc,v 1.8.2.1 2008/02/12 14:25:34 goba
+#  profile.admin.inc,v 1.8 2008/01/21 15:20:43 goba
+#  aggregator.admin.inc,v 1.7 2008/01/10 22:47:17 goba
+#  book.admin.inc,v 1.8 2008/01/08 10:35:41 goba
+#  comment.admin.inc,v 1.4 2008/01/08 10:35:41 goba
+#  contact.admin.inc,v 1.3 2007/11/09 07:55:13 dries
+#  content_types.inc,v 1.50.2.1 2008/02/13 11:23:28 goba
+#  path.admin.inc,v 1.7 2008/01/08 10:35:42 goba
+#  translation.pages.inc,v 1.2 2008/01/07 13:18:40 goba
+#  node.pages.inc,v 1.28.2.1 2008/02/27 19:44:44 goba
+#  block-admin-display-form.tpl.php,v 1.3 2008/01/16 22:57:26 goba
+#  book.module,v 1.454.2.3 2008/03/25 14:03:02 goba
+#  forum.admin.inc,v 1.8 2008/01/30 10:14:42 goba
+#  menu.module,v 1.157.2.2 2008/04/09 21:11:48 goba
+#  openid.pages.inc,v 1.5 2008/01/30 22:11:22 goba
+#  statistics.pages.inc,v 1.2 2007/10/20 21:57:50 goba
+#  search.admin.inc,v 1.4 2008/01/08 10:35:42 goba
+#  blogapi.module,v 1.115.2.1 2008/02/07 20:11:02 goba
+#  forum-submitted.tpl.php,v 1.3 2007/08/07 08:39:35 goba
+#  search.module,v 1.250.2.2 2008/04/09 21:11:49 goba
+#  search.info,v 1.4 2007/06/08 05:50:55 dries
+#  mail.inc,v 1.8.2.2 2008/04/02 08:41:30 goba
+#  contact.pages.inc,v 1.6.2.1 2008/02/12 14:42:50 goba
+#  menu.inc,v 1.255.2.11 2008/04/09 21:11:44 goba
+#  blog.module,v 1.297.2.1 2008/04/09 21:11:45 goba
+#  comment.pages.inc,v 1.2.2.1 2008/02/07 18:53:38 goba
+#  forum.module,v 1.448.2.3 2008/04/09 21:11:47 goba
+#  maintenance-page.tpl.php,v 1.2 2008/01/24 09:42:51 goba
+#  page.tpl.php,v 1.11 2008/01/24 09:42:51 goba
+#  taxonomy.pages.inc,v 1.9 2008/01/18 16:23:57 goba
+#  page.tpl.php,v 1.28 2008/01/24 09:42:52 goba
+#  chameleon.theme,v 1.76 2008/01/24 09:42:53 goba
+#  page.tpl.php,v 1.25 2008/01/24 09:42:53 goba
+#  pager.inc,v 1.63 2007/12/06 09:58:30 goba
+#  book-navigation.tpl.php,v 1.1 2007/11/04 14:29:09 goba
+#  theme.inc,v 1.415.2.2 2008/03/25 11:55:08 goba
+#  aggregator-item.tpl.php,v 1.1 2007/09/13 08:02:38 goba
+#  aggregator.pages.inc,v 1.12 2008/01/08 10:35:40 goba
+#  aggregator.module,v 1.374.2.1 2008/04/09 21:11:44 goba
+#  profile.module,v 1.236.2.1 2008/04/09 21:11:49 goba
+#  update.fetch.inc,v 1.7.2.1 2008/04/09 18:36:58 goba
+#  aggregator.info,v 1.4 2007/06/08 05:50:53 dries
+#  blog.info,v 1.5 2007/06/08 05:50:53 dries
+#  blogapi.info,v 1.4 2007/06/08 05:50:53 dries
+#  book.info,v 1.5 2007/07/30 18:20:21 dries
+#  color.info,v 1.3 2007/06/08 05:50:54 dries
+#  comment.info,v 1.4 2007/06/08 05:50:54 dries
+#  contact.info,v 1.4 2007/06/08 05:50:54 dries
+#  dblog.info,v 1.2 2007/06/08 05:50:54 dries
+#  forum.info,v 1.6 2007/06/08 05:50:54 dries
+#  help.info,v 1.4 2007/06/08 05:50:54 dries
+#  locale.info,v 1.6 2007/11/05 08:43:48 goba
+#  menu.info,v 1.4 2007/06/08 05:50:55 dries
+#  openid.info,v 1.2 2007/06/22 22:26:43 unconed
+#  path.info,v 1.4 2007/06/08 05:50:55 dries
+#  php.info,v 1.2 2007/06/08 05:50:55 dries
+#  ping.info,v 1.4 2007/06/08 05:50:55 dries
+#  poll.info,v 1.4 2007/06/08 05:50:55 dries
+#  profile.info,v 1.4 2007/06/08 05:50:55 dries
+#  statistics.info,v 1.4 2007/06/08 05:50:56 dries
+#  syslog.info,v 1.2 2007/06/08 05:50:56 dries
+#  taxonomy.info,v 1.4 2007/06/08 05:50:56 dries
+#  throttle.info,v 1.4 2007/06/08 05:50:57 dries
+#  tracker.info,v 1.5 2007/07/04 10:54:26 goba
+#  translation.info,v 1.1 2007/06/15 18:40:14 goba
+#  trigger.info,v 1.1 2007/09/11 14:50:05 goba
+#  update.info,v 1.1 2007/07/11 15:15:40 dries
+#  upload.info,v 1.4 2007/06/08 05:50:57 dries
+#  block.info,v 1.4 2007/06/08 05:50:53 dries
+#  throttle.module,v 1.83 2007/12/14 18:08:49 goba
+#  filter.info,v 1.4 2007/06/08 05:50:54 dries
+#  node.info,v 1.4 2007/06/08 05:50:55 dries
+#  system.info,v 1.4 2007/06/08 05:50:56 dries
+#  user.info,v 1.4 2007/06/08 05:50:57 dries
+#  blog.pages.inc,v 1.6.2.1 2008/02/08 21:15:12 goba
+#  color.module,v 1.39 2008/01/23 09:43:25 goba
+#  update.settings.inc,v 1.3 2007/10/20 21:57:50 goba
+#  tracker.pages.inc,v 1.5 2007/11/28 10:29:20 dries
+#  openid.module,v 1.19.2.1 2008/04/09 21:11:48 goba
+#  taxonomy.module,v 1.414.2.1 2008/04/09 21:11:51 goba
+#  contact.module,v 1.103.2.1 2008/04/09 21:11:46 goba
+#  dblog.module,v 1.21.2.2 2008/04/09 21:11:46 goba
+#  forum-list.tpl.php,v 1.4 2007/08/30 18:58:12 goba
+#  forum.install,v 1.16 2007/12/31 16:58:34 goba
+#  taxonomy.install,v 1.7 2008/01/08 07:46:41 goba
+#  help.module,v 1.78.2.1 2008/04/09 21:11:48 goba
+#  menu.install,v 1.9 2008/01/30 20:27:28 goba
+#  poll.module,v 1.263 2008/01/15 07:57:46 dries
+#  trigger.module,v 1.13.2.1 2008/04/09 21:11:51 goba
+#  poll-bar.tpl.php,v 1.2 2007/08/07 08:39:35 goba
+#  poll.pages.inc,v 1.4 2007/12/14 09:50:41 goba
+#  poll-results-block.tpl.php,v 1.2 2007/08/02 20:08:53 dries
+#  poll-results.tpl.php,v 1.2 2007/08/07 08:39:35 goba
+#  profile.pages.inc,v 1.2 2007/12/08 14:06:22 goba
+#  search.pages.inc,v 1.4 2007/12/06 09:51:01 goba
+#  default.profile,v 1.22 2007/12/17 12:43:34 goba
+#  syslog.module,v 1.14.2.1 2008/04/09 21:11:49 goba
+#  chameleon.info,v 1.4 2007/07/01 23:27:31 goba
+#  marvin.info,v 1.4 2007/06/08 05:50:57 dries
+#  update.module,v 1.17 2008/01/30 10:14:42 goba
+#  block.module,v 1.299.2.2 2008/04/09 21:11:45 goba
+#  path.module,v 1.138.2.1 2008/04/09 21:11:48 goba
+#  bluemarine.info,v 1.4 2007/06/08 05:50:57 dries
+#  color.inc,v 1.4 2007/12/14 17:00:14 goba
+#  template.php,v 1.16 2007/10/11 09:51:29 goba
+#  garland.info,v 1.5 2007/07/01 23:27:32 goba
+#  minnelli.info,v 1.7 2007/12/04 20:58:44 goba
+#  pushbutton.info,v 1.4 2007/06/08 05:50:58 dries
+#  tracker.module,v 1.154.2.1 2008/04/09 21:11:51 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-26 23:35-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: install.php:287; modules/taxonomy/taxonomy.admin.inc:676
+msgid "Advanced options"
+msgstr "高级选项"
+
+#: install.php:714; modules/system/system.admin.inc:1678;
+#: modules/system/system.js:0
+msgid "Your server has been successfully tested to support this feature."
+msgstr "您的服务器环境已经通过测试，支持这项功能。"
+
+#: install.php:714; modules/system/system.js:0
+msgid ""
+"Your system configuration does not currently support this feature. The <a "
+"href=\"http://drupal.org/node/15365\">handbook page on Clean URLs</a> has "
+"additional troubleshooting information."
+msgstr ""
+"您的系统当前不支持该功能。 更多详细信息请参阅<a href=\"http://drupal.org/"
+"node/15365\">简洁URLs手册</a> 。"
+
+#: install.php:714; modules/system/system.js:0
+msgid "Testing clean URLs..."
+msgstr "测试简洁链接。。。"
+
+#: install.php:902,914; includes/install.inc:727
+msgid "Currently using !item !version"
+msgstr "当前使用 !item !version"
+
+#: install.php:992; modules/system/system.module:379
+msgid "Site information"
+msgstr "站点信息"
+
+#: install.php:997; modules/system/system.admin.inc:378
+msgid "Site name"
+msgstr "站点名称"
+
+#: install.php:1005; modules/system/system.admin.inc:1138
+msgid ""
+"The <em>From</em> address in automated e-mails sent during registration and "
+"new password requests, and other notifications. (Use an address ending in "
+"your site's domain to help prevent this e-mail being flagged as spam.)"
+msgstr ""
+"<em>邮件发送</em>地址是用于在用户注册、重置密码和其他提醒时网站自动发送邮件所"
+"使用的邮件地址（使用以您的站点域名为结尾的地址可以防止该邮件被标记为垃圾邮"
+"件。）"
+
+#: install.php:1021; modules/node/node.module:2674,2683;
+#: modules/user/user.admin.inc:134,763,791,908;
+#: modules/user/user.module:651,1246,1430
+msgid "Username"
+msgstr "用户名"
+
+#: install.php:1023; modules/user/user.module:1433
+msgid ""
+"Spaces are allowed; punctuation is not allowed except for periods, hyphens, "
+"and underscores."
+msgstr "允许空格，不允许\".\"、“-”、“_”以外的其他符号。"
+
+#: install.php:1029; modules/system/system.admin.inc:1136;
+#: modules/user/user.module:1438
+msgid "E-mail address"
+msgstr "邮件地址"
+
+#: install.php:1049; modules/system/system.admin.inc:1499
+msgid "Default time zone"
+msgstr "默认时区"
+
+#: install.php:1058; modules/system/system.admin.inc:1661;
+#: modules/system/system.module:457
+msgid "Clean URLs"
+msgstr "简洁链接"
+
+#: install.php:1060; modules/block/block.admin.inc:357;
+#: modules/comment/comment.module:501,553,585;
+#: modules/locale/locale.module:275;
+#: modules/statistics/statistics.admin.inc:185;
+#: modules/statistics/statistics.module:255;
+#: modules/system/system.admin.inc:1276,1293,1307,1325,1333,1509,1663;
+#: modules/system/system.install:60; modules/upload/upload.module:214;
+#: modules/user/user.admin.inc:412,430
+msgid "Disabled"
+msgstr "禁用"
+
+#: install.php:1060; includes/locale.inc:90;
+#: modules/comment/comment.module:553; modules/locale/locale.module:275;
+#: modules/menu/menu.admin.inc:176,293;
+#: modules/statistics/statistics.admin.inc:185;
+#: modules/system/system.admin.inc:1293,1325,1333,1509,1663,2018,2207;
+#: modules/system/system.install:282; modules/upload/upload.module:214;
+#: modules/user/user.admin.inc:412,430
+msgid "Enabled"
+msgstr "启用"
+
+#: install.php:1061; modules/system/system.admin.inc:1664
+msgid ""
+"This option makes Drupal emit \"clean\" URLs (i.e. without <code>?q=</code> "
+"in the URL)."
+msgstr "此选项使得Drupal显示“简洁”的网址（即在URL中没有<code>?q= </code> ） 。"
+
+#: install.php:1070; modules/system/system.install:293
+msgid "Update notifications"
+msgstr "更新通知"
+
+#: includes/actions.inc:46,275,297,329,337;
+#: modules/trigger/trigger.admin.inc:87
+msgid "actions"
+msgstr "动作"
+
+#: includes/batch.inc:101; includes/unicode.inc:86
+msgid "Error"
+msgstr "错误"
+
+#: includes/common.inc:335; modules/system/system.admin.inc:1645
+msgid ""
+"@site is currently under maintenance. We should be back shortly. Thank you "
+"for your patience."
+msgstr "@site 正在维护，我们会很快回来，谢谢您的等待。"
+
+#: includes/common.inc:1090; modules/upload/upload.admin.inc:98,107,136,145
+msgid "MB"
+msgstr "MB"
+
+#: includes/common.inc:3457; modules/dblog/dblog.admin.inc:36;
+#: modules/system/system.module:1675,1709; modules/update/update.report.inc:57
+msgid "error"
+msgstr "错误"
+
+#: includes/common.inc:3458; modules/dblog/dblog.admin.inc:35;
+#: modules/update/update.report.inc:63
+msgid "warning"
+msgstr "警告"
+
+#: includes/common.inc:609; includes/image.inc:95;
+#: includes/unicode.inc:151,184; modules/php/php.module:0
+msgid "php"
+msgstr "PHP"
+
+#: includes/database.mysql.inc:26; includes/database.mysqli.inc:29
+msgid "MySQL database"
+msgstr "MySQL 数据库"
+
+#: includes/database.mysql.inc:32; includes/database.mysqli.inc:35
+msgid "Your MySQL Server is too old. Drupal requires at least MySQL %version."
+msgstr "MySQL 版本太低。 Drupal 至少需要 MySQL %version."
+
+#: includes/file.inc:109; modules/system/system.install:198
+msgid "The directory %directory does not exist."
+msgstr "%directory目录不存在。"
+
+#: includes/file.inc:122,226; modules/system/system.module:1241
+msgid "file system"
+msgstr "文件系统"
+
+#: includes/file.inc:136; modules/user/user.pages.inc:261,330;
+#: modules/user/user.module:1774,2283
+msgid "security"
+msgstr "安全"
+
+#: includes/form.inc:1568; modules/user/user.module:657,1255
+msgid "Password"
+msgstr "密码"
+
+#: includes/form.inc:691,697; modules/filter/filter.module:530
+msgid ""
+"An illegal choice has been detected. Please contact the site administrator."
+msgstr "发现一个非法的选择。请联系网站管理员。"
+
+#: includes/form.inc:2406; modules/node/node.admin.inc:366
+msgid "Processing"
+msgstr "处理中"
+
+#: includes/form.inc:692,698; modules/filter/filter.module:531
+msgid "form"
+msgstr "表单"
+
+#: includes/form.inc:698; modules/filter/filter.module:531
+msgid "Illegal choice %choice in %name element."
+msgstr "在%name元素中的非法选项%choice。"
+
+#: includes/locale.inc:58; modules/filter/filter.admin.inc:155,351;
+#: modules/menu/menu.admin.inc:50; modules/profile/profile.admin.inc:44;
+#: modules/system/system.admin.inc:253,276,768;
+#: modules/system/system.module:1033
+msgid "Save configuration"
+msgstr "保存配置"
+
+#: includes/locale.inc:86,1984; modules/aggregator/aggregator.admin.inc:30,41;
+#: modules/book/book.admin.inc:215; modules/comment/comment.admin.inc:71;
+#: modules/comment/comment.module:828,839;
+#: modules/contact/contact.admin.inc:16; modules/menu/menu.admin.inc:97;
+#: modules/node/content_types.inc:28; modules/node/node.admin.inc:505;
+#: modules/path/path.admin.inc:44; modules/profile/profile.admin.inc:30;
+#: modules/taxonomy/taxonomy.admin.inc:203,207,401,769,773;
+#: modules/translation/translation.pages.inc:38;
+#: modules/user/user.admin.inc:185,891; modules/user/user.module:1406,2305
+msgid "edit"
+msgstr "编辑"
+
+#: includes/locale.inc:86,1985; modules/block/block.admin.inc:79;
+#: modules/book/book.admin.inc:216; modules/comment/comment.module:824;
+#: modules/contact/contact.admin.inc:16; modules/filter/filter.admin.inc:35;
+#: modules/menu/menu.admin.inc:100; modules/node/content_types.inc:32;
+#: modules/node/node.pages.inc:556; modules/path/path.admin.inc:44;
+#: modules/profile/profile.admin.inc:31; modules/system/system.module:1343;
+#: modules/user/user.admin.inc:891
+msgid "delete"
+msgstr "删除"
+
+#: includes/locale.inc:90; modules/filter/filter.admin.inc:69;
+#: modules/system/system.admin.inc:2207
+msgid "Default"
+msgstr "默认"
+
+#: includes/locale.inc:90; modules/block/block-admin-display-form.tpl.php:43;
+#: modules/book/book.admin.inc:196; modules/book/book.module:387;
+#: modules/contact/contact.admin.inc:58; modules/filter/filter.admin.inc:362;
+#: modules/forum/forum.admin.inc:52,134; modules/menu/menu.admin.inc:178,320;
+#: modules/menu/menu.module:416; modules/node/node.module:1314;
+#: modules/profile/profile.admin.inc:150,265;
+#: modules/taxonomy/taxonomy.admin.inc:90,171,705;
+#: modules/upload/upload.module:530
+msgid "Weight"
+msgstr "权重"
+
+#: includes/locale.inc:90,1970; modules/aggregator/aggregator.admin.inc:27,38;
+#: modules/block/block-admin-display-form.tpl.php:47;
+#: modules/book/book.admin.inc:17,196; modules/comment/comment.admin.inc:58;
+#: modules/contact/contact.admin.inc:18; modules/dblog/dblog.admin.inc:52,160;
+#: modules/filter/filter.admin.inc:69; modules/menu/menu.admin.inc:179;
+#: modules/node/content_types.inc:15; modules/node/node.admin.inc:570;
+#: modules/node/node.pages.inc:526; modules/openid/openid.pages.inc:42;
+#: modules/path/path.admin.inc:32; modules/profile/profile.admin.inc:152;
+#: modules/statistics/statistics.admin.inc:17,82;
+#: modules/statistics/statistics.pages.inc:16,48;
+#: modules/system/system.admin.inc:2207; modules/system/system.module:1334;
+#: modules/taxonomy/taxonomy.admin.inc:93,612;
+#: modules/translation/translation.pages.inc:27;
+#: modules/user/user.admin.inc:139,886,913,950
+msgid "Operations"
+msgstr "操作"
+
+#: includes/locale.inc:166; modules/locale/locale.module:99
+msgid "Add language"
+msgstr "添加语言"
+
+#: includes/locale.inc:403;
+#: modules/aggregator/aggregator.admin.inc:102,142,275,306;
+#: modules/block/block.admin.inc:328; modules/comment/comment.admin.inc:248;
+#: modules/contact/contact.admin.inc:138; modules/filter/filter.admin.inc:252;
+#: modules/forum/forum.admin.inc:10,60,148,168;
+#: modules/menu/menu.admin.inc:265,393,460;
+#: modules/node/content_types.inc:393; modules/node/node.admin.inc:129;
+#: modules/node/node.pages.inc:246,504,590;
+#: modules/openid/openid.pages.inc:47; modules/profile/profile.admin.inc:374;
+#: modules/system/system.module:1534;
+#: modules/taxonomy/taxonomy.admin.inc:187,220,720,749,842,877;
+#: modules/upload/upload.module:530; modules/user/user.admin.inc:870;
+#: modules/user/user.pages.inc:244,311; modules/node/node.module:1498,1528;
+#: modules/user/user.module:1068
+msgid "Delete"
+msgstr "删除"
+
+#: includes/locale.inc:403; modules/aggregator/aggregator.admin.inc:191;
+#: modules/block/block.admin.inc:328;
+#: modules/comment/comment.admin.inc:190,249;
+#: modules/contact/contact.admin.inc:138; modules/filter/filter.admin.inc:252;
+#: modules/forum/forum.admin.inc:168; modules/node/node.admin.inc:81,622;
+#: modules/node/node.pages.inc:505,570,590;
+#: modules/profile/profile.admin.inc:374; modules/search/search.admin.inc:14;
+#: modules/system/system.admin.inc:845,1082;
+#: modules/system/system.module:1152,1534;
+#: modules/taxonomy/taxonomy.admin.inc:843,878,913;
+#: modules/trigger/trigger.admin.inc:77; modules/user/user.admin.inc:871;
+#: modules/user/user.pages.inc:311; modules/user/user.module:1855
+msgid "Cancel"
+msgstr "取消"
+
+#: includes/locale.inc:458; modules/comment/comment.module:1623
+msgid "Save settings"
+msgstr "保存设置"
+
+#: includes/locale.inc:489,557,1970; modules/locale/locale.module:241,260,287;
+#: modules/node/node.admin.inc:568; modules/path/path.admin.inc:36;
+#: modules/translation/translation.pages.inc:27
+msgid "Language"
+msgstr "语言"
+
+#: includes/locale.inc:503; modules/blogapi/blogapi.module:254;
+#: modules/filter/filter.module:459; modules/forum/forum-submitted.tpl.php:27;
+#: modules/translation/translation.pages.inc:48
+msgid "n/a"
+msgstr "空"
+
+#: includes/locale.inc:546,573;
+#: modules/search/search.module:159,1049,1069,169;
+#: modules/search/search.info:0; modules/locale/locale.module:143
+msgid "Search"
+msgstr "搜索"
+
+#: includes/locale.inc:559; modules/locale/locale.module:261
+msgid "All languages"
+msgstr "所有语言"
+
+#: includes/locale.inc:636; modules/locale/locale.module:151
+msgid "Import"
+msgstr "导入"
+
+#: includes/locale.inc:719,738; modules/locale/locale.module:159
+msgid "Export"
+msgstr "导出"
+
+#: includes/locale.inc:1970; modules/locale/locale.module:593,87
+msgid "Languages"
+msgstr "语言"
+
+#: includes/locale.inc:423,662,942,999,1816,1820,2161,2164,2167,2170;
+#: modules/locale/locale.module:519,0
+msgid "locale"
+msgstr "本地"
+
+#: includes/mail.inc:134; modules/contact/contact.admin.inc:115,121,148;
+#: modules/contact/contact.pages.inc:146,231
+msgid "mail"
+msgstr "邮件"
+
+#: includes/menu.inc:1483; modules/blog/blog.module:108;
+#: modules/book/book.module:625; modules/comment/comment.pages.inc:53;
+#: modules/forum/forum.module:198,655;
+#: modules/system/maintenance-page.tpl.php:34,35,42;
+#: modules/system/page.tpl.php:95,96,103;
+#: modules/taxonomy/taxonomy.pages.inc:40;
+#: themes/bluemarine/page.tpl.php:19,20; themes/chameleon/chameleon.theme:42;
+#: themes/pushbutton/page.tpl.php:21,27
+msgid "Home"
+msgstr "首页"
+
+#: includes/pager.inc:396; modules/book/book-navigation.tpl.php:40
+msgid "Go to previous page"
+msgstr "返回上一个页面"
+
+#: includes/pager.inc:397; modules/book/book-navigation.tpl.php:46
+msgid "Go to next page"
+msgstr "去下一个页面"
+
+#: includes/theme.inc:1377; modules/comment/comment.module:1684,1709
+msgid "new"
+msgstr "新建"
+
+#: includes/theme.inc:1555; modules/user/user.module:819
+msgid "View user profile."
+msgstr "浏览用户信息"
+
+#: includes/theme.inc:1576; modules/comment/comment.module:1341,1350,1452;
+#: modules/node/node.pages.inc:183; modules/system/system.admin.inc:1162;
+#: modules/system/system.module:1777; modules/user/user.module:816
+msgid "Anonymous"
+msgstr "匿名用户"
+
+#: modules/aggregator/aggregator-item.tpl.php:42;
+#: modules/aggregator/aggregator.pages.inc:63;
+#: modules/aggregator/aggregator.module:151
+msgid "Categories"
+msgstr "分类"
+
+#: modules/aggregator/aggregator.admin.inc:27,38,63,263;
+#: modules/book/book.admin.inc:196; modules/filter/filter.module:220;
+#: modules/menu/menu.admin.inc:413; modules/node/content_types.inc:58;
+#: modules/node/node.admin.inc:566; modules/node/node.module:584;
+#: modules/profile/profile.admin.inc:147,221;
+#: modules/statistics/statistics.admin.inc:150;
+#: modules/translation/translation.pages.inc:27
+msgid "Title"
+msgstr "标题"
+
+#: modules/aggregator/aggregator.admin.inc:30;
+#: modules/aggregator/aggregator.pages.inc:483;
+#: modules/comment/comment.module:396;
+#: modules/statistics/statistics.admin.inc:125;
+#: modules/user/user.admin.inc:184
+msgid "@time ago"
+msgstr "@time之前"
+
+#: modules/aggregator/aggregator.admin.inc:30;
+#: modules/aggregator/aggregator.pages.inc:486;
+#: modules/user/user.admin.inc:184
+msgid "never"
+msgstr "从未"
+
+#: modules/aggregator/aggregator.admin.inc:70;
+#: modules/profile/profile.module:42,550;
+#: modules/statistics/statistics.admin.inc:144;
+#: modules/system/system.module:1833
+msgid "URL"
+msgstr "URL"
+
+#: modules/aggregator/aggregator.admin.inc:99,113,272,286;
+#: modules/comment/comment.module:1388,1389;
+#: modules/contact/contact.admin.inc:72; modules/forum/forum.admin.inc:58,145;
+#: modules/menu/menu.admin.inc:325,424; modules/node/node.pages.inc:233;
+#: modules/system/system.module:1483;
+#: modules/taxonomy/taxonomy.admin.inc:37,185,414,715,760;
+#: modules/user/user.pages.inc:240
+msgid "Save"
+msgstr "保存"
+
+#: modules/aggregator/aggregator.admin.inc:174,338;
+#: modules/blogapi/blogapi.module:233,289;
+#: modules/book/book.admin.inc:118,214; modules/comment/comment.admin.inc:111;
+#: modules/comment/comment.module:708,769;
+#: modules/contact/contact.admin.inc:115,121;
+#: modules/node/content_types.inc:335; modules/node/node.pages.inc:453;
+#: modules/profile/profile.admin.inc:345,387;
+#: modules/update/update.fetch.inc:57,61
+msgid "view"
+msgstr "浏览"
+
+#: modules/aggregator/aggregator.admin.inc:189;
+#: modules/comment/comment.admin.inc:189;
+#: modules/contact/contact.admin.inc:138; modules/menu/menu.admin.inc:459;
+#: modules/node/content_types.inc:391; modules/node/node.admin.inc:621;
+#: modules/node/node.pages.inc:503,590; modules/system/system.module:1143;
+#: modules/user/user.admin.inc:869; modules/user/user.module:1854
+msgid "This action cannot be undone."
+msgstr "无法复原此操作。"
+
+#: modules/aggregator/aggregator.admin.inc:190;
+#: modules/aggregator/aggregator.module:108
+msgid "Remove items"
+msgstr "删除条目"
+
+#: modules/aggregator/aggregator.admin.inc:224;
+#: modules/block/block.admin.inc:39; modules/book/book.module:412;
+#: modules/system/system.admin.inc:1281;
+#: modules/taxonomy/taxonomy.admin.inc:696
+msgid "none"
+msgstr "无"
+
+#: modules/aggregator/aggregator.admin.inc:228;
+#: modules/filter/filter.module:671
+msgid "Allowed HTML tags"
+msgstr "允许使用的HTML标签"
+
+#: modules/aggregator/aggregator.admin.inc:269;
+#: modules/forum/forum.admin.inc:45,126; modules/menu/menu.admin.inc:286,419;
+#: modules/node/content_types.inc:15,103;
+#: modules/system/system.admin.inc:1751,2024,2108;
+#: modules/system/system.module:1333,1454;
+#: modules/taxonomy/taxonomy.admin.inc:129,670;
+#: modules/upload/upload.module:530
+msgid "Description"
+msgstr "描述"
+
+#: modules/aggregator/aggregator.admin.inc:161,174,325,338;
+#: modules/aggregator/aggregator.pages.inc:16;
+#: modules/aggregator/aggregator.module:603,637,644,714,0
+msgid "aggregator"
+msgstr "聚合器"
+
+#: modules/aggregator/aggregator.admin.inc:30,41;
+#: modules/aggregator/aggregator.module:924
+msgid "1 item"
+msgid_plural "@count items"
+msgstr[0] "1项"
+msgstr[1] "@count 项"
+
+#: modules/aggregator/aggregator.pages.inc:228;
+#: modules/aggregator/aggregator.module:185,214
+msgid "Categorize"
+msgstr "分类"
+
+#: modules/aggregator/aggregator.pages.inc:293;
+#: modules/aggregator/aggregator.module:164
+msgid "OPML feed"
+msgstr "OPML feed"
+
+#: modules/aggregator/aggregator.pages.inc:364; modules/node/node.module:1692
+msgid "read more"
+msgstr "阅读全文"
+
+#: modules/aggregator/aggregator.info:0
+msgid "Aggregator"
+msgstr "聚合器"
+
+#: modules/aggregator/aggregator.info:0
+msgid "Aggregates syndicated content (RSS, RDF, and Atom feeds)."
+msgstr "同步聚合内容（RSS、RDF和Atom种子）。"
+
+#: modules/aggregator/aggregator.info:0; modules/blog/blog.info:0;
+#: modules/blogapi/blogapi.info:0; modules/book/book.info:0;
+#: modules/color/color.info:0; modules/comment/comment.info:0;
+#: modules/contact/contact.info:0; modules/dblog/dblog.info:0;
+#: modules/forum/forum.info:0; modules/help/help.info:0;
+#: modules/locale/locale.info:0; modules/menu/menu.info:0;
+#: modules/openid/openid.info:0; modules/path/path.info:0;
+#: modules/php/php.info:0; modules/ping/ping.info:0; modules/poll/poll.info:0;
+#: modules/profile/profile.info:0; modules/search/search.info:0;
+#: modules/statistics/statistics.info:0; modules/syslog/syslog.info:0;
+#: modules/taxonomy/taxonomy.info:0; modules/throttle/throttle.info:0;
+#: modules/tracker/tracker.info:0; modules/translation/translation.info:0;
+#: modules/trigger/trigger.info:0; modules/update/update.info:0;
+#: modules/upload/upload.info:0
+msgid "Core - optional"
+msgstr "核心 －可选的"
+
+#: modules/block/block-admin-display-form.tpl.php:41;
+#: modules/block/block.info:0
+msgid "Block"
+msgstr "区块"
+
+#: modules/block/block-admin-display-form.tpl.php:45;
+#: modules/system/system.admin.inc:2020; modules/throttle/throttle.info:0;
+#: modules/throttle/throttle.module:11
+msgid "Throttle"
+msgstr "低负荷"
+
+#: modules/block/block.admin.inc:77; modules/filter/filter.admin.inc:34;
+#: modules/system/system.admin.inc:219; modules/system/system.module:1342
+msgid "configure"
+msgstr "配置"
+
+#: modules/block/block.info:0
+msgid "Controls the boxes that are displayed around the main content."
+msgstr "控制显示在主内容周围的区块。"
+
+#: modules/block/block.info:0; modules/filter/filter.info:0;
+#: modules/node/node.info:0; modules/system/system.info:0;
+#: modules/user/user.info:0
+msgid "Core - required"
+msgstr "核心－必须"
+
+#: modules/blog/blog.pages.inc:15; modules/blog/blog.module:108
+msgid "@name's blog"
+msgstr "@name 的blog"
+
+#: modules/blog/blog.module:51; modules/blog/blog.info:0
+msgid "Blog"
+msgstr "Blog"
+
+#: modules/blog/blog.info:0
+msgid "Enables keeping easily and regularly updated user web pages or blogs."
+msgstr "启用一个便于维护和定期更新的web页面或一个blog日志。"
+
+#: modules/blogapi/blogapi.module:233,289; modules/book/book.admin.inc:118;
+#: modules/comment/comment.admin.inc:111,280,286;
+#: modules/comment/comment.module:708,769,791;
+#: modules/forum/forum.admin.inc:177;
+#: modules/node/node.pages.inc:458,462,583,597; modules/node/node.module:980
+msgid "content"
+msgstr "内容"
+
+#: modules/blogapi/blogapi.info:0; modules/blogapi/blogapi.module:582
+msgid "Blog API"
+msgstr "Blog API"
+
+#: modules/blogapi/blogapi.info:0
+msgid ""
+"Allows users to post content using applications that support XML-RPC blog "
+"APIs."
+msgstr "允许用户通过支持XML-RPC blog API的外部应用发表文章。"
+
+#: modules/book/book.admin.inc:17; modules/book/book.module:418;
+#: modules/book/book.info:0
+msgid "Book"
+msgstr "手册"
+
+#: modules/book/book.admin.inc:36; modules/book/book.module:43
+msgid "add content to books"
+msgstr "添加手册内容"
+
+#: modules/book/book.admin.inc:36; modules/book/book.module:43
+msgid "administer book outlines"
+msgstr "管理手册纲要"
+
+#: modules/book/book.admin.inc:44,60; modules/book/book.module:57
+msgid "Add child page"
+msgstr "添加子页面"
+
+#: modules/book/book.admin.inc:196; modules/forum/forum.admin.inc:50,131
+msgid "Parent"
+msgstr "上层"
+
+#: modules/book/book.module:349; modules/menu/menu.admin.inc:312;
+#: modules/menu/menu.module:406
+msgid "Parent item"
+msgstr "上级菜单项"
+
+#: modules/book/book.info:0
+msgid "Allows users to structure site pages in a hierarchy or outline."
+msgstr "允许用户分层次或使用目录纲要组织网站页面。"
+
+#: modules/color/color.module:230; modules/comment/comment.pages.inc:60;
+#: modules/comment/comment.module:1388,1392,1395;
+#: modules/node/node.pages.inc:239,401
+msgid "Preview"
+msgstr "预览"
+
+#: modules/color/color.module:286;
+#: modules/node/content_types.inc:208,279,306,325;
+#: modules/system/system.admin.inc:257,547;
+#: modules/system/system.module:1034,1057,1067;
+#: modules/update/update.settings.inc:94
+msgid "Reset to defaults"
+msgstr "恢复到默认值"
+
+#: modules/color/color.info:0
+msgid "Color"
+msgstr "颜色"
+
+#: modules/color/color.info:0
+msgid "Allows the user to change the color scheme of certain themes."
+msgstr "允许用户更改特定主题的配色方案。"
+
+#: modules/comment/comment.admin.inc:40; modules/node/node.admin.inc:473;
+#: modules/user/user.admin.inc:149
+msgid "Update options"
+msgstr "更新选项"
+
+#: modules/comment/comment.admin.inc:48; modules/node/node.admin.inc:488;
+#: modules/user/user.admin.inc:114,164
+msgid "Update"
+msgstr "更新"
+
+#: modules/comment/comment.admin.inc:54; modules/comment/comment.module:1358;
+#: modules/contact/contact.pages.inc:55,187; modules/forum/forum.module:305;
+#: modules/system/system.module:1604;
+#: modules/user/user.admin.inc:257,277,297,317,342,367,392
+msgid "Subject"
+msgstr "标题"
+
+#: modules/comment/comment.admin.inc:55; modules/node/node.admin.inc:566;
+#: modules/tracker/tracker.pages.inc:65
+msgid "Author"
+msgstr "作者"
+
+#: modules/comment/comment.admin.inc:57;
+#: modules/statistics/statistics.pages.inc:13
+msgid "Time"
+msgstr "时间"
+
+#: modules/comment/comment.admin.inc:115; modules/node/node.admin.inc:381,433;
+#: modules/user/user.admin.inc:214
+msgid "The update has been performed."
+msgstr "更新完成。"
+
+#: modules/comment/comment.admin.inc:111; modules/comment/comment.module:708
+msgid "Comment: updated %subject."
+msgstr "评论：更新了 %subject。"
+
+#: modules/comment/comment.module:560; modules/node/node.admin.inc:58
+msgid "Optional"
+msgstr "可选"
+
+#: modules/comment/comment.module:560; modules/node/node.admin.inc:58;
+#: modules/taxonomy/taxonomy.admin.inc:166
+msgid "Required"
+msgstr "必须"
+
+#: modules/comment/comment.module:1189; modules/node/node.module:803
+msgid "You have to specify a valid date."
+msgstr "您必须指定一个有效的日期。"
+
+#: modules/comment/comment.module:1289,1305; modules/node/node.pages.inc:178
+msgid "Authored by"
+msgstr "作者"
+
+#: modules/comment/comment.module:1313,1344,1352;
+#: modules/user/user.admin.inc:763,802
+msgid "E-mail"
+msgstr "E-mail"
+
+#: modules/comment/comment.module:1317,1344,1352;
+#: modules/profile/profile.module:341
+msgid ""
+"The content of this field is kept private and will not be shown publicly."
+msgstr "此内容将保密，不会被其他人看见。"
+
+#: modules/comment/comment.module:1329; modules/node/node.pages.inc:187
+msgid "Authored on"
+msgstr "发表于"
+
+#: modules/comment/comment.module:1331; modules/node/node.admin.inc:566;
+#: modules/translation/translation.pages.inc:27;
+#: modules/user/user.admin.inc:135,909; modules/user/user.module:1461
+msgid "Status"
+msgstr "状态"
+
+#: modules/comment/comment.module:1331; modules/node/content_types.inc:157;
+#: modules/node/node.pages.inc:207;
+#: modules/translation/translation.pages.inc:40
+msgid "Published"
+msgstr "已发表"
+
+#: modules/comment/comment.module:1331;
+#: modules/translation/translation.pages.inc:40
+msgid "Not published"
+msgstr "未发表"
+
+#: modules/comment/comment.module:1335,1341,1350;
+#: modules/contact/contact.pages.inc:43
+msgid "Your name"
+msgstr "您的名字"
+
+#: modules/comment/comment.module:1370; modules/comment/comment.info:0
+msgid "Comment"
+msgstr "评论"
+
+#: modules/comment/comment.module:1659; modules/openid/openid.module:427;
+#: modules/user/user.module:1402,2299
+msgid "Error saving user account."
+msgstr "保存用户帐户时发生错误。"
+
+#: modules/comment/comment.module:1857; modules/forum/forum.admin.inc:204
+msgid "Date - newest first"
+msgstr "日期——由新到旧"
+
+#: modules/comment/comment.module:1858; modules/forum/forum.admin.inc:204
+msgid "Date - oldest first"
+msgstr "日期——由旧到新"
+
+#: modules/comment/comment.module:2069; modules/node/node.module:2709
+msgid "Keywords"
+msgstr "关键词"
+
+#: modules/comment/comment.module:2059,2099;
+#: modules/node/node.module:2590,2599,2608,2617,2626,2635,2644,2654,2734;
+#: modules/system/system.module:1706; modules/user/user.module:2241,2251
+msgid "action"
+msgstr "动作"
+
+#: modules/comment/comment.module:419,625; modules/node/node.module:138
+msgid "1 comment"
+msgid_plural "@count comments"
+msgstr[0] "1 条评论"
+msgstr[1] "@count 条评论"
+
+#: modules/comment/comment.info:0
+msgid "Allows users to comment on and discuss published content."
+msgstr "允许用户对发表的内容进行评论."
+
+#: modules/contact/contact.admin.inc:16,64;
+#: modules/upload/upload.admin.inc:80; modules/user/user.module:2165
+msgid "Yes"
+msgstr "是"
+
+#: modules/contact/contact.admin.inc:16,64;
+#: modules/upload/upload.admin.inc:80; modules/user/user.module:2166
+msgid "No"
+msgstr "否"
+
+#: modules/contact/contact.admin.inc:18,40;
+#: modules/contact/contact.pages.inc:67;
+#: modules/profile/profile.admin.inc:149,214
+msgid "Category"
+msgstr "分类"
+
+#: modules/contact/contact.admin.inc:18,63;
+#: modules/system/system.admin.inc:2149
+msgid "Selected"
+msgstr "选中"
+
+#: modules/contact/contact.admin.inc:83; modules/profile/profile.admin.inc:301
+msgid "You must enter a category."
+msgstr "您必须输入一个类别。"
+
+#: modules/contact/contact.admin.inc:157; modules/contact/contact.pages.inc:41
+msgid "You can leave a message using the contact form below."
+msgstr "您可以使用下面的联络表单留言。"
+
+#: modules/contact/contact.pages.inc:63; modules/forum/forum.module:387;
+#: modules/taxonomy/taxonomy.module:422
+msgid "- Please choose -"
+msgstr "- 请选择 - "
+
+#: modules/contact/contact.pages.inc:81,192;
+#: modules/dblog/dblog.admin.inc:50,98,148;
+#: modules/system/system.module:1611,1757
+msgid "Message"
+msgstr "消息"
+
+#: modules/contact/contact.pages.inc:95,200; modules/system/system.module:1286
+msgid "Send e-mail"
+msgstr "发送e-mail"
+
+#: modules/contact/contact.info:0; modules/contact/contact.module:93,100
+msgid "Contact"
+msgstr "联络"
+
+#: modules/contact/contact.info:0
+msgid "Enables the use of both personal and site-wide contact forms."
+msgstr "启用个人和站点联络表。"
+
+#: modules/dblog/dblog.admin.inc:48,128,213;
+#: modules/node/content_types.inc:15,81,95; modules/node/node.admin.inc:566;
+#: modules/profile/profile.admin.inc:147;
+#: modules/taxonomy/taxonomy.admin.inc:88;
+#: modules/tracker/tracker.pages.inc:65
+msgid "Type"
+msgstr "类型"
+
+#: modules/dblog/dblog.admin.inc:49,132;
+#: modules/statistics/statistics.admin.inc:158
+msgid "Date"
+msgstr "日期"
+
+#: modules/dblog/dblog.admin.inc:51,136;
+#: modules/statistics/statistics.admin.inc:16,162;
+#: modules/statistics/statistics.pages.inc:15; modules/user/user.info:0
+msgid "User"
+msgstr "用户"
+
+#: modules/dblog/dblog.admin.inc:144;
+#: modules/statistics/statistics.admin.inc:154;
+#: modules/statistics/statistics.pages.inc:14
+msgid "Referrer"
+msgstr "来源"
+
+#: modules/dblog/dblog.admin.inc:156;
+#: modules/statistics/statistics.admin.inc:166;
+#: modules/user/user.admin.inc:813
+msgid "Hostname"
+msgstr "主机名"
+
+#: modules/dblog/dblog.admin.inc:280,296,308; modules/filter/filter.info:0;
+#: modules/node/node.admin.inc:256,321; modules/path/path.admin.inc:206;
+#: modules/user/user.admin.inc:73,98
+msgid "Filter"
+msgstr "过滤器"
+
+#: modules/dblog/dblog.admin.inc:285,315; modules/menu/menu.admin.inc:584;
+#: modules/node/node.admin.inc:259,337; modules/path/path.admin.inc:212;
+#: modules/user/user.admin.inc:82,111
+msgid "Reset"
+msgstr "重设"
+
+#: modules/dblog/dblog.info:0; modules/dblog/dblog.module:46
+msgid "Database logging"
+msgstr "数据库日志"
+
+#: modules/dblog/dblog.info:0
+msgid "Logs and records system events to the database."
+msgstr "把系统事件记录到数据库中。"
+
+#: modules/filter/filter.admin.inc:69,102,362;
+#: modules/node/content_types.inc:15,72;
+#: modules/profile/profile.admin.inc:147;
+#: modules/system/system.admin.inc:1129,2022,2107,2149,2207;
+#: modules/taxonomy/taxonomy.admin.inc:88,612;
+#: modules/trigger/trigger.admin.inc:238; modules/user/user.admin.inc:950
+msgid "Name"
+msgstr "名称"
+
+#: modules/filter/filter.admin.inc:69,110;
+#: modules/user/user.admin.inc:136,910; modules/user/user.module:1486,985
+msgid "Roles"
+msgstr "角色"
+
+#: modules/filter/filter.admin.inc:81; modules/filter/filter.module:83
+msgid "Add input format"
+msgstr "添加输入格式"
+
+#: modules/filter/filter.admin.inc:146; modules/filter/filter.module:587
+msgid "More information about formatting options"
+msgstr "更多关於格式化选项的信息"
+
+#: modules/filter/filter.admin.inc:153; modules/filter/filter.module:516
+msgid "Formatting guidelines"
+msgstr "格式说明"
+
+#: modules/filter/filter.module:220,221,222,223,224,225;
+#: modules/system/system.module:0
+msgid "Header"
+msgstr "标题"
+
+#: modules/filter/filter.info:0
+msgid "Handles the filtering of content in preparation for display."
+msgstr "在准备内容显示时对内容进行过滤。"
+
+#: modules/forum/forum-list.tpl.php:37; modules/forum/forum.info:0
+msgid "Forum"
+msgstr "论坛"
+
+#: modules/forum/forum.admin.inc:79; modules/forum/forum.module:0
+msgid "forum"
+msgstr "论坛"
+
+#: modules/forum/forum.admin.inc:277; modules/taxonomy/taxonomy.admin.inc:695
+msgid "root"
+msgstr "根"
+
+#: modules/forum/forum.module:568; modules/tracker/tracker.pages.inc:65
+msgid "Replies"
+msgstr "回复"
+
+#: modules/forum/forum.module:769,831; modules/tracker/tracker.pages.inc:48
+msgid "1 new"
+msgid_plural "@count new"
+msgstr[0] "新(1)"
+msgstr[1] "新(@count)"
+
+#: modules/forum/forum.install:27,116; modules/forum/forum.module:86,93
+msgid "Forums"
+msgstr "论坛"
+
+#: modules/forum/forum.install:83; modules/taxonomy/taxonomy.install:91
+msgid "Primary Key: The {node}.vid of the node."
+msgstr "主键： 节点的 {node}.vid 。"
+
+#: modules/forum/forum.info:0
+msgid "Enables threaded discussions about general topics."
+msgstr "启动对一般主题的讨论。"
+
+#: modules/help/help.info:0; modules/help/help.module:14
+msgid "Help"
+msgstr "帮助"
+
+#: modules/help/help.info:0
+msgid "Manages the display of online help."
+msgstr "管理在线帮助的显示。"
+
+#: modules/locale/locale.module:289; modules/node/node.admin.inc:168,233,503
+msgid "Language neutral"
+msgstr "与语言无关"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Wednesday"
+msgstr "星期三"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Thursday"
+msgstr "星期四"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Friday"
+msgstr "星期五"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Saturday"
+msgstr "星期六"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Sunday"
+msgstr "星期日"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Monday"
+msgstr "星期一"
+
+#: modules/locale/locale.module:0; modules/system/system.admin.inc:1517
+msgid "Tuesday"
+msgstr "星期二"
+
+#: modules/locale/locale.info:0
+msgid "Locale"
+msgstr "本地化"
+
+#: modules/locale/locale.info:0
+msgid ""
+"Adds language handling functionality and enables the translation of the user "
+"interface to languages other than English."
+msgstr "增加语言处理功能，并开启用户介面翻译功能。"
+
+#: modules/menu/menu.admin.inc:72; modules/menu/menu.module:243
+msgid "disabled"
+msgstr "关闭"
+
+#: modules/menu/menu.admin.inc:230; modules/menu/menu.module:366
+msgid "Menu settings"
+msgstr "菜单设置"
+
+#: modules/menu/menu.admin.inc:258,274; modules/path/path.info:0
+msgid "Path"
+msgstr "路径"
+
+#: modules/menu/menu.admin.inc:279; modules/menu/menu.module:393
+msgid "Menu link title"
+msgstr "菜单链接名称"
+
+#: modules/menu/menu.admin.inc:315; modules/menu/menu.module:409
+msgid ""
+"The maximum depth for an item and all its children is fixed at !maxdepth. "
+"Some menu items may not be available as parents if selecting them would "
+"exceed this limit."
+msgstr ""
+"菜单项允许的最大树深，所有子菜单深度均不能超过 !maxdepth 。如果一个菜单项作为"
+"上层（父）菜单将会使得菜单树深超过这一限制，那么该菜单项将不能被选作父菜单。"
+
+#: modules/menu/menu.admin.inc:323; modules/menu/menu.module:419
+msgid ""
+"Optional. In the menu, the heavier items will sink and the lighter items "
+"will be positioned nearer the top."
+msgstr "此项为可选。在菜单中，权重大的项目将被置于底部，权重小的将被置于顶部。"
+
+#: modules/menu/menu.admin.inc:338; modules/system/system.admin.inc:1192
+msgid ""
+"The menu system stores system paths only, but will use the URL alias for "
+"display. %link_path has been stored as %normal_path"
+msgstr ""
+"菜单系统仅储存系统路径，但在显示时会使用网址别名。%link_path 会以 %"
+"normal_path 来储存。"
+
+#: modules/menu/menu.admin.inc:354; modules/path/path.admin.inc:143
+msgid ""
+"The path '@link_path' is either invalid or you do not have access to it."
+msgstr "@link_path 无效，或者您没有访问权限。"
+
+#: modules/menu/menu.admin.inc:379; modules/menu/menu.module:310
+msgid "There was an error saving the menu link."
+msgstr "存储菜单项时出错。"
+
+#: modules/menu/menu.admin.inc:493,575; modules/node/content_types.inc:404;
+#: modules/menu/menu.module:0
+msgid "menu"
+msgstr "菜单"
+
+#: modules/menu/menu.install:12; modules/user/user.module:685,735
+msgid "Navigation"
+msgstr "导航"
+
+#: modules/menu/menu.install:13; modules/system/system.admin.inc:385
+msgid "Primary links"
+msgstr "主导航链接"
+
+#: modules/menu/menu.install:14; modules/system/system.admin.inc:386
+msgid "Secondary links"
+msgstr "次链接"
+
+#: modules/menu/menu.info:0
+msgid "Menu"
+msgstr "菜单"
+
+#: modules/menu/menu.info:0
+msgid "Allows administrators to customize the site navigation menu."
+msgstr "允许管理员定制站点导航菜单"
+
+#: modules/node/content_types.inc:59; modules/node/node.module:591;
+#: modules/user/user.admin.inc:263,283,303,323,348,373,398
+msgid "Body"
+msgstr "正文"
+
+#: modules/node/content_types.inc:69;
+#: modules/taxonomy/taxonomy.admin.inc:118,658
+msgid "Identification"
+msgstr "标识"
+
+#: modules/node/content_types.inc:158; modules/node/node.pages.inc:212
+msgid "Promoted to front page"
+msgstr "推荐到首页"
+
+#: modules/node/content_types.inc:159; modules/node/node.pages.inc:217
+msgid "Sticky at top of lists"
+msgstr "置顶"
+
+#: modules/node/content_types.inc:160; modules/node/node.pages.inc:156
+msgid "Create new revision"
+msgstr "创建新的修订版本"
+
+#: modules/node/content_types.inc:335; modules/node/node.module:0
+msgid "node"
+msgstr "节点"
+
+#: modules/node/node.admin.inc:27,71,81; modules/node/node.module:1425
+msgid "Rebuild permissions"
+msgstr "重建权限"
+
+#: modules/node/node.admin.inc:39; modules/poll/poll.module:250
+msgid "Unlimited"
+msgstr "无限"
+
+#: modules/node/node.admin.inc:142; modules/user/user.module:1960
+msgid "status"
+msgstr "状态"
+
+#: modules/node/node.admin.inc:256,322; modules/user/user.admin.inc:73,98
+msgid "Refine"
+msgstr "细化"
+
+#: modules/node/node.admin.inc:258,334; modules/user/user.admin.inc:78,108
+msgid "Undo"
+msgstr "撤销"
+
+#: modules/node/node.admin.inc:295; modules/user/user.admin.inc:994
+msgid "and"
+msgstr "与"
+
+#: modules/node/node.admin.inc:295; modules/user/user.admin.inc:994
+msgid "where"
+msgstr "当"
+
+#: modules/node/node.admin.inc:301; modules/user/user.admin.inc:1000
+msgid "is"
+msgstr "为"
+
+#: modules/node/node.admin.inc:591; modules/tracker/tracker.pages.inc:62
+msgid "No posts available."
+msgstr "没有可用文章。"
+
+#: modules/node/node.admin.inc:622; modules/user/user.module:1855
+msgid "Delete all"
+msgstr "全部删除"
+
+#: modules/node/node.module:1145,1402,1455; modules/system/system.module:0;
+#: modules/trigger/trigger.module:49
+msgid "Content"
+msgstr "内容"
+
+#: modules/node/node.info:0
+msgid "Node"
+msgstr "节点"
+
+#: modules/node/node.info:0
+msgid "Allows content to be submitted to the site and displayed on pages."
+msgstr "允许内容被提交到站点并显示。"
+
+#: modules/openid/openid.pages.inc:42,64; modules/openid/openid.info:0
+msgid "OpenID"
+msgstr "OpenID"
+
+#: modules/openid/openid.module:435; modules/user/user.admin.inc:234
+msgid "Only site administrators can create new user accounts."
+msgstr "只有站点管理员可以添加新用户。"
+
+#: modules/openid/openid.info:0
+msgid "Allows users to log into your site using OpenID."
+msgstr "允许用户通过 OpenID 登录您的网站。"
+
+#: modules/path/path.admin.inc:31; modules/system/system.info:0
+msgid "System"
+msgstr "系统"
+
+#: modules/path/path.info:0
+msgid "Allows users to rename URLs."
+msgstr "允许用户重命名URL。"
+
+#: modules/php/php.info:0
+msgid "PHP filter"
+msgstr "PHP 过滤器"
+
+#: modules/php/php.info:0
+msgid "Allows embedded PHP code/snippets to be evaluated."
+msgstr "允许执行内嵌的 PHP 代码。"
+
+#: modules/ping/ping.info:0
+msgid "Ping"
+msgstr "Ping"
+
+#: modules/ping/ping.info:0
+msgid "Alerts other sites when your site has been updated."
+msgstr "当您的站点更新时，通知其它站点。"
+
+#: modules/poll/poll-bar.tpl.php:25; modules/poll/poll.pages.inc:20
+msgid "1 vote"
+msgid_plural "@count votes"
+msgstr[0] "1 票"
+msgstr[1] "@count 票"
+
+#: modules/poll/poll-results-block.tpl.php:26;
+#: modules/poll/poll-results.tpl.php:24
+msgid "Total votes: @votes"
+msgstr "投票统计： @votes"
+
+#: modules/poll/poll.pages.inc:34; modules/statistics/statistics.admin.inc:80
+msgid "Visitor"
+msgstr "访客"
+
+#: modules/poll/poll.pages.inc:35; modules/poll/poll.module:571
+msgid "Vote"
+msgstr "投票"
+
+#: modules/poll/poll.module:147,172; modules/poll/poll.info:0
+msgid "Poll"
+msgstr "投票"
+
+#: modules/poll/poll.module:251; modules/user/user.module:1463
+msgid "Active"
+msgstr "活跃"
+
+#: modules/poll/poll.info:0
+msgid ""
+"Allows your site to capture votes on different topics in the form of "
+"multiple choice questions."
+msgstr "允许您的站点通过多选问题获取不同话题的信息。"
+
+#: modules/profile/profile.admin.inc:345,387; modules/profile/profile.module:0
+msgid "profile"
+msgstr "个人资料"
+
+#: modules/profile/profile.pages.inc:102; modules/profile/profile.module:80
+msgid "User list"
+msgstr "用户列表"
+
+#: modules/profile/profile.info:0
+msgid "Profile"
+msgstr "个人资料"
+
+#: modules/profile/profile.info:0
+msgid "Supports configurable user profiles."
+msgstr "支持可定制的用户个人资料。"
+
+#: modules/search/search.pages.inc:29; modules/search/search.module:0
+msgid "search"
+msgstr "搜索"
+
+#: modules/search/search.info:0
+msgid "Enables site-wide keyword searching."
+msgstr "启用整个网站的关键字搜寻功能。"
+
+#: modules/statistics/statistics.admin.inc:14;
+#: modules/statistics/statistics.pages.inc:46
+msgid "Timestamp"
+msgstr "时间戳"
+
+#: modules/statistics/statistics.admin.inc:15,51;
+#: modules/statistics/statistics.pages.inc:47;
+#: profiles/default/default.profile:100
+msgid "Page"
+msgstr "页面"
+
+#: modules/statistics/statistics.admin.inc:29;
+#: modules/statistics/statistics.pages.inc:25,56
+msgid "details"
+msgstr "详情"
+
+#: modules/statistics/statistics.admin.inc:33,64,97,129;
+#: modules/statistics/statistics.pages.inc:29,60
+msgid "No statistics available."
+msgstr "没有可用统计数据"
+
+#: modules/statistics/statistics.admin.inc:188;
+#: modules/statistics/statistics.module:136
+msgid "Access log settings"
+msgstr "访问日志设置"
+
+#: modules/statistics/statistics.info:0
+msgid "Statistics"
+msgstr "统计"
+
+#: modules/statistics/statistics.info:0
+msgid "Logs access statistics for your site."
+msgstr "记录您的网站的访问统计。"
+
+#: modules/syslog/syslog.info:0; modules/syslog/syslog.module:31
+msgid "Syslog"
+msgstr "系统日志(syslog)"
+
+#: modules/syslog/syslog.info:0
+msgid "Logs and records system events to syslog."
+msgstr "把系统事件记录到系统日志中。"
+
+#: modules/system/system.admin.inc:166; modules/system/system.module:264
+msgid "Administration theme"
+msgstr "管理页面专用主题"
+
+#: modules/system/system.admin.inc:209; modules/system/system.module:721
+msgid "Screenshot for %theme theme"
+msgstr "%theme 主题的效果图"
+
+#: modules/system/system.admin.inc:209; modules/system/system.module:721
+msgid "no screenshot"
+msgstr "没有截图"
+
+#: modules/system/system.admin.inc:306,555,933;
+#: modules/system/system.module:1071
+msgid "The configuration options have been saved."
+msgstr "设置已被保存。"
+
+#: modules/system/system.admin.inc:549; modules/system/system.module:1068
+msgid "The configuration options have been reset to their default values."
+msgstr "设置已被恢复到默认值。"
+
+#: modules/system/system.admin.inc:1036,1081,2106;
+#: modules/system/system.module:330,336
+msgid "Uninstall"
+msgstr "卸载"
+
+#: modules/system/system.admin.inc:1227; modules/system/system.module:387
+msgid "Error reporting"
+msgstr "错误报告"
+
+#: modules/system/system.admin.inc:1494; modules/system/system.module:567
+msgid "Locale settings"
+msgstr "本地化设置"
+
+#: modules/system/system.module:611; modules/user/user.module:2157
+msgid "Medium"
+msgstr "中等"
+
+#: modules/system/system.module:1164; modules/locale/locale.module:122
+msgid "Confirm"
+msgstr "确认"
+
+#: modules/system/system.module:1548; modules/user/user.pages.inc:66,98,134;
+#: modules/user/user.module:1320,1357,1406,1583,2305,0
+msgid "user"
+msgstr "用户"
+
+#: modules/system/system.module:0; themes/chameleon/chameleon.info:0;
+#: themes/chameleon/marvin/marvin.info:0
+msgid "Left sidebar"
+msgstr "左边栏"
+
+#: modules/system/system.module:0; themes/chameleon/chameleon.info:0;
+#: themes/chameleon/marvin/marvin.info:0
+msgid "Right sidebar"
+msgstr "右边栏"
+
+#: modules/system/system.install:36; modules/system/system.module:507
+msgid "PHP"
+msgstr "PHP"
+
+#: modules/system/system.install:184; modules/system/system.module:410
+msgid "File system"
+msgstr "文件系统"
+
+#: modules/system/system.install:232; modules/update/update.report.inc:82;
+#: modules/update/update.module:274
+msgid "Up to date"
+msgstr "最新的"
+
+#: modules/system/system.install:242; modules/update/update.module:265
+msgid "Out of date"
+msgstr "已过期"
+
+#: modules/system/system.info:0
+msgid "Handles general site configuration for administrators."
+msgstr "为管理员处理一般性的网站设定。"
+
+#: modules/taxonomy/taxonomy.admin.inc:141,145; modules/node/node.module:1435
+msgid "Content types"
+msgstr "内容类型"
+
+#: modules/taxonomy/taxonomy.admin.inc:152;
+#: modules/aggregator/aggregator.module:129; modules/book/book.module:90;
+#: modules/contact/contact.module:84; modules/forum/forum.module:124;
+#: modules/menu/menu.module:71; modules/update/update.module:135
+msgid "Settings"
+msgstr "设置"
+
+#: modules/taxonomy/taxonomy.admin.inc:203,207,769,773,855,889,924;
+#: modules/taxonomy/taxonomy.module:0
+msgid "taxonomy"
+msgstr "分类系统"
+
+#: modules/taxonomy/taxonomy.info:0; modules/taxonomy/taxonomy.module:113;
+#: modules/trigger/trigger.module:76
+msgid "Taxonomy"
+msgstr "分类"
+
+#: modules/taxonomy/taxonomy.info:0
+msgid "Enables the categorization of content."
+msgstr "启用内容的分类功能。"
+
+#: modules/throttle/throttle.module:104; modules/user/user.module:776,779
+msgid "1 user"
+msgid_plural "@count users"
+msgstr[0] "1 个用户"
+msgstr[1] "@count 个用户"
+
+#: modules/throttle/throttle.info:0
+msgid "Handles the auto-throttling mechanism, to control site congestion."
+msgstr "处理自动负荷管制机制，以控制网站的壅塞状况。"
+
+#: modules/tracker/tracker.info:0
+msgid "Tracker"
+msgstr "过往文章"
+
+#: modules/tracker/tracker.info:0
+msgid "Enables tracking of recent posts for users."
+msgstr "启用跟踪用户最新文章的功能。"
+
+#: modules/translation/translation.info:0
+msgid "Content translation"
+msgstr "内容翻译"
+
+#: modules/translation/translation.info:0
+msgid "Allows content to be translated into different languages."
+msgstr "让内容可以翻译为不同的语言。"
+
+#: modules/trigger/trigger.admin.inc:77; modules/trigger/trigger.module:114
+msgid "Unassign"
+msgstr "取消分配"
+
+#: modules/trigger/trigger.admin.inc:164; modules/trigger/trigger.module:415
+msgid "Choose an action"
+msgstr "选择一个动作"
+
+#: modules/trigger/trigger.info:0
+msgid "Trigger"
+msgstr "触发"
+
+#: modules/trigger/trigger.info:0
+msgid ""
+"Enables actions to be fired on certain system events, such as when new "
+"content is created."
+msgstr "在某些系统事件发生时触发某些动作，例如在发表新内容时..."
+
+#: modules/update/update.fetch.inc:57,61; modules/update/update.module:0
+msgid "update"
+msgstr "更新"
+
+#: modules/update/update.report.inc:73; modules/update/update.module:259
+msgid "Revoked!"
+msgstr "撤回！"
+
+#: modules/update/update.report.inc:197; modules/system/system.module:313
+msgid "Modules"
+msgstr "模块"
+
+#: modules/update/update.report.inc:198; modules/system/system.module:275
+msgid "Themes"
+msgstr "主题"
+
+#: modules/update/update.info:0
+msgid "Update status"
+msgstr "更新状态"
+
+#: modules/update/update.info:0
+msgid ""
+"Checks the status of available updates for Drupal and your installed modules "
+"and themes."
+msgstr "检查 Drupal 和您所安装的模组与版型的更新版本的状态。"
+
+#: modules/upload/upload.module:530; modules/aggregator/aggregator.module:124;
+#: modules/block/block.module:128; modules/book/book.module:86;
+#: modules/contact/contact.module:53; modules/filter/filter.module:79;
+#: modules/forum/forum.module:101; modules/locale/locale.module:94;
+#: modules/node/node.module:1411,1442; modules/path/path.module:62;
+#: modules/system/system.module:283,321,325;
+#: modules/taxonomy/taxonomy.module:122,180; modules/update/update.module:128;
+#: modules/user/user.module:955,1007
+msgid "List"
+msgstr "列表"
+
+#: modules/upload/upload.info:0
+msgid "Upload"
+msgstr "上传"
+
+#: modules/upload/upload.info:0
+msgid "Allows users to upload and attach files to content."
+msgstr "允许用户上传文件和向帖子添加附件。"
+
+#: modules/user/user.admin.inc:13; modules/user/user.module:667,2431,911
+msgid "Create new account"
+msgstr "创建新帐号"
+
+#: modules/user/user.admin.inc:137,911; modules/user/user.module:621
+msgid "Member for"
+msgstr "注册了"
+
+#: modules/user/user.admin.inc:169; modules/user/user.module:1963
+msgid "blocked"
+msgstr "阻止"
+
+#: modules/user/user.admin.inc:169; modules/user/user.module:1963
+msgid "active"
+msgstr "活跃"
+
+#: modules/user/user.admin.inc:563; modules/user/user.pages.inc:280,346
+msgid "The changes have been saved."
+msgstr "更改已被保存。"
+
+#: modules/user/user.admin.inc:582; modules/user/user.module:1947
+msgid "@module module"
+msgstr "@module 模块"
+
+#: modules/user/user.admin.inc:728; modules/user/user.module:1012
+msgid "Add rule"
+msgstr "添加规则"
+
+#: modules/user/user.pages.inc:110; modules/user/user.module:663,1261,905
+msgid "Log in"
+msgstr "登录"
+
+#: modules/user/user.pages.inc:263,332,261,330;
+#: modules/user/user.module:1774,2283
+msgid "Detected malicious attempt to alter protected user fields."
+msgstr "检测对用户信息保护字段的恶意修改企图。"
+
+#: modules/user/user.module:566,947; modules/trigger/trigger.module:58
+msgid "Users"
+msgstr "用户"
+
+#: modules/user/user.info:0
+msgid "Manages the user registration and login system."
+msgstr "管理用户注册和登录系统"
+
+#: themes/bluemarine/bluemarine.info:0; themes/garland/color/color.inc:12;
+#: themes/garland/minnelli/color/color.inc:12
+msgid "Bluemarine"
+msgstr "Bluemarine"
+
+#: themes/bluemarine/bluemarine.info:0
+msgid "Table-based multi-column theme with a marine and ash color scheme."
+msgstr "基于表格的多栏主题，使用marine与ash色系。"
+
+#: themes/chameleon/chameleon.info:0
+msgid "Chameleon"
+msgstr "Chameleon"
+
+#: themes/chameleon/chameleon.info:0
+msgid "Minimalist tabled theme with light colors."
+msgstr "最低限度的表格主题，使用亮色系。"
+
+#: themes/chameleon/marvin/marvin.info:0
+msgid "Marvin"
+msgstr "Marvin"
+
+#: themes/chameleon/marvin/marvin.info:0
+msgid "Boxy tabled theme in all grays."
+msgstr "全灰色系的完整表格主题。"
+
+#: themes/garland/template.php:48; modules/comment/comment.module:198;
+#: modules/trigger/trigger.module:67
+msgid "Comments"
+msgstr "评论"
+
+#: themes/garland/garland.info:0
+msgid "Garland"
+msgstr "Garland"
+
+#: themes/garland/garland.info:0
+msgid "Tableless, recolorable, multi-column, fluid width theme (default)."
+msgstr "不使用表格，可选色，多栏，可变宽度主题（默认）。"
+
+#: themes/garland/color/color.inc:8; themes/garland/minnelli/color/color.inc:8
+msgid "Blue Lagoon (Default)"
+msgstr "Blue Lagoon （默认）"
+
+#: themes/garland/color/color.inc:9; themes/garland/minnelli/color/color.inc:9
+msgid "Ash"
+msgstr "Ash"
+
+#: themes/garland/color/color.inc:10;
+#: themes/garland/minnelli/color/color.inc:10
+msgid "Aquamarine"
+msgstr "Aquamarine"
+
+#: themes/garland/color/color.inc:11;
+#: themes/garland/minnelli/color/color.inc:11
+msgid "Belgian Chocolate"
+msgstr "Belgian Chocolate"
+
+#: themes/garland/color/color.inc:13;
+#: themes/garland/minnelli/color/color.inc:13
+msgid "Citrus Blast"
+msgstr "Citrus Blast"
+
+#: themes/garland/color/color.inc:14;
+#: themes/garland/minnelli/color/color.inc:14
+msgid "Cold Day"
+msgstr "Cold Day"
+
+#: themes/garland/color/color.inc:15;
+#: themes/garland/minnelli/color/color.inc:15
+msgid "Greenbeam"
+msgstr "Greenbeam"
+
+#: themes/garland/color/color.inc:16;
+#: themes/garland/minnelli/color/color.inc:16
+msgid "Mediterrano"
+msgstr "Mediterrano"
+
+#: themes/garland/color/color.inc:17;
+#: themes/garland/minnelli/color/color.inc:17
+msgid "Mercury"
+msgstr "Mercury"
+
+#: themes/garland/color/color.inc:18;
+#: themes/garland/minnelli/color/color.inc:18
+msgid "Nocturnal"
+msgstr "Nocturnal"
+
+#: themes/garland/color/color.inc:19;
+#: themes/garland/minnelli/color/color.inc:19
+msgid "Olivia"
+msgstr "Olivia"
+
+#: themes/garland/color/color.inc:20;
+#: themes/garland/minnelli/color/color.inc:20
+msgid "Pink Plastic"
+msgstr "Pink Plastic"
+
+#: themes/garland/color/color.inc:21;
+#: themes/garland/minnelli/color/color.inc:21
+msgid "Shiny Tomato"
+msgstr "Shiny Tomato"
+
+#: themes/garland/color/color.inc:22;
+#: themes/garland/minnelli/color/color.inc:22
+msgid "Teal Top"
+msgstr "Teal Top"
+
+#: themes/garland/minnelli/minnelli.info:0
+msgid "Minnelli"
+msgstr "Minnelli"
+
+#: themes/garland/minnelli/minnelli.info:0
+msgid "Tableless, recolorable, multi-column, fixed width theme."
+msgstr "不使用表格，可重新选色，多栏，固定宽度的外观主题。"
+
+#: themes/pushbutton/pushbutton.info:0
+msgid "Pushbutton"
+msgstr "Pushbutton"
+
+#: themes/pushbutton/pushbutton.info:0
+msgid "Tabled, multi-column theme in blue and orange tones."
+msgstr "使用表格排版、多栏式版型，采用蓝橘色调。"
+
+#: modules/aggregator/aggregator.module:99; modules/contact/contact.module:59
+msgid "Add category"
+msgstr "添加类别"
+
+#: modules/aggregator/aggregator.module:157; modules/node/node.module:1468
+msgid "RSS feed"
+msgstr "RSS feed"
+
+#: modules/aggregator/aggregator.module:180,209;
+#: modules/node/node.module:1514; modules/user/user.module:1062
+msgid "View"
+msgstr "查看"
+
+#: modules/aggregator/aggregator.module:193,222;
+#: modules/filter/filter.module:122; modules/locale/locale.module:107;
+#: modules/system/system.module:289
+msgid "Configure"
+msgstr "设置"
+
+#: modules/dblog/dblog.module:79; modules/statistics/statistics.module:127
+msgid "Details"
+msgstr "细节"
+
+#: modules/filter/filter.module:116; modules/node/node.module:1494,1518;
+#: modules/user/user.module:1078
+msgid "Edit"
+msgstr "编辑"
+
+#: modules/statistics/statistics.module:155; modules/tracker/tracker.module:46
+msgid "Track"
+msgstr "跟踪"

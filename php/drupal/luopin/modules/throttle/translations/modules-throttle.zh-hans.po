@@ -1,0 +1,150 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  throttle.admin.inc,v 1.2 2008/01/08 10:35:43 goba
+#  throttle.module,v 1.83 2007/12/14 18:08:49 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-27 03:55-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/throttle/throttle.admin.inc:21
+msgid "Auto-throttle on anonymous users"
+msgstr "针对匿名用户启用负荷管制"
+
+#: modules/throttle/throttle.admin.inc:25
+msgid ""
+"The congestion control throttle can be automatically enabled when the number "
+"of anonymous users currently visiting your site exceeds the specified "
+"threshold. For example, to start the throttle when your site has 250 "
+"anonymous users online at once, enter '250' in this field. Leave this value "
+"blank or set to \"0\" if you do not wish to auto-throttle on anonymous "
+"users. You can inspect the current number of anonymous users using the "
+"\"Who's online\" block."
+msgstr ""
+"当匿名用户访问量超过此数目时，负荷控制将自动启用。例如，当您想要站点匿名访问"
+"量超过250个用户时，自动开启负荷控制，在此处输入250。留空或者输入0将不对匿名用"
+"户开启拥塞控制。您可以通过“在线用户”模块察看当前在线用户数。"
+
+#: modules/throttle/throttle.admin.inc:29
+msgid "Auto-throttle on authenticated users"
+msgstr "针对注册用户启用负荷管制"
+
+#: modules/throttle/throttle.admin.inc:33
+msgid ""
+"The congestion control throttle can be automatically enabled when the number "
+"of authenticated users currently visiting your site exceeds the specified "
+"threshold. For example, to start the throttle when your site has 50 "
+"registered users online at once, enter '50' in this field. Leave this value "
+"blank or set to \"0\" if you do not wish to auto-throttle on authenticated "
+"users. You can inspect the current number of authenticated users using the "
+"\"Who's online\" block."
+msgstr ""
+"当登录用户访问量超过此数目时，负荷控制将自动启用。例如，当您想要站点登录用户"
+"访问量超过50个用户时，自动开启负荷控制，在此处输入50。留空或者输入0将不对登录"
+"用户开启负荷控制。您可以通过“在线用户”模块察看当前在线用户数。"
+
+#: modules/throttle/throttle.admin.inc:37
+msgid "Auto-throttle probability limiter"
+msgstr "自动负荷概率限制器"
+
+#: modules/throttle/throttle.admin.inc:40
+msgid ""
+"The auto-throttle probability limiter is an efficiency mechanism to "
+"statistically reduce the overhead of the auto-throttle. The limiter is "
+"expressed as a percentage of page views, so for example if set to the "
+"default of 10% we only perform the extra database queries to update the "
+"throttle status 1 out of every 10 page views. The busier your site, the "
+"lower you should set the limiter value."
+msgstr ""
+"自动负荷控制概率限制器，是一种从统计意义上减少自动负荷自身带来的额外代价的有"
+"效机制。这个概率限制器表现为页面浏览数的百分比的形式，也就是说这个数设为10%"
+"时，在每10次页面访问中，我们只进行一次额外的数据库查询来更新自动拥塞状态。如"
+"果您的站点非常繁忙，那么您就需要设定更低的值。"
+
+#: modules/throttle/throttle.admin.inc:50,53
+msgid ""
+"%value is not a valid auto-throttle setting. Please enter a positive numeric "
+"value."
+msgstr "%value 不是一个合法的自动负荷设置。请输入一个正数。"
+
+#: modules/throttle/throttle.module:121
+msgid ""
+"The throttle module provides a congestion control mechanism that "
+"automatically adjusts to a surge in incoming traffic. If your site is "
+"referenced by a popular website, or experiences a \"Denial of Service"
+"\" (DoS) attack, your webserver might become overwhelmed. The throttle "
+"mechanism is utilized by modules to temporarily disable CPU-intensive "
+"functionality, increasing performance. For instance, via the throttle "
+"module, modules may choose to disable resource-intensive blocks or the code "
+"within the site theme may temporarily disable user pictures in posts."
+msgstr ""
+"负荷控制(throttle)模块提供自动负荷控制机制，可以自动监测站点流量并做出相应调"
+"整。如果您的站点内容被某些大型站点引用，或者遭受了拒绝服务 (Denial of "
+"Service)攻击，那么可能会突然遭受数量巨大的访问要求，而无法工作。负荷控制机制"
+"可以通过暂时关闭一些占用资源较多的功能，而自动优化您的站点性能。例如，在主题"
+"方面可以选择站点过于忙碌时不再显示用户头像（减低带宽使用），或者在模块方面，"
+"可以自动关闭某些占用资源的模块或逻辑来减轻CPU或数据库占用率。"
+
+#: modules/throttle/throttle.module:122
+msgid ""
+"The congestion control throttle can be automatically enabled when the number "
+"of anonymous or authenticated users currently visiting the site exceeds a "
+"specified threshold."
+msgstr "当站点的匿名用户或登入用户访问量超过一定限度时，负荷控制将自动开启。"
+
+#: modules/throttle/throttle.module:123
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@throttle"
+"\">Throttle module</a>."
+msgstr "更多信息，请参见<a href=\"@throttle\">负荷控制模块</a>线上手册。"
+
+#: modules/throttle/throttle.module:126
+msgid ""
+"The throttle module provides a congestion control mechanism that "
+"automatically adjusts to a surge in incoming traffic. If your site is "
+"referenced by a popular website, or experiences a \"Denial of Service"
+"\" (DoS) attack, your webserver might become overwhelmed. The throttle "
+"mechanism is utilized by modules to temporarily disable CPU-intensive "
+"functionality, increasing performance."
+msgstr ""
+"负荷控制模块针对网站突发的大流量，提供自动拥塞控制机制。如果您的站点被一个热"
+"门站点所引用，或者遭遇“服务拒绝攻击(DoS)”时，您的站点可能会因此而瘫痪。模块利"
+"用负荷控制机制，暂时关闭那些耗费资源的功能，提升站点性能。"
+
+#: modules/throttle/throttle.module:110,0
+msgid "throttle"
+msgstr "低负荷"
+
+#: modules/throttle/throttle.module:110
+msgid "Throttle: %message"
+msgstr "低负荷:%message"
+
+#: modules/throttle/throttle.module:87
+msgid "1 user accessing site; throttle enabled."
+msgid_plural "@count users accessing site; throttle enabled."
+msgstr[0] "1 位用户正在访问；启用自动负荷控制。"
+msgstr[1] "@count 位用户正在访问；启用自动负荷控制。"
+
+#: modules/throttle/throttle.module:95
+msgid "1 guest accessing site; throttle enabled."
+msgid_plural "@count guests accessing site; throttle enabled."
+msgstr[0] "1 位游客正在访问；启用自动负荷控制。"
+msgstr[1] "@count 位游客正在访问；启用自动负荷控制。"
+
+#: modules/throttle/throttle.module:105
+msgid "1 guest accessing site; throttle disabled"
+msgid_plural "@count guests accessing site; throttle disabled"
+msgstr[0] "1 位游客正在访问；关闭自动负荷控制。"
+msgstr[1] "@count 位游客正在访问；关闭自动负荷控制。"
+
+#: modules/throttle/throttle.module:12
+msgid "Control how your site cuts out content during heavy load."
+msgstr "设置在您的站点在怎么一个环境下是处于高负荷状态。"

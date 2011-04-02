@@ -1,0 +1,802 @@
+/* $Id: style.css,v 1.11 2008/09/16 01:51:26 jmburnz Exp $ */
+
+/***************************
+
+  Newswire base styles.css
+  Theme by AdaptiveThemes.com
+
+****************************/
+
+/*** Main wrappers ***/
+body {
+  margin: 0;
+}
+
+div#container {
+  margin: 0 auto;
+}
+
+#col_wrapper { 
+  margin-top: 1em;
+}
+
+/*** Box ***/
+.box {
+  background: #FFF;
+}
+
+.box-wrapper { 
+  padding: 0 0.3em 0.5em 0.6em; 
+}
+
+.box fieldset {
+  background: #FFF;
+}
+
+/*** Pages
+     Generic page elements ***/
+#accessiblity a:link,
+#accessiblity a:visited,
+#accessiblity a:active { 
+  text-align: center;  
+  color: #FFF;
+  display: block;
+}
+
+#accessiblity a:hover { 
+  color: #FFF; 
+}
+
+.branding h1.brand,
+.branding div.brand {
+  font: bold 2.8em Georgia, "Times New Roman", Times, serif;
+  margin: 0;
+}
+
+.branding h1.brand a,
+.branding div.brand a {
+  color: #222;
+  text-decoration: none;
+}
+
+.branding em {
+  font: 1em Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/*** Search Box Top ***/
+#search-box-top {
+  margin-top: 1em;
+}
+
+#search-box-top #search {
+  background: transparent;
+  padding:0.1em 0.1em 0.5em;
+  border: none;
+  /*margin-top: 4.5em;*/
+}
+
+#search-box-top a {
+  color: #B20028;
+  /*margin-left: 15em;*/
+  font-weight: bold;
+  font-size: 105%;
+}
+
+#search-box-top span {
+  color: #005858;
+  font-weight: bold;
+}
+
+#search-box-top a:hover,
+#search-box-top a:active {
+  color: #005858;
+}
+
+#search-box-top label,
+#block-search-0 label { 
+/*  display: none; */
+  color: #005858;
+  /*margin-left: 16em;*/
+}
+
+#search-box-top #edit-search-theme-form-1 {
+  background: #FFF;
+  /*width: 8em;*/
+  width: 80px;
+  /*margin-left: 16em;*/
+}
+
+#block-search-0 .form-submit,
+#search .form-submit {
+  font-size: 0.9em;
+  color: #FFF;
+  padding: 2px 2px;
+}
+
+/*** Feed Icons ***/
+.feed-icons { 
+  margin: 8px 0 0 8px; 
+}
+
+.feed-icons a {
+  font: 1.1em Georgia, "Times New Roman", Times, serif;
+  text-decoration: none;
+  color: #222;
+}
+
+.feed-icons em { 
+  font-style: normal;
+}
+
+/*** Main Navigation
+     Primary links & Secondary links ***/
+	 
+/*** Prmiary Links ***/
+#main-navigation { 
+  height: 34px;
+}
+
+#primary-menu { 
+  margin-right: -15px;
+}
+
+#primary-menu ul.links {
+  margin: 8px 0 7px;
+}
+
+#primary-menu ul.links li {
+  margin: 0;
+  padding: 0;
+}
+
+#primary-menu ul.links li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFF;
+  padding: 9px 15px 9px;
+}
+
+#primary-menu ul.links li a:hover {
+  color: #FFF;
+}
+
+/*** Secondary Menu Links ***/
+#secondary-menu {
+}
+
+#secondary-menu ul.links {
+  height: 24px;
+  margin: 8px 0 0 16px;
+  padding: 0;
+}
+
+#secondary-menu ul.links li {
+   margin: 0;
+   padding: 0;
+   border-right: 1px solid #EEE;
+}
+
+#secondary-menu ul.links li.last {
+   border-right: none;
+}
+
+#secondary-menu ul.links li a:link,
+#secondary-menu ul.links li a:visited,
+#secondary-menu ul.links li a:active {
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px 13px 9px;
+}
+
+#secondary-menu ul.links li a:hover {
+  text-decoration: underline;
+}
+
+/*** The Main Columns 
+     Column specific styles ***/
+
+/*** Column 1 - Left ***/
+#left { background: #FFF; }
+
+#left .block {
+}
+
+#left .block .block-wrapper {
+}
+
+/*** Column 2 - Main Content ***/
+#content { background: #FFF; }
+div.content ul li span.counter-span {
+  color: #B20028;
+}
+
+div.content ul li {
+  margin-left: 0.5em;
+}
+
+#content h1.category {
+  font: bold  1em Georgia, "Times New Roman", Times, serif;
+  padding: 0.4em;
+}
+
+#content h1.category em {
+}
+
+#content h1.category span {
+}
+
+#content h1.category img {
+  float: right;
+  margin: -16px 0 0 0;
+}
+
+/* Target Opera 7.2 up, 9 up, or 9.5 up - technically valic CSS but the validator is buggy */
+	@media all and (-webkit-min-device-pixel-ratio:10000),
+		      not all and (-webkit-min-device-pixel-ratio:0)
+        {
+		/* 7.2 up */
+		head~body #content h1.category img { margin: 0; }
+		:root #content h1.category img { margin: 0; }
+	}
+
+
+/*** Column 3 - Right 2 (inside right) ***/
+#right_2 { 
+  padding-top: 0;
+}
+
+#right_2 .block { 
+  border: none;
+}
+
+#right_2 .block .block-wrapper { 
+  padding: 0 0.3em 0.3em;
+}
+
+/*** Column 4 - Right ***/ 
+#right { 
+  background: #FFF; 
+}
+
+/*** Right top box & Right bottom box ***/
+#right-top-box {}
+
+#right-bottom-box {
+  padding-top: 1em;
+}
+
+
+/*** If 4 cols 
+     Constrain text fields ***/
+.four-column .form-text {
+  width: 80%;
+}
+
+/*** Additional Regions ***/ 
+	 
+/*** Content Top Region ***/
+#content-top {}
+#content-top-full-width { text-align: center; background: #FFF; margin-top: 1em;}
+.content-top-col-1      { background: #FFF; }
+.content-top-col-2      { background: #FFF; }
+
+#content-top .block { 
+  margin-bottom: 0; 
+}
+
+/*** Region specific resets ***/
+#content-bottom {}
+#content-bottom-full-width { text-align: center; background: #FFF; }
+.content-bottom-col-1      { background: #FFF; }
+.content-bottom-col-2      { background: #FFF; }
+
+#leaderboard p,
+#header p,
+#content-top p,
+#content-bottom p,
+#content-top-full-width p,
+#content-bottom-full-width p,
+#footer p { margin: 0; padding: 0;}
+
+#leaderboard div.block, 
+#leaderboard .block-wrapper, 
+#leaderboard .block .content,
+#header div.block, 
+#header .block-wrapper, 
+#header .block .content,
+#content-top div.block, 
+#content-top .block-wrapper, 
+#content-top .block .content,
+#content-bottom div.block, 
+#content-bottom .block-wrapper, 
+#content-bottom .block .content,
+#content-top-full-width div.block, 
+#content-top-full-width .block-wrapper, 
+#content-top-full-width .block .content,
+#content-bottom-full-width div.block, 
+#content-bottom-full-width .block-wrapper, 
+#content-bottom-full-width .block .content { 
+  margin: 0.5em 0 0.2em 0; 
+  padding: 0; 
+  border: none;
+  text-align: center;
+  background: #FFF;
+}
+
+#left p,
+#right_2 p,
+#right p { margin: 0; }
+
+/*** Footer, Footer Message ***/
+#footer { 
+  margin-top: 0.5em;
+  border: none; 
+}
+
+#footer div.block { 
+  border: none;
+}
+
+#footer div.block { 
+  margin: 0 0 0.1em;
+}
+
+#footer div.block .content { 
+  border: none; 
+  text-align: center; 
+}
+
+#footer div.block ul.menu { 
+  /*border: none;*/ 
+  text-align: center; 
+}
+
+#footer div.block ul.menu li.leaf {
+  list-style: none;
+  display: inline;
+  padding: 0.5em 0.3em;
+}
+
+#footer-message {
+  font-size: 1em;
+  text-align: center;
+}
+
+/*** Tabs, Messages, Mission, Breadcrumb ***/
+div.tabs {
+  margin-bottom: 1.5em;
+}
+
+div.help {
+  background: #FFC;
+  margin-bottom: 1.5em;
+  padding: 0.75em; 
+  border: 1px solid #FEDE01;
+}
+
+div.messages {
+  font-weight: bold;
+  margin-bottom: 1.5em;
+  padding: 0.68em;
+}
+
+div.messages.success {
+  color: #55872E;
+  background: #F1F8EB;
+  border: 1px solid #7AC142; 
+}
+
+div.messages ul {
+  margin-bottom: 0;
+}
+
+.mission { 
+  font-weight: bold;
+  color: #222;
+  background: #FFF; 
+  padding: 0 0 0.6em 0;
+  margin-bottom: 1.2em;
+}
+
+.mission a:link,
+.mission a:visited,
+.mission a:hover { 
+  text-decoration: underline; 
+  color: #FFF;
+}
+
+.breadcrumb {
+  padding-bottom: 0;
+  margin-bottom: 1.5em;
+}
+
+/*** Nodes 
+     All custom node styles ***/
+div.node {
+  margin: 0 0 1.5em 0;
+  padding: 0 0 1.417em 0;
+}
+
+/* Change the margin and padding when node is in a block, 
+     e.g. Views blocks */
+.block div.node {
+  margin: 0 0 0.3em 0;
+  padding: 0 0 0.2em 0;
+}
+
+div.node h2 {
+  font: bold 1.447em Georgia, "Times New Roman", Times, serif;
+  margin-bottom: 0;
+}
+
+div.node h2 a:link,
+div.node h2 a:visited,
+div.node h2 a:active { 
+  text-decoration: none;
+  color: #222;  
+}
+
+div.node h2 a:hover { 
+  text-decoration: underline; 
+}
+
+div.node h5.permalink {
+  font: 1em Arial, Helvetica, sans-serif;
+  padding-left: 15px;
+  background: url(images/doc-small.gif) no-repeat left center;
+  margin: 3px 0 0 0;
+}
+
+div.node h4.meta {
+  font-size: 0.9em;
+  line-height: 1.667em;
+  margin-bottom: 1.667em;
+}
+
+div.meta div.terms {
+  display: inline;
+  font-size: 0.95em;
+}
+
+div.node div.picture {
+  float: left;
+  margin: 0.3em 0.5em 0.1em 0;
+}
+
+div.node ul.links {
+  text-align: right;
+  display: block; 
+  font-size: 0.95em;
+}
+
+div.node-unpublished {
+  background-color: #FFF4F4;
+  padding: 0.2em;
+}
+
+div.node div.unpublished {
+  font: bold 3em Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #FFE9E7;
+  padding: 0.3em;
+}
+
+/*** Forum ***/
+#forum table       { width: 100%; }
+#forum tr td.forum { 
+  background-position: 5px 5px!important; 
+  background-position: 5px 5px;
+  padding-left: 20px; }
+#forum div.indent  { margin-left: 0.5em; }
+
+/*** Comments ***/
+div.comment-content.with-picture {
+  margin-left: 95px; /* modify the margin as requried */
+}
+
+div.comment h3.title {
+  font: bold 1.4em Arial, Helvetica, sans-serif;
+  border-bottom: 1px dotted #1D4364;
+}
+
+div.comment h3.title a:link,
+div.comment h3.title a:visited,
+div.comment h3.title a:active {
+  text-decoration: none;
+  color: #222;
+}
+
+div.comment h3.title a:hover {
+  text-decoration: underline;
+  color: #222;
+}
+
+div.comment h4.meta {
+  font-size: 0.9em;
+  height: 1.25em;
+  line-height: 1.25;
+  margin: 0.8em 0 2em;
+}
+
+div.comment div.picture {
+  float: left;
+  width: 85px;
+  margin: 0.3em 0.5em 0.1em 0;
+}
+
+div.comment span.username {
+  font-weight: bold;
+}
+
+div.comment span.date {
+  font-style: italic;
+}
+
+div.comment span.new {
+  font-weight: bold;
+  color: #FF6600;
+}
+
+div.comment img {
+  margin: 0;
+  border: none;
+}
+
+div.comment .links {
+  clear: both;
+}
+
+div.comment {
+  padding: 0.75em 1em;
+  margin: 1.5em 0;
+}
+
+div.comment.odd {
+}
+
+div.comment.even {
+}
+
+div.comment.comment-mine {
+}
+
+h3#comment-number {
+  margin-top: 1em;
+}
+
+div.indented {
+  margin-left:40px;
+}
+
+div.comment-unpublished {
+  background-color: #FFF4F4!important;
+  padding: 0.2em;
+}
+
+div.comment div.unpublished {
+  font: bold 3em Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #FFE9E7;
+  padding: 0.3em;
+}
+
+/*** Blocks ***/
+div.block {
+  padding: 0;
+  margin: 0 0 0.5em;
+  clear: both;
+}
+
+div.block-wrapper { 
+  background: #FFF;
+  padding: 0 0 0.2em 0;
+}
+
+.block h3.title {
+  font: bold 1.1em Arial, Helvetica, sans-serif;
+  margin: 1px;
+  padding: 2px;
+}
+
+.block h3.title span {
+  padding: 0 0 1px;
+}
+
+.block .content {
+  padding: 0.5em;
+}
+
+.block .content .item-list h3 {
+  color: #005858;
+}
+
+tr .block { 
+  border: none; /* blocks page table */
+}
+
+/*** Misc Drupal overrides ***/
+div.admin {
+  padding-top: 0;
+}
+
+div.admin-panel {
+  padding: 1.5em 0 0 0;
+}
+
+div.admin-panel .body {
+  padding: 0;
+}
+
+div.admin-panel .description {
+  margin: 0 0 1.5em 0;
+  padding: 0;
+}
+
+div.admin .left,
+div.admin .right {
+  margin:0;
+}
+
+#user-admin-filter ul li,
+#node-admin-filter ul li {
+  list-style: none;
+}
+
+.more-help-link {
+  font-size: 0.9em;
+  line-height: 1.667em;
+}
+
+.theme-info h2 {
+  font-size: 1.3em;
+}
+
+/*** Lists ***/
+ul.menu li, .item-list ul li {
+  margin: 0;
+  padding: 0;
+}
+
+ul.menu li ul {
+  margin-bottom: 0;
+}
+
+.block ul, ul.menu, .item-list ul {
+  margin: 0 1em 0.3em;
+  padding: 0;
+}
+
+ul li, ul.menu li, .item-list ul li, li.leaf {
+  color: #005858;
+  list-style-image: none;
+  list-style: square;
+}
+
+ul li.expanded {
+  list-style-image: none;
+  list-style: square;
+}
+
+ul li.collapsed {
+  list-style-image: none;
+  list-style: square;
+}
+
+.block ul li {
+}
+
+.block ul li ul li,
+.block ul li ul li ul li { font-size: 0.95em; }
+
+/*** Fix alignment
+     on user profile page ***/
+.profile dt {
+  margin: 1.5em 0 0 0;
+}
+
+/*** Book module ***/
+.book-navigation .page-links {
+  padding: 0.75em;
+  margin-bottom: 1.5em;
+  border: none;
+}
+
+.book-navigation .menu {
+  padding: 1.417em 0 0 3em;
+  margin: 0 0 1.5em 0;
+}
+
+/*** Attribution ***/
+#adaptivethemes   {
+  text-align: center; 
+  padding-bottom: 0.5em;
+}
+#adaptivethemes a:link,
+#adaptivethemes a:active,
+#adaptivethemes a:visited {
+  text-align: center; 
+  font: 1em cursive;
+}
+
+/*** Profiles ***/
+.profile .picture {
+  float: right;
+  margin: 2em 0 1em 0.5em;
+}
+
+/*** Messages ***/
+#saving {
+  font-size: 1em;
+  font-weight: bold;
+  background: url(images/loading.gif) no-repeat 12px 1px;
+  display: none;
+  padding-left: 36px;
+}
+
+#saving p {
+  margin: 0;
+}
+
+#saving-notice {
+  font-size: 0.9em;
+  font-style: italic;
+  background: #FFC;
+}
+
+div.messages {
+  font-weight: bold;
+  margin-bottom: 1.5em;
+  padding: 0.68em;
+}
+
+.status {
+  color: #264409;
+  background: #E6EFC2;
+  border: 1px solid #C6D880;
+}
+
+.error { 
+  color: #8a1f11;
+  background: #FBE3E4; 
+  border: 1px solid #8a1f11; 
+}
+
+.notice { 
+  color: #514721; 
+  background: #FFF6BF; 
+  border-color: #FFD324; 
+}
+
+.error, .notice, .status { 
+  margin-bottom: 1em;
+  padding: 0.8em; 
+}
+
+.error a    { color: #8a1f11; text-decoration: underline; }
+.notice a   { color: #514721; text-decoration: underline; }
+.success a  { color: #264409; text-decoration: underline; }
+
+span.admin-disabled {
+  color: #DC1000;
+}
+
+/* Pager */
+.item-list .pager li a:hover {
+  text-decoration: underline;
+}
+
+/* User login form */
+#user-login-form #edit-name {
+  width: 130px;
+}
+
+#user-login-form #edit-pass {
+  width: 130px;
+}
+
+div.item-list ul li {
+  color: #005858;
+}
+

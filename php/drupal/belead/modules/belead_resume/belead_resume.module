@@ -1,0 +1,562 @@
+<?php
+// $Id: belead_resume.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+/**
+ * Implementation of hook_node_info(). This function replaces hook_node_name()
+ * and hook_node_types() from 4.6. Drupal 5 expands this hook significantly.
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e. if the
+ *   module is belead_resume_foo then belead_resume_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   show up when a user accesses the "Create content" page for that node type.
+ *
+ * The other optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label": the label for the title field of this content type.
+ * - "has_body": boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label": the label for the body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ */
+define(BELEAD_RESUME_CREATE_CONTENT, 'create belead resume content');
+define(BELEAD_RESUME_EDIT_ANY_CONTENT, 'edit any belead resume content');
+define(BELEAD_RESUME_EDIT_OWN_CONTENT, 'edit own belead resume content');
+define(BELEAD_RESUME_DELETE_ANY_CONTENT, 'delete any belead resume content');
+define(BELEAD_RESUME_DELETE_OWN_CONTENT, 'delete own belead resume content');
+define(BELEAD_RESUME_MANAGE, 'manage belead resume');
+
+function belead_resume_node_info()
+{
+	return array (
+			'belead_resume' => array(
+				'name' => t('Belead Resume'),
+				'module' => 'belead_resume',
+				'description' => t("This is belead resume node type."),
+				'has_title' => TRUE,
+				'title_label' => t('Picture Title'),
+				'has_body' => TRUE,
+				'body_label' => t('Picture Body'),
+				)
+		    );
+}
+
+/**
+ * Implementation of hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function belead_resume_access($op, $node, $account)
+{
+	if ($op == 'create') {
+		return user_access(BELEAD_RESUME_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(BELEAD_RESUME_EDIT_ANY_CONTENT, $account) || (user_access(BELEAD_RESUME_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(BELEAD_RESUME_DELETE_ANY_CONTENT, $account) || (user_access(BELEAD_RESUME_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function belead_resume_perm()
+{
+	return array(
+			BELEAD_RESUME_CREATE_CONTENT,
+			BELEAD_RESUME_EDIT_ANY_CONTENT,
+			BELEAD_RESUME_EDIT_OWN_CONTENT,
+			BELEAD_RESUME_DELETE_ANY_CONTENT,
+			BELEAD_RESUME_DELETE_OWN_CONTENT,
+			BELEAD_RESUME_MANAGE,
+		    );
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array with
+ * a sub array containing information for each element in the form.
+ */
+function belead_resume_form(&$node)
+{
+	// The site admin can decide if this node type has a title and body, and how
+	// the fields should be labeled. We need to load these settings so we can
+	// build the node form correctly.
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		// In Drupal 6, we can use node_body_field() to get the body and filter
+		// elements. This replaces the old textarea + filter_form() method of
+		// setting this up. It will also ensure the teaser splitter gets set up
+		// properly.
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	return $form;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function belead_resume_validate(&$node)
+{
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * As a new node is being inserted into the database, we need to do our own
+ * database inserts.
+ */
+function belead_resume_insert($node)
+{
+	db_query("INSERT INTO {belead_resume} (vid, nid) VALUES (%d, %d)", $node->vid, $node->nid);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates.
+ */
+function belead_resume_update($node)
+{
+	// if this is a new node or we're adding a new revision,
+	if ($node->revision) {
+		belead_resume_insert($node);
+	}
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * When a node revision is deleted, we need to remove the corresponding record
+ * from our table. The only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ */
+function belead_resume_nodeapi(&$node, $op, $teaser, $page)
+{
+	switch ($op) {
+		case 'delete revision':
+			// Notice that we're matching a single revision based on the node's vid.
+			db_query('DELETE FROM {belead_resume} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+/**
+ * Implementation of hook_delete().
+ *
+ * When a node is deleted, we need to remove all related records from out table.
+ */
+function belead_resume_delete($node)
+{
+	// Notice that we're matching all revision, by using the node's nid.
+	db_query('DELETE FROM {belead_resume} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node back out. This hook is called
+ * every time a node is loaded, and allows us to do some loading of our own.
+ */
+function belead_resume_load($node)
+{
+	$additions = db_fetch_object(db_query('SELECT * FROM {belead_resume} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function belead_resume_view($node, $teaser = FALSE, $page = FALSE)
+{
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+	/* Full node content view */
+	drupal_set_title(theme('belead_resume_page_title', $node));
+	if (isset($_GET['resume_id'])) {
+		$node->content['belead_resume_detail'] = array (
+				'#value' => theme_belead_resume_detail($node),
+				'#weight' => 2
+				);
+	} else {
+		$node->content['belead_resume_main'] = array (
+				'#value' => theme('belead_resume_main', $node),
+				'#weight' => 2
+				);
+	}
+
+	return $node;
+}
+
+function belead_resume_upload_form($form_state, $node) {
+	$form = array ();
+	$form['belead_resume_uploads'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Upload Picture File'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Upload picture to site directory and use it in other page.'),
+			'#prefix' => '<div class="belead_resume_upload_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][] = 'belead_resume_upload_form_submit';
+	$form['#validate'][ ]= 'belead_resume_upload_form_validate';
+	$form['belead_resume_uploads']['belead_resume_upload']= array (
+			'#type' => 'file',
+			'#title' => t('Upload file'),
+			'#size' => 40
+			);
+	$form['belead_resume_uploads']['belead_resume_description'] = array (
+			'#type' => 'textarea',
+			'#title' => t('Description'),
+			'#default_value' => '',
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_resume_uploads']['belead_resume_button'] = array (
+			'#type' => 'submit',
+			'#value' => t('Upload'),
+			'#name' => 'upload'
+			);
+	return $form;
+}
+
+/**
+ * hook_submit implementation for upload form.
+ */
+function belead_resume_upload_form_submit($form, & $form_state)
+{
+	$time = date("Y-m-d H:i:s");
+	$name= $_FILES['files']['name']['belead_resume_upload'];
+	if (!empty ($form_state['values']['belead_resume_file_name'])) {
+		$name= $form_state['values']['belead_resume_file_name'];
+	}
+	$tmp_name= $_FILES['files']['tmp_name']['belead_resume_upload'];
+	$location = file_directory_path().'/'.$name;
+	copy($tmp_name, $location);
+	$description = $form_state['values']['belead_resume_description'];
+	db_query("insert into belead_resume_content (name, location, description, time) values ('$name', '$location', '$description', '$time')");
+}
+
+/**
+ * hook_validate implementation for upload form.
+ */
+function belead_resume_upload_form_validate($form, $form_state)
+{
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function belead_resume_theme()
+{
+	return array(
+			'belead_resume_detail' => array (
+				'arguments' => array ('node'),
+				),
+			'belead_resume_main' => array (
+				'arguments' => array ('node'),
+				),
+			'belead_resume_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_belead_resume_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_belead_resume_detail($node)
+{
+	$result = db_query('select name, gender, birthday, school, major, education, phone, email, language, profession, experience, position from {belead_resume_content} where id = %d', intval($_GET['resume_id']));
+	$row = db_fetch_array($result);
+	$output .= '<h4 class="belead-h4">';
+	$output .= $row['name'] . '  ' . t('Resume');
+	$output .= '</h4>';
+	$output .= '<table class="belead-table-border">';
+	$output .= '<tr>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Your Name');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['name'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Gender');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['gender'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Date of Birth');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['birthday'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('School');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['school'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Major');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['major'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Education');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['education'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Telephone');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['phone'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Email');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['email'];
+	$output .= '</td>';
+	$output .= '<td>';
+	$output .= '<b>';
+	$output .= t('Applied Position');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '</b>';
+	$output .= $row['position'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="noborder">';
+	$output .= '<td colspan="3" class="noborder">';
+	$output .= '<b>';
+	$output .= t('Language Skill');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '<br/>';
+	$output .= '<br/>';
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="border-bottom">';
+	$output .= '<td colspan="3" class="indent">';
+	$output .= $row['language'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="noborder">';
+	$output .= '<td colspan="3" class="noborder">';
+	$output .= '<b>';
+	$output .= t('Professional Skill');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '<br/>';
+	$output .= '<br/>';
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="border-bottom">';
+	$output .= '<td colspan="3" class="indent">';
+	$output .= $row['profession'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="noborder">';
+	$output .= '<td colspan="3" class="noborder">';
+	$output .= '<b>';
+	$output .= t('Work or Practical Experience');
+	$output .= ': ';
+	$output .= '</b>';
+	$output .= '<br/>';
+	$output .= '<br/>';
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '<tr class="border-bottom">';
+	$output .= '<td colspan="3" class="indent">';
+	$output .= $row['experience'];
+	$output .= '</td>';
+	$output .= '</tr>';
+	$output .= '</table>';
+	return $output;
+}
+
+function theme_belead_resume_main($node)
+{
+	$output = '<h4 class="belead-h4">';
+	$output .= t('Resume List');
+	$output .= '</h4>';
+	if ($node->nid == 289) {
+		$sql = 'SELECT id, name, gender, birthday, school, major, education, phone, email, language, profession, experience, position FROM {belead_resume_content} where nid = 237';
+	} else {
+		$sql = 'SELECT id, name, gender, birthday, school, major, education, phone, email, language, profession, experience, position FROM {belead_resume_content} where nid = 238';
+	}
+	$limit = 255;
+	$header = array (
+			array (
+				'data' => t('Applier Name'),
+				'field' => 'name',
+			      ),
+			array (
+				'data' => t('Gender'),
+				'field' => 'gender',
+			      ),
+			array (
+				'data' => t('Date of Birth'),
+				'field' => 'birthday',
+			      ),
+			array (
+				'data' => t('School'),
+				'field' => 'school',
+			      ),
+			array (
+				'data' => t('Major'),
+				'field' => 'major',
+			      ),
+			array (
+				'data' => t('Education'),
+				'field' => 'education',
+			      ),
+			array (
+				'data' => t('Applied Position'),
+				'field' => 'position',
+				'sort' => 'desc',
+			      ),
+			array (
+				'data' => t('Detail'),
+				'field' => 'detail',
+			      ),
+		       );
+	$tablesort = tablesort_sql($header);
+	$result = pager_query($sql . $tablesort, $limit);
+	$rows = array();
+	while ($resume = db_fetch_object($result)) {
+		$rows[] = array($resume->name, $resume->gender, $resume->birthday, $resume->school, $resume->major, $resume->education, $resume->position, l(t('Go'), "node/$node->nid", array('query' => array('resume_id' => $resume->id))));
+	}
+	if (!$rows) {
+		$rows[] = array(array('data' => t('The list is empty.'), 'colspan' => 3));
+	}
+	$output .= theme('table', $header, $rows, array('id' => 'belead_resume_table'));
+	return $output;
+}
+
+function belead_resume_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}
+
+/**
+ * Callback for belead_resume/%node menu.
+ */
+function _belead_resume_callback($node)
+{
+	exit ();
+}
+
+/**
+ * hook_menu implementation.
+ */
+function belead_resume_menu()
+{
+	$items= array ();
+	$items['belead_resume/%node']= array (
+			'page callback' => '_belead_resume_callback',
+			'page arguments' => array (
+				1
+				),
+			'type' => MENU_CALLBACK,
+			'access arguments' => array (
+				'access content'
+				)
+			);
+	return $items;
+}

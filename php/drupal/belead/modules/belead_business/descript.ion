@@ -1,0 +1,7 @@
+.                     The Filebrowser module directory !!
+README.txt            Detailed information about the project
+filebrowser.info      Module metafile
+filebrowser.module    Module source code
+translations          Translation files and template
+icons                 Icons for various file types in directory listings
+"filebrowser.install" Various update/install/uninstall routines

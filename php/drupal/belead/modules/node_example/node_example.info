@@ -1,0 +1,8 @@
+; $Id$
+name = Node Example
+description = This is node example type.
+core = 6.x
+
+package = "Node Example"
+
+version = "6.x-0.1-dev"

@@ -1,0 +1,70 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  help.admin.inc,v 1.5 2007/11/25 11:11:17 goba
+#  help.module,v 1.78.2.1 2008/04/09 21:11:48 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-25 22:57-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/help/help.admin.inc:15
+msgid "Help topics"
+msgstr "帮助主题"
+
+#: modules/help/help.admin.inc:15
+msgid "Help is available on the following items:"
+msgstr "下列项目有帮助信息："
+
+#: modules/help/help.admin.inc:30
+msgid "No help is available for module %module."
+msgstr "模块 %module 无帮助信息。"
+
+#: modules/help/help.admin.inc:41
+msgid "@module administration pages"
+msgstr "@module 管理页面"
+
+#: modules/help/help.module:41
+msgid ""
+"This guide provides context sensitive help on the use and configuration of "
+"<a href=\"@drupal\">Drupal</a> and its modules, and is a supplement to the "
+"more extensive online <a href=\"@handbook\">Drupal handbook</a>. The online "
+"handbook may contain more up-to-date information, is annotated with helpful "
+"user-contributed comments, and serves as the definitive reference point for "
+"all Drupal documentation."
+msgstr ""
+"本指南根据页面上下文提供 Drupal 以及各个模块的使用及其配置方法。本指南并不能"
+"替代 <a href=\"@handbook\">Drupal 手册</a>，而应该与 Drupal 手册同时使用。在"
+"线参考手册会经常更新，并且含有用户贡献的有益内容。在线文档才是 Drupal 的权威"
+"文档。中文文档请访问<a href=http://drupalchina.org>Drupal中文社区</a>"
+
+#: modules/help/help.module:44
+msgid ""
+"The help module provides context sensitive help on the use and configuration "
+"of <a href=\"@drupal\">Drupal</a> and its modules, and is a supplement to "
+"the more extensive online <a href=\"@handbook\">Drupal handbook</a>. The "
+"online handbook may contain more up-to-date information, is annotated with "
+"helpful user-contributed comments, and serves as the definitive reference "
+"point for all Drupal documentation."
+msgstr ""
+"帮助模块根据页面上下文提供 Drupal 以及各个模块的使用及其配置方法。本指南并不"
+"能替代 <a href=\"@handbook\">Drupal 手册</a>，而应该与 Drupal 手册同时使用。"
+"在线参考手册会经常更新，并且含有用户贡献的有益内容。在线文档才是 Drupal 的权"
+"威文档。中文文档请访问<a href=http://drupalchina.org>Drupal中文社区</a>"
+
+#: modules/help/help.module:45
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@help"
+"\">Help module</a>."
+msgstr "更多信息，请参考 <a href=\"@help\">帮助模块</a>在线手册。"
+
+#: modules/help/help.module:0
+msgid "help"
+msgstr "帮助"

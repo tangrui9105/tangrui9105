@@ -1,0 +1,138 @@
+/* another son of suckerfish...
+http://www.htmldog.com/articles/suckerfish/dropdowns/
+http://www.alistapart.com/articles/horizdropdowns
+*/
+
+#suckerfish {
+  margin: 1px -15px 0 0;
+  z-index: 1;
+}
+
+#suckerfish h3 {
+   display: none;
+}
+
+#suckerfish .block {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border: none;
+}
+
+#suckerfish .block, 
+#suckerfish .box {
+  padding: 0;
+}
+
+#suckerfish div.block-wrapper {
+  background: transparent;
+}
+
+#suckerfish .block .content {
+  padding: 0;
+}
+
+#suckerfish h2.title {
+  display: none;
+}
+
+#suckerfish	 {
+  line-height: 22px;
+}
+
+#suckerfish ul.menu { /* top level ul */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: inline;
+} 
+
+#suckerfish a {
+  display: block;
+  padding: 4px 15px 7px; /* padding between menu elements */
+  margin: 0;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#suckerfish a:active,
+#suckerfish a:hover {
+  text-decoration: none;
+}
+
+#suckerfish li {
+  display: inline;
+  float: left;
+  margin: 0;
+  padding: 0;
+  height: 1%;
+}
+
+#suckerfish li.hover ul {  
+  position: absolute;
+}
+
+#suckerfish li.expanded ul.menu {
+}
+
+#suckerfish ul.menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#suckerfish ul.menu li ul {
+  position: absolute;
+  width: 175px;
+  left: -999em;
+  z-index: 3;
+}
+
+
+#suckerfish ul.menu li li {
+  float: right;
+  width: 175px;
+  margin: 0;
+}
+
+
+#suckerfish ul.menu li li a:link,
+#suckerfish ul.menu li li a:visited {
+  font-weight: normal;
+  width: 176px;
+}
+
+#suckerfish ul.menu li li {
+}
+
+#suckerfish ul.menu li ul a {
+  padding: 0.1em 0 0em 0.8em;
+  width: 176px;
+  line-height: 22px;
+}
+
+#suckerfish ul.menu li ul a:active,
+#suckerfish ul.menu li ul a:hover {
+  text-decoration: none;
+}
+
+/* margin for pullouts */
+#suckerfish ul.menu li ul ul {
+  margin: -24px 0 0 186px;
+}
+
+#suckerfish ul.menu li:hover ul ul, 
+#suckerfish ul.menu li:hover ul ul ul, 
+#suckerfish ul.menu li.sfhover ul ul, 
+#suckerfish ul.menu li.sfhover ul ul ul {
+  left: -999em;
+}
+
+#suckerfish ul.menu li:hover ul,
+#suckerfish ul.menu li li:hover ul, 
+#suckerfish ul.menu li li li:hover ul, 
+#suckerfish ul.menu li.sfhover ul, 
+#suckerfish ul.menu li li.sfhover ul, 
+#suckerfish ul.menu li li li.sfhover ul {
+  left: auto;
+}

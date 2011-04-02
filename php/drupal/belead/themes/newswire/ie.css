@@ -1,0 +1,50 @@
+/* $Id: ie.css,v 1.4 2008/09/16 01:51:26 jmburnz Exp $ */
+
+/* ie.css
+   Generic ATF hacks for Internet Explorer.  */
+
+/* Make sure the layout is centered in IE5 */
+body { text-align: center; }
+#container { text-align: left; }
+
+/* Fixes incorrect styling of legend in IE6. */
+* html legend { margin:-18px -8px 16px 0; padding:0; }
+
+/* Fixes incorrect placement of ol numbers in IE6/7. */
+ol { margin-left:2em; }
+
+/* Fixes wrong line-height on sup/sub in IE. */
+sup { vertical-align: text-top; }
+sub { vertical-align: text-bottom; }
+
+/* Fixes IE7 missing wrapping of code elements. */
+html>body p code { *white-space: normal; } 
+
+/* IE 6&7 has problems with setting proper <hr> margins. */
+hr  { margin: -8px auto 11px; }
+
+
+/*** Newswire specific modifications for IE ***/
+/* Set search box width */
+#search-box-top #edit-search-theme-form-1 {
+  width: 90px;
+}
+
+/* Correct feed icon alignment */
+#col_2 h1.category img {
+  float: right;
+  margin: -22px 8px 0 0;
+}
+
+/* Reset block backgrounds for IE6 */
+#left div.block,
+#right div.block,
+#footer div.block {
+  background: #FFF;
+}
+#right_2 div.block {
+  background: transparent;
+}
+.block .content {
+  padding: 0.5em 0.5em 0.1em 0.5em;
+}

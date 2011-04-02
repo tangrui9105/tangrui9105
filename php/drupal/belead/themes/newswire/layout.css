@@ -1,0 +1,123 @@
+/* $Id: layout.css,v 1.5 2008/09/16 01:51:26 jmburnz Exp $ */
+
+/*****************************************************************
+   layout.css
+   The layout is based on a grid of 48 columns.
+   
+   The grid is 950px wide, each column is 20px wide.
+   
+   Unused classes have been removed, see layout-DEV.css
+   for the full version.
+*****************************************************************/
+
+/* #container wraps all the cols  */
+div#container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* Body margin */
+body {
+  margin:1.5em 0;	
+}
+
+/* The 48 Columns
+   Sets up basic grid floating and margin.
+   For your cols to span the entire width they should always add 
+   up to 48 columns (if your #container is 960px).
+   Schema: .width - number of columns spanned - col width in pixels  */
+
+.width-2-30,
+.width-10-190,
+.width-18-350,
+.width-20-390,
+.width-24-470,
+.width-28-550,
+.width-30-590,
+.width-38-750,
+.width-39-770,
+.width-40-790,
+.width-46-910,
+.width-48-950  {
+  float: left;
+  margin-right: 10px; 
+}
+
+.clearfix {
+	float: left;
+	margin-right: 0; 
+}
+
+/* Margin Reset
+   The last column in a row needs this class
+   to prevent it wrapping below the others  */
+div.last    { margin-right: 0; }
+
+/* Float reset
+   Useful for divs that span the entire width.
+   - reset the float to none
+   - clear all floats
+   - reset margin-right  */
+div.nofloat { float: none; clear: both; margin-right: 0; }
+
+/* width-960 
+   For cols that span the total width */
+.width-960  { float: none; clear: both; margin-right: 0; }
+
+/* DIV Widths
+   Use these classes to set the width of a column. 
+   Classes need to be set in page.tpl.php.
+   For the main content colums you need to set the width in 
+   template.php also - see function atf_col_width. */
+
+.width-2-30     { width: 30px; }
+.width-10-190   { width: 190px; }
+.width-18-350   { width: 350px; }
+.width-20-390   { width: 390px; }
+.width-24-470   { width: 470px; }
+.width-28-550   { width: 550px; }
+.width-30-590   { width: 590px; }
+.width-38-750   { width: 750px; }
+.width-39-770   { width: 770px; }
+.width-40-790   { width: 790px; }
+.width-46-910   { width: 910px; }
+.width-48-950, 
+div.width-48-950 { width: 950px; margin: 0; }
+.width-960       { width: 960px; margin: 0; }
+
+/* Adjust margin right sidebar margin
+   needed when right-top-box or right-bottom-box is active*/
+#right-col-wrapper #right_2 { margin-right: 8px; }
+#right_2 {
+margin-right:8px;
+}
+
+/* Misc classes and elements
+*******************************/
+
+/* Use .padded-box to create a padded box inside a column.  */ 
+.padded-box { 
+  padding: 1em; 
+  margin-bottom: 1.5em; 
+  background: #F1F1F1; 
+}
+
+/* Clearing floats without extra markup
+   http://www.positioniseverything.net/easyclearing.html */
+.clearfix:after, .container:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix, div.container {display: inline-block;}
+* html .clearfix,
+* html .container {height: 1%;}
+.clearfix, div.container {display: block;}
+
+/* Regular clearing
+   Apply to an element that should clear both. */
+
+.clear { clear:both; }

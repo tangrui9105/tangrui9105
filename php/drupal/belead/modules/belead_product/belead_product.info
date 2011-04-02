@@ -1,0 +1,8 @@
+; $Id$
+name = Belead Product
+description = This is belead product node type.
+core = 6.x
+
+package = "Belead Product"
+
+version = "6.x-0.1-dev"

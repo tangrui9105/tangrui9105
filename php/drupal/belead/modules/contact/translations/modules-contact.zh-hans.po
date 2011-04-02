@@ -1,0 +1,406 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  contact.admin.inc,v 1.3 2007/11/09 07:55:13 dries
+#  contact.pages.inc,v 1.6.2.1 2008/02/12 14:42:50 goba
+#  contact.module,v 1.103.2.1 2008/04/09 21:11:46 goba
+#  contact.install,v 1.10 2007/12/18 12:59:21 dries
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-28 13:42-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/contact/contact.admin.inc:18,47
+msgid "Recipients"
+msgstr "收件人"
+
+#: modules/contact/contact.admin.inc:43
+msgid "Example: 'website feedback' or 'product information'."
+msgstr "例如：“站点回馈”或“产品信息”。"
+
+#: modules/contact/contact.admin.inc:49
+msgid ""
+"Example: 'webmaster@example.com' or 'sales@example.com,support@example.com'. "
+"To specify multiple recipients, separate each e-mail address with a comma."
+msgstr ""
+"例如：'webmaster@example.com' 或 'sales@example.com'。指定多个收件人时，email"
+"之间用英文逗号隔开。"
+
+#: modules/contact/contact.admin.inc:53
+msgid "Auto-reply"
+msgstr "自动回复"
+
+#: modules/contact/contact.admin.inc:55
+msgid ""
+"Optional auto-reply. Leave empty if you do not want to send the user an auto-"
+"reply message."
+msgstr "可选自动回复。如果您不想发送自动回复，请留空白。"
+
+#: modules/contact/contact.admin.inc:60
+msgid ""
+"When listing categories, those with lighter (smaller) weights get listed "
+"before categories with heavier (larger) weights. Categories with equal "
+"weights are sorted alphabetically."
+msgstr ""
+"到显示类别列表时，按权重的大小由小到大的升序排列。相同权重的类别按字母顺序排"
+"列。"
+
+#: modules/contact/contact.admin.inc:66
+msgid ""
+"Set this to <em>Yes</em> if you would like this category to be selected by "
+"default."
+msgstr "如果您想使此类别成为默认类别，请选<em>Yes</em>。"
+
+#: modules/contact/contact.admin.inc:86
+msgid "You must enter one or more recipients."
+msgstr "您必须输入至少一个收件人。"
+
+#: modules/contact/contact.admin.inc:92
+msgid "%recipient is an invalid e-mail address."
+msgstr "%recipient 是无效的电子邮件地址。"
+
+#: modules/contact/contact.admin.inc:114
+msgid "Category %category has been added."
+msgstr "已添加类别 %category"
+
+#: modules/contact/contact.admin.inc:120
+msgid "Category %category has been updated."
+msgstr "类别%category已更新。"
+
+#: modules/contact/contact.admin.inc:138
+msgid "Are you sure you want to delete %category?"
+msgstr "您确定要删除 %category吗？"
+
+#: modules/contact/contact.admin.inc:147
+msgid "Category %category has been deleted."
+msgstr "类别%category已被删除。"
+
+#: modules/contact/contact.admin.inc:156
+msgid "Additional information"
+msgstr "更多信息"
+
+#: modules/contact/contact.admin.inc:158
+msgid ""
+"Information to show on the <a href=\"@form\">contact page</a>. Can be "
+"anything from submission guidelines to your postal address or telephone "
+"number."
+msgstr ""
+"在<a href=\"@form\">联络页面</a>显示的信息。可以是从发帖指南到您的地址电话等"
+"任何信息。"
+
+#: modules/contact/contact.admin.inc:161
+msgid "Hourly threshold"
+msgstr "每小时阈值"
+
+#: modules/contact/contact.admin.inc:164
+msgid ""
+"The maximum number of contact form submissions a user can perform per hour."
+msgstr "一个用户一小时内允许使用联络表的最大次数。"
+
+#: modules/contact/contact.admin.inc:168
+msgid "Enable personal contact form by default"
+msgstr "默认启用个人联络表单"
+
+#: modules/contact/contact.admin.inc:170
+msgid "Default status of the personal contact form for new users."
+msgstr "新用户个人联络表单的默认状态。"
+
+#: modules/contact/contact.admin.inc:115
+msgid "Contact form: category %category added."
+msgstr "联络表单：类别%category已添加。"
+
+#: modules/contact/contact.admin.inc:121
+msgid "Contact form: category %category updated."
+msgstr "联系表单：类别%category已被更新。"
+
+#: modules/contact/contact.admin.inc:148
+msgid "Contact form: category %category deleted."
+msgstr "联络表单：类别%category已删除。"
+
+#: modules/contact/contact.pages.inc:17
+msgid ""
+"You cannot send more than %number messages per hour. Please try again later."
+msgstr "您不能在每小时内发送超过 %number 封邮件。请稍候再试。"
+
+#: modules/contact/contact.pages.inc:49
+msgid "Your e-mail address"
+msgstr "您的电子邮件地址"
+
+#: modules/contact/contact.pages.inc:88,197
+msgid "Send yourself a copy."
+msgstr "发送给自己一份。"
+
+#: modules/contact/contact.pages.inc:99
+msgid ""
+"The contact form has not been configured. <a href=\"@add\">Add one or more "
+"categories</a> to the form."
+msgstr ""
+"尚未设定联络表单。请为这个表单<a href=\"@add\">新增一个或多个类别</a>。"
+
+#: modules/contact/contact.pages.inc:109
+msgid "You must select a valid category."
+msgstr "您必须选择一个有效类别。"
+
+#: modules/contact/contact.pages.inc:112
+msgid "You must enter a valid e-mail address."
+msgstr "您必须输入有效的电子邮件地址。"
+
+#: modules/contact/contact.pages.inc:147
+msgid "Your message has been sent."
+msgstr "您的消息已被送出。"
+
+#: modules/contact/contact.pages.inc:161
+msgid ""
+"You need to provide a valid e-mail address to contact other users. Please "
+"update your <a href=\"@url\">user information</a> and try again."
+msgstr ""
+"您需要提供一个合法的电子邮件地址来联络其他用户。请编辑您的<a href=\"@url\">用"
+"户信息</a>，然后再试一次。"
+
+#: modules/contact/contact.pages.inc:164
+msgid ""
+"You cannot contact more than %number users per hour. Please try again later."
+msgstr "您每小时内最多只能联络 %number 位用户。请稍候再试。"
+
+#: modules/contact/contact.pages.inc:179
+msgid "From"
+msgstr "发件人"
+
+#: modules/contact/contact.pages.inc:183
+msgid "To"
+msgstr "收件人"
+
+#: modules/contact/contact.pages.inc:232
+msgid "The message has been sent."
+msgstr "消息已发送。"
+
+#: modules/contact/contact.pages.inc:146
+msgid "%name-from sent an e-mail regarding %category."
+msgstr "用户 %name-from 发送了一封有关 %category 的e-mail"
+
+#: modules/contact/contact.pages.inc:231
+msgid "%name-from sent %name-to an e-mail."
+msgstr "用户 %name-from 发送了一个Email给 %name-to。"
+
+#: modules/contact/contact.module:15
+msgid ""
+"The contact module facilitates communication via e-mail, by allowing your "
+"site's visitors to contact one another (personal contact forms), and by "
+"providing a simple way to direct messages to a set of administrator-defined "
+"recipients (the <a href=\"@contact\">contact page</a>). With either form, "
+"users specify a subject, write their message, and (optionally) have a copy "
+"of their message sent to their own e-mail address."
+msgstr ""
+"联络(contact)模块，使得您的网站访客可以通过e-mail连络其他用户(通过个人联络表"
+"单)，并且提供发送信息给管理者指定收件人的功能(<a href=\"@contact\">站点联络页"
+"面</a>)。在联络表单中，用户可以制定标题，撰写消息，并选择是否发送一份副本到自"
+"己的e-mail地址。"
+
+#: modules/contact/contact.module:16
+msgid ""
+"Personal contact forms allow users to be contacted via e-mail, while keeping "
+"recipient e-mail addresses private. Users may enable or disable their "
+"personal contact forms by editing their <em>My account</em> page. If "
+"enabled, a <em>Contact</em> tab leading to their personal contact form is "
+"available on their user profile. Site administrators have access to all "
+"personal contact forms (even if they have been disabled). The <em>Contact</"
+"em> tab is only visible when viewing another user's profile (users do not "
+"see their own <em>Contact</em> tab)."
+msgstr ""
+"个人联络表单在不公开收信人e-mail地址的同时，允许用户通过e-mail互相联系。用户"
+"可以编辑<em>我的帐号</em>页面来启用或者停用他们的个人联络页面。如果启用这个功"
+"能，用户个人资料页会出现一个 <em>联络</em>标签，连结到用户的个人联络表单。网"
+"站管理员可以查看所有用户的个人表单(即便它们没有被启用)。只有在查看其他用户帐"
+"号页面时，<emm>联络</em>标签才会显示，也就是说，用户不能看到自己的<em>联络</"
+"em>标签。"
+
+#: modules/contact/contact.module:17
+msgid ""
+"The <a href=\"@contact\">contact page</a> provides a simple form for "
+"visitors to leave comments, feedback, or other requests. Messages are routed "
+"by selecting a category from a list of administrator-defined options; each "
+"category has its own set of e-mail recipients. Common categories for a "
+"business site include, for example, \"Website feedback\" (messages are "
+"forwarded to web site administrators) and \"Product information\" (messages "
+"are forwarded to members of the sales department). The actual e-mail "
+"addresses defined within a category are not displayed. Only users in roles "
+"with the <em>access site-wide contact form</em> permission may access the <a "
+"href=\"@contact\">contact page</a>."
+msgstr ""
+"<a href=\"@contact\">联络页面</a>提供了一个简单的表单让访客留下回应、回馈或者"
+"其它要求。这些信息会按管理员所定义的类别，自动发送给不同的收件人。例如，一个"
+"商业网站的常见类别会包括 \"网站回馈\" (发给网管的讯息) 与\"产品资讯\" (发给销"
+"售部门成员的讯息)。每一类别所对应的实际电子邮件地址不会被显示出来。只有拥有 "
+"<em>存取站点联络表单</em>权限的使用者可以查看<a href=\"@contact\">联络页面</"
+"a>。"
+
+#: modules/contact/contact.module:18
+msgid ""
+"A link to your site's <a href=\"@contact\">contact page</a> from the main "
+"<em>Navigation</em> menu is created, but is disabled by default. Create a "
+"similar link on another menu by adding a menu item pointing to the path "
+"\"contact\""
+msgstr ""
+"<a href=\"@contact\">联络页面</a> 被添加为导航区块中的一个菜单项，但默认状态"
+"下是关闭的。您也可以其它菜单自行定义一个指向 \"contact\" 路径的菜单项。"
+
+#: modules/contact/contact.module:19
+msgid ""
+"Customize the <a href=\"@contact\">contact page</a> with additional "
+"information (like physical location, mailing address, and telephone number) "
+"using the <a href=\"@contact-settings\">contact form settings page</a>. The "
+"<a href=\"@contact-settings\">settings page</a> also provides configuration "
+"options for the maximum number of contact form submissions a user may "
+"perform per hour, and the default status of users' personal contact forms."
+msgstr ""
+"使用<a href=\"@contact-settings\">联络设定页面</a>添加额外的信息(如所在地、邮"
+"寄地址、电话号码等)来定制<a href=\"@contact\">联络页面</a>。<a href="
+"\"@contact-settings\">设置页面</a>中也有选项可以设定每个用户每小时可以提交联"
+"络表单的最大次数，以及默认的用户个人联络表的状态。"
+
+#: modules/contact/contact.module:20
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@contact"
+"\">Contact module</a>."
+msgstr "更多信息, 请参考<a href=\"@contact\">Contact module</a>的在线手册."
+
+#: modules/contact/contact.module:23
+msgid ""
+"This page lets you set up <a href=\"@form\">your site-wide contact form</a>. "
+"To do so, add one or more categories. You can associate different recipients "
+"with each category to route e-mails to different people. For example, you "
+"can route website feedback to the webmaster and direct product information "
+"requests to the sales department. On the <a href=\"@settings\">settings "
+"page</a>, you can customize the information shown above the contact form. "
+"This can be useful to provide additional contact information such as your "
+"postal address and telephone number."
+msgstr ""
+"您可以在本页设置<a href=\"@form\">站点联络表</a>。您可以添加多个类别，每个类"
+"别设置有不同的收件人以使得不同的email能够到达不同的人手中。比如，您可以让站点"
+"反馈的信息发给管理员，有关产品信息的要求发给销售部门。在<a href=\"@settings"
+"\">设置页面</a>,，您可以定制联络表格上的个性化信息 。这可以用于提供额外的信"
+"息，比如地址电话等。"
+
+#: modules/contact/contact.module:25
+msgid ""
+"The menu item can be customized and configured only once the menu module has "
+"been <a href=\"@modules-page\">enabled</a>."
+msgstr ""
+"只有<a href=\"@modules-page\">开启</a>了菜单(menu)模块后，才可以设定菜单项。"
+
+#: modules/contact/contact.module:30
+msgid ""
+"The contact module also adds a <a href=\"@menu-settings\">menu item</a> "
+"(disabled by default) to the navigation block."
+msgstr ""
+"联络(contact)模块还在导航区块中添加了一个<a href=\"@menu-settings\">菜单项</"
+"a>（默认为关闭）。"
+
+#: modules/contact/contact.module:144
+msgid "Contact settings"
+msgstr "联络设置"
+
+#: modules/contact/contact.module:149
+msgid "Personal contact form"
+msgstr "个人联络表"
+
+#: modules/contact/contact.module:151
+msgid ""
+"Allow other users to contact you by e-mail via <a href=\"@url\">your "
+"personal contact form</a>. Note that while your e-mail address is not made "
+"public to other members of the community, privileged users such as site "
+"administrators are able to contact you even if you choose not to enable this "
+"feature."
+msgstr ""
+"允许其他用户通过<a href=\"@url\">您的个人联络表格</a>给您发电子邮件。请注意您"
+"的电子邮件并不会被公开。此外即便没有开启此功能。拥有特别权限的用户例如管理员"
+"也还是可以联络到您。"
+
+#: modules/contact/contact.module:172,178
+msgid "[!category] !subject"
+msgstr "[!category] !subject"
+
+#: modules/contact/contact.module:173
+msgid "!name sent a message using the contact form at !form."
+msgstr "!name 通过您的联络表格 (!form) 发送了一条消息。"
+
+#: modules/contact/contact.module:187
+msgid ""
+"!name (!name-url) has sent you a message via your contact form (!form-url) "
+"at !site."
+msgstr "!name (!name-url) 通过您在!site的联络表格 (!form-url) 发送了一条消息。"
+
+#: modules/contact/contact.module:188
+msgid ""
+"If you don't want to receive such e-mails, you can change your settings at !"
+"url."
+msgstr "如果您不想接受此类邮件，可以在 !url 修改设置。"
+
+#: modules/contact/contact.module:189
+msgid "Message:"
+msgstr "内容："
+
+#: modules/contact/contact.install:29
+msgid "Contact form category settings."
+msgstr "联络表类别设置"
+
+#: modules/contact/contact.install:35
+msgid "Primary Key: Unique category ID."
+msgstr "主键：唯一的类别 ID 。"
+
+#: modules/contact/contact.install:42
+msgid "Category name."
+msgstr "类别名称"
+
+#: modules/contact/contact.install:48
+msgid "Comma-separated list of recipient e-mail addresses."
+msgstr "使用英文逗号隔开多个电子邮件地址"
+
+#: modules/contact/contact.install:54
+msgid "Text of the auto-reply message."
+msgstr "自动回复信息的文字内容"
+
+#: modules/contact/contact.install:61
+msgid "The category's weight."
+msgstr "类别权重"
+
+#: modules/contact/contact.install:68
+msgid ""
+"Flag to indicate whether or not category is selected by default. (1 = Yes, 0 "
+"= No)"
+msgstr "类别是否默认为选中(1=是，0=否)。"
+
+#: modules/contact/contact.module:39
+msgid "access site-wide contact form"
+msgstr "访问站点联络表"
+
+#: modules/contact/contact.module:39
+msgid "administer site-wide contact form"
+msgstr "管理站点联络表"
+
+#: modules/contact/contact.module:46
+msgid "Contact form"
+msgstr "联络表"
+
+#: modules/contact/contact.module:47
+msgid "Create a system contact form and set up categories for the form to use."
+msgstr "创建系统联络表并设置其所属类别。"
+
+#: modules/contact/contact.module:68
+msgid "Edit contact category"
+msgstr "编辑联络分类"
+
+#: modules/contact/contact.module:76
+msgid "Delete contact"
+msgstr "删除联络信息"
+
+#: modules/contact/contact.module:0
+msgid "contact"
+msgstr "联系信息"

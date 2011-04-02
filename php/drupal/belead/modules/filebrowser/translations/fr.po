@@ -1,0 +1,139 @@
+# $Id: filebrowser.pot,v 1.1.2.2.2.1 2008/06/04 19:18:05 susurrus Exp $
+#
+# LANGUAGE translation of Filebrowser (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  filebrowser.module,v 1.9.2.8.2.10 2008/06/02 16:29:08 susurrus
+#  filebrowser.info,v 1.3 2008/01/18 06:24:09 susurrus
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2008-06-04 14:15-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\\n\n"
+
+#: filebrowser.module:7
+msgid "The system file path to the directory"
+msgstr "Chemin vers le répertoire"
+
+#: filebrowser.module:8
+msgid "This can be an absolute path or should be relative to the Drupal root directory."
+msgstr "Peut être un chemin absolu ou relatif au répertoire racine de Drupal"
+
+#: filebrowser.module:15
+msgid "Do you wish to allow exploration of subdirectories?"
+msgstr "Permettre l'affichage des sous-répertoires?"
+
+#: filebrowser.module:21
+msgid "A blacklist of all files that shouldn't be accessible by users"
+msgstr "Liste des fichiers non accessibles aux utilisateurs"
+
+#: filebrowser.module:22
+msgid "List files separated by commas. Use <em>.*</em> to signify all files starting with a period."
+msgstr "Liste de fichiers séparés par des virgules.*</em> pour spécifier les fichiers débutant par un point."
+
+#: filebrowser.module:
+msgid "Enable private downloads"
+msgstr "Permettre les téléchargements privés"
+
+#: filebrowser.module:
+msgid "Some files won't download unless this private downloads are enabled (PHP files for instance)."
+msgstr "Certains fichiers ne peuvent être téléchargés sauf si les transferts privés sont permis (fichiers PHP par exemple)"
+
+#: filebrowser.module:33
+msgid "Directory listing"
+msgstr "Affichage de répertoire"
+
+#: filebrowser.module:35
+msgid "A listing of files similar to how Apache lists files in a directory."
+msgstr "Affiche le contenu d'un répertoire d'une façon similaire à Apache"
+
+#: filebrowser.module:70
+msgid "You must specify a valid directory."
+msgstr "Vous devez spécifier un répertoire valide"
+
+#: filebrowser.module:74
+msgid "The directory %dir is not readable."
+msgstr "Le répertoire n'est pas accessible"
+
+#: filebrowser.module:156
+msgid "Home"
+msgstr "Accueil"
+
+#: filebrowser.module:193
+msgid "You're not allowed to view %dir."
+msgstr "Vous n'avez pas la permission d'afficher le répertoire %dir."
+
+#: filebrowser.module:198
+msgid "Displaying %dir"
+msgstr "Répertoire %dir"
+
+#: filebrowser.module:355
+msgid "Description"
+msgstr "Description"
+
+#: filebrowser.module:394
+msgid "Name"
+msgstr "Nom"
+
+#: filebrowser.module:394
+msgid "Size"
+msgstr "Taille"
+
+#: filebrowser.module:440
+msgid "Contains @fc totaling @ds in size."
+msgstr "@fc - @ds"
+
+#: filebrowser.module:443
+msgid "This directory is empty."
+msgstr "Répertoire vide"
+
+#: filebrowser.module:440
+msgid "1 file"
+msgid_plural "@count files"
+msgstr[0] "1 fichier"
+msgstr[1] "@count fichiers"
+
+#: filebrowser.module:100
+msgid "create directory listings"
+msgstr "créer un affichage de répertoire"
+
+#: filebrowser.module:101
+msgid "delete own directory listings"
+msgstr "supprimer un affichage de répertoire privé"
+
+#: filebrowser.module:102
+msgid "delete any directory listings"
+msgstr "supprimer un affichage de répertoire"
+
+#: filebrowser.module:103
+msgid "edit own directory listings"
+msgstr "éditer un affichage de répertoire privé"
+
+#: filebrowser.module:104
+msgid "edit any directory listings"
+msgstr "éditer un affichage de répertoire"
+
+#: filebrowser.module:0
+msgid "filebrowser"
+msgstr "affichage de répertoire"
+
+#: filebrowser.info:0
+msgid "Filebrowser"
+msgstr "Affichage de répertoire"
+
+#: filebrowser.info:0
+msgid "Provides FTP-like browsing capabilities."
+msgstr "Affiche les fichiers dans les répertoires"
+
+#: filebrowser.info:0
+msgid "File management"
+msgstr "Gestion de fichiers"
+

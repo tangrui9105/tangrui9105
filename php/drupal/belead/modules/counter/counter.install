@@ -1,0 +1,49 @@
+<?php
+// $Id: counter.install,v 1.3 2009/01/03 23:31:47 thenicespider Exp $
+/**
+ * Install the module with a new database table
+ * @file
+ */
+
+function counter_install() {
+  drupal_set_message('Installing Counter module');
+  drupal_install_schema('counter');
+}
+
+function counter_uninstall() {
+  drupal_uninstall_schema('counter');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function counter_schema() {
+  $schema['counter'] = array(
+    'fields' => array(
+      'counter_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'counter_ip' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'counter_date' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'counter_page' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+    ),
+    'primary key' => array('counter_id'),
+  );
+  return $schema;
+}

@@ -1,0 +1,8 @@
+; $Id$
+name = Belead Hire
+description = This is belead hire node type.
+core = 6.x
+
+package = "Belead Hire"
+
+version = "6.x-0.1-dev"

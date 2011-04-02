@@ -1,0 +1,8 @@
+; $Id$
+name = Belead Employee
+description = This is belead employee node type.
+core = 6.x
+
+package = "Belead Employee"
+
+version = "6.x-0.1-dev"

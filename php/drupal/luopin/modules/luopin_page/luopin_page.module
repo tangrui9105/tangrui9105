@@ -1,0 +1,401 @@
+<?php
+// $Id: luopin_page.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+/**
+ * Implementation of hook_node_info(). This function replaces hook_node_name()
+ * and hook_node_types() from 4.6. Drupal 5 expands this hook significantly.
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e. if the
+ *   module is luopin_page_foo then luopin_page_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   show up when a user accesses the "Create content" page for that node type.
+ *
+ * The other optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label": the label for the title field of this content type.
+ * - "has_body": boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label": the label for the body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ */
+define(LUOPIN_PAGE_CREATE_CONTENT, 'create luopin page content');
+define(LUOPIN_PAGE_EDIT_ANY_CONTENT, 'edit any luopin page content');
+define(LUOPIN_PAGE_EDIT_OWN_CONTENT, 'edit own luopin page content');
+define(LUOPIN_PAGE_DELETE_ANY_CONTENT, 'delete any luopin page content');
+define(LUOPIN_PAGE_DELETE_OWN_CONTENT, 'delete own luopin page content');
+define(LUOPIN_PAGE_MANAGE, 'manage luopin page');
+
+function luopin_page_node_info()
+{
+	return array (
+			'luopin_page' => array(
+				'name' => t('Luopin Page'),
+				'module' => 'luopin_page',
+				'description' => t("This is luopin page node type."),
+				'has_title' => TRUE,
+				'title_label' => t('Page Title'),
+				'has_body' => TRUE,
+				'body_label' => t('Page Body'),
+				)
+		    );
+}
+
+/**
+ * Implementation of hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function luopin_page_access($op, $node, $account)
+{
+	if ($op == 'create') {
+		return user_access(LUOPIN_PAGE_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(LUOPIN_PAGE_EDIT_ANY_CONTENT, $account) || (user_access(LUOPIN_PAGE_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(LUOPIN_PAGE_DELETE_ANY_CONTENT, $account) || (user_access(LUOPIN_PAGE_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function luopin_page_perm()
+{
+	return array(
+			LUOPIN_PAGE_CREATE_CONTENT,
+			LUOPIN_PAGE_EDIT_ANY_CONTENT,
+			LUOPIN_PAGE_EDIT_OWN_CONTENT,
+			LUOPIN_PAGE_DELETE_ANY_CONTENT,
+			LUOPIN_PAGE_DELETE_OWN_CONTENT,
+			LUOPIN_PAGE_MANAGE,
+		    );
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array with
+ * a sub array containing information for each element in the form.
+ */
+function luopin_page_form(&$node)
+{
+	// The site admin can decide if this node type has a title and body, and how
+	// the fields should be labeled. We need to load these settings so we can
+	// build the node form correctly.
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		// In Drupal 6, we can use node_body_field() to get the body and filter
+		// elements. This replaces the old textarea + filter_form() method of
+		// setting this up. It will also ensure the teaser splitter gets set up
+		// properly.
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	return $form;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function luopin_page_validate(&$node)
+{
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * As a new node is being inserted into the database, we need to do our own
+ * database inserts.
+ */
+function luopin_page_insert($node)
+{
+	db_query("INSERT INTO {luopin_page} (vid, nid) VALUES (%d, %d)", $node->vid, $node->nid);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates.
+ */
+function luopin_page_update($node)
+{
+	// if this is a new node or we're adding a new revision,
+	if ($node->revision) {
+		luopin_page_insert($node);
+	}
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * When a node revision is deleted, we need to remove the corresponding record
+ * from our table. The only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ */
+function luopin_page_nodeapi(&$node, $op, $teaser, $page)
+{
+	switch ($op) {
+		case 'delete revision':
+			// Notice that we're matching a single revision based on the node's vid.
+			db_query('DELETE FROM {luopin_page} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+/**
+ * Implementation of hook_delete().
+ *
+ * When a node is deleted, we need to remove all related records from out table.
+ */
+function luopin_page_delete($node)
+{
+	// Notice that we're matching all revision, by using the node's nid.
+	db_query('DELETE FROM {luopin_page} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node back out. This hook is called
+ * every time a node is loaded, and allows us to do some loading of our own.
+ */
+function luopin_page_load($node)
+{
+	$additions = db_fetch_object(db_query('SELECT * FROM {luopin_page} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function luopin_page_view($node, $teaser = FALSE, $page = FALSE)
+{
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+	/* Full node content view */
+	drupal_set_title(theme('luopin_page_page_title', $node));
+	$node->content['luopin_page_main'] = array (
+			'#value' => theme('luopin_page_main', $node),
+			'#weight' => 1
+			);
+	if (user_access(LUOPIN_PAGE_MANAGE)) {
+		$node->content['luopin_page_script'] = array (
+				'#value' => theme_luopin_page_script($node),
+				'#weight' => 2
+				);
+		$form = drupal_get_form('luopin_page_edit_form', $node);
+		$node->content['luopin_page_edit'] = array (
+				'#value' => $form,
+				'#weight' => 3
+				);
+	}
+	return $node;
+}
+
+function luopin_page_edit_form($form_state, $node)
+{ 
+	$form = array ();
+	$form['luopin_page_edits'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Edit Page'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#prefix' => '<div class="luopin_page_edit_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'luopin_page_edit_form_validate';
+	$form['luopin_page_edits']['luopin_page_title'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Title'),
+			'#default_value' => $node->title,
+			'#size' => 85
+			);
+	$form['luopin_page_edits']['luopin_page_body'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Body'),
+			'#default_value' => $node->body,
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['luopin_page_edits']['luopin_page_button_edit'] = array (
+			'#type' => 'submit',
+			'#value' => t('Update'),
+			'#name' => 'update',
+			'#submit' => array('luopin_page_edit_form_submit_update')
+			);
+	$form['luopin_page_edits']['luopin_page_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('luopin_page_edit_form_submit_cancel')
+			);
+	$form['luopin_page_edits']['luopin_page_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $node->nid,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function luopin_page_edit_form_validate($form, & $form_state)
+{
+}
+
+function luopin_page_edit_form_submit_update($form, & $form_state)
+{
+	$title = $form_state['values']['luopin_page_title'];
+	$body = $form_state['values']['luopin_page_body'];
+	$nid = $form_state['values']['luopin_page_hidden'];
+	db_query("update node_revisions set title = '%s', body = '%s' where vid = %d", $title, $body, $nid);
+}
+
+function luopin_page_edit_form_submit_cancel($form, & $form_state)
+{
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function luopin_page_theme()
+{
+	return array(
+			'luopin_page_main' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'luopin_page_script' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'luopin_page_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_luopin_page_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_luopin_page_script(& $node)
+{
+	$output = '<script type="text/javascript" src="sites/all/libraries/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>';
+	$output .= '<script type="text/javascript">tinyMCE.init({
+			mode : "textareas",
+		       	theme : "advanced",
+		       	skin : "o2k7",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_resizing : true,
+			theme_advanced_buttons1 : "cut, copy, paste, separator, undo, redo, separator, bold, italic, underline, strikethrough, separator, justifyleft, justifycenter, justifyright, justifyfull, separator, bullist, numlist, separator, formatselect, fontselect, fontsizeselect",
+			theme_advanced_buttons2 : "outdent, indent, separator, link, unlink, anchor, separator, image, hr, separator, sub, sup, separator, forecolor, backcolor, separator, charmap, visualaid, separator, blockquote, removeformat, cleanup, newdocument, code",
+			theme_advanced_buttons3 : "",
+		       	width : "500",
+		       	height : "300"
+			});</script>';
+
+	return $output;
+}
+
+function theme_luopin_page_main($node)
+{
+	$output = '';
+	return $output;
+}
+
+function luopin_page_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}
+
+/**
+ * Callback for luopin_page/%node menu.
+ */
+function _luopin_page_callback($node)
+{
+	exit ();
+}
+
+/**
+ * hook_menu implementation.
+ */
+function luopin_page_menu()
+{
+	$items= array ();
+	$items['luopin_page/%node']= array (
+			'page callback' => '_luopin_page_callback',
+			'page arguments' => array (
+				1
+				),
+			'type' => MENU_CALLBACK,
+			'access arguments' => array (
+				'access content'
+				)
+			);
+	return $items;
+}

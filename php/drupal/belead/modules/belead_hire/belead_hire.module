@@ -1,0 +1,1060 @@
+<?php
+// $Id: belead_hire.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+/**
+ * Implementation of hook_node_info(). This function replaces hook_node_name()
+ * and hook_node_types() from 4.6. Drupal 5 expands this hook significantly.
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e. if the
+ *   module is belead_hire_foo then belead_hire_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   show up when a user accesses the "Create content" page for that node type.
+ *
+ * The other optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label": the label for the title field of this content type.
+ * - "has_body": boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label": the label for the body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ */
+define(BELEAD_HIRE_CREATE_CONTENT, 'create belead hire content');
+define(BELEAD_HIRE_EDIT_ANY_CONTENT, 'edit any belead hire content');
+define(BELEAD_HIRE_EDIT_OWN_CONTENT, 'edit own belead hire content');
+define(BELEAD_HIRE_DELETE_ANY_CONTENT, 'delete any belead hire content');
+define(BELEAD_HIRE_DELETE_OWN_CONTENT, 'delete own belead hire content');
+define(BELEAD_HIRE_MANAGE, 'manage belead hire');
+
+function belead_hire_node_info()
+{
+	return array (
+			'belead_hire' => array(
+				'name' => t('Belead Hire'),
+				'module' => 'belead_hire',
+				'description' => t("This is belead hire node type."),
+				'has_title' => TRUE,
+				'title_label' => t('Page Title'),
+				'has_body' => TRUE,
+				'body_label' => t('Page Body'),
+				)
+		    );
+}
+
+/**
+ * Implementation of hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function belead_hire_access($op, $node, $account)
+{
+	if ($op == 'create') {
+		return user_access(BELEAD_HIRE_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(BELEAD_HIRE_EDIT_ANY_CONTENT, $account) || (user_access(BELEAD_HIRE_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(BELEAD_HIRE_DELETE_ANY_CONTENT, $account) || (user_access(BELEAD_HIRE_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function belead_hire_perm()
+{
+	return array(
+			BELEAD_HIRE_CREATE_CONTENT,
+			BELEAD_HIRE_EDIT_ANY_CONTENT,
+			BELEAD_HIRE_EDIT_OWN_CONTENT,
+			BELEAD_HIRE_DELETE_ANY_CONTENT,
+			BELEAD_HIRE_DELETE_OWN_CONTENT,
+			BELEAD_HIRE_MANAGE,
+		    );
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array with
+ * a sub array containing information for each element in the form.
+ */
+function belead_hire_form(&$node)
+{
+	// The site admin can decide if this node type has a title and body, and how
+	// the fields should be labeled. We need to load these settings so we can
+	// build the node form correctly.
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		// In Drupal 6, we can use node_body_field() to get the body and filter
+		// elements. This replaces the old textarea + filter_form() method of
+		// setting this up. It will also ensure the teaser splitter gets set up
+		// properly.
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	return $form;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function belead_hire_validate(&$node)
+{
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * As a new node is being inserted into the database, we need to do our own
+ * database inserts.
+ */
+function belead_hire_insert($node)
+{
+	db_query("INSERT INTO {belead_hire} (vid, nid) VALUES (%d, %d)", $node->vid, $node->nid);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates.
+ */
+function belead_hire_update($node)
+{
+	// if this is a new node or we're adding a new revision,
+	if ($node->revision) {
+		belead_hire_insert($node);
+	}
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * When a node revision is deleted, we need to remove the corresponding record
+ * from our table. The only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ */
+function belead_hire_nodeapi(&$node, $op, $teaser, $page)
+{
+	switch ($op) {
+		case 'delete revision':
+			// Notice that we're matching a single revision based on the node's vid.
+			db_query('DELETE FROM {belead_hire} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+/**
+ * Implementation of hook_delete().
+ *
+ * When a node is deleted, we need to remove all related records from out table.
+ */
+function belead_hire_delete($node)
+{
+	// Notice that we're matching all revision, by using the node's nid.
+	db_query('DELETE FROM {belead_hire} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node back out. This hook is called
+ * every time a node is loaded, and allows us to do some loading of our own.
+ */
+function belead_hire_load($node)
+{
+	$additions = db_fetch_object(db_query('SELECT * FROM {belead_hire} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function belead_hire_view($node, $teaser = FALSE, $page = FALSE)
+{
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+	/* Full node content view */
+	drupal_set_title(theme('belead_hire_page_title', $node));
+	if (isset($_GET['submit'])) {
+		if ($_GET['submit'] == 'success') {
+			$node->content['belead_hire_submit'] = array (
+					'#value' => theme_belead_hire_submit($node),
+					'#weight' => 1
+					);
+		}
+	} else {
+		if (isset($_GET['hire_id'])) {
+			if ($_GET['action'] == 'edit') {
+				$node->content['belead_hire_script'] = array (
+						'#value' => theme('belead_hire_script', $node),
+						'#weight' => 1
+						);
+				$form = drupal_get_form('belead_hire_edit_form', $node);
+				$node->content['belead_hire_edit'] = array (
+						'#value' => $form,
+						'#weight' => 2
+						);
+			} elseif ($_GET['action'] == 'delete') {
+				$node->content['belead_hire_script'] = array (
+						'#value' => theme('belead_hire_script', $node),
+						'#weight' => 1
+						);
+				$form = drupal_get_form('belead_hire_delete_form', $node);
+				$node->content['belead_hire_delete'] = array (
+						'#value' => $form,
+						'#weight' => 2
+						);
+			} elseif ($_GET['action'] == 'apply') {
+				$form = drupal_get_form('belead_hire_apply_form', $node);
+				$node->content['belead_hire_apply'] = array (
+						'#value' => $form,
+						'#weight' => 2
+						);
+			}
+		} else {
+			$node->content['belead_hire_main'] = array (
+					'#value' => theme('belead_hire_main', $node),
+					'#weight' => 1
+					);
+			if (user_access(BELEAD_HIRE_MANAGE)) {
+				$node->content['belead_hire_script'] = array (
+						'#value' => theme('belead_hire_script', $node),
+						'#weight' => 2
+						);
+				$form = drupal_get_form('belead_hire_add_form', $node);
+				$node->content['belead_hire_add'] = array (
+						'#value' => $form,
+						'#weight' => 2
+						);
+			}
+		}
+	}
+	return $node;
+}
+
+function belead_hire_edit_form($form_state, $node)
+{ 
+	$hire_id = intval($_GET['hire_id']);
+	$result = db_query("select * from belead_hire_content where id = $hire_id");
+	$rows = db_fetch_array($result);
+
+	$form = array ();
+	$form['belead_hire_edits'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Edit Position'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#prefix' => '<div class="belead_hire_edit_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_hire_edit_form_validate';
+	$form['belead_hire_edits']['belead_hire_name'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Name'),
+			'#default_value' => $rows['name'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_department'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Department'),
+			'#default_value' => $rows['department'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_post'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Position'),
+			'#default_value' => $rows['post'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_location'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Place'),
+			'#default_value' => $rows['location'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_gender'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Gender'),
+			'#default_value' => $rows['gender'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_age'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Age'),
+			'#default_value' => $rows['age'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_headcount'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Headcount'),
+			'#default_value' => $rows['headcount'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_openingdate'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Opening Date'),
+			'#default_value' => $rows['openingdate'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_closingdate'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Closing Date'),
+			'#default_value' => $rows['closingdate'],
+			'#size' => 85
+			);
+	$form['belead_hire_edits']['belead_hire_description'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Description'),
+			'#default_value' => $rows['description'],
+			'#size' => 255
+			);
+	$form['belead_hire_edits']['belead_hire_requirement'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Requirements'),
+			'#default_value' => $rows['requirement'],
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_hire_edits']['belead_hire_button_edit'] = array (
+			'#type' => 'submit',
+			'#value' => t('Update'),
+			'#name' => 'update',
+			'#submit' => array('belead_hire_edit_form_submit_update')
+			);
+	$form['belead_hire_edits']['belead_hire_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_hire_edit_form_submit_cancel')
+			);
+	$form['belead_hire_edits']['belead_hire_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $hire_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function belead_hire_edit_form_validate($form, & $form_state)
+{
+}
+
+function belead_hire_edit_form_submit_update($form, & $form_state)
+{
+	$name = $form_state['values']['belead_hire_name'];
+	$department = $form_state['values']['belead_hire_department'];
+	$post = $form_state['values']['belead_hire_post'];
+	$location = $form_state['values']['belead_hire_location'];
+	$gender = $form_state['values']['belead_hire_gender'];
+	$age = $form_state['values']['belead_hire_age'];
+	$headcount = $form_state['values']['belead_hire_headcount'];
+	$openingdate = $form_state['values']['belead_hire_openingdate'];
+	$closingdate = $form_state['values']['belead_hire_closingdate'];
+	$description = $form_state['values']['belead_hire_description'];
+	$requirement = $form_state['values']['belead_hire_requirement'];
+	$id = $form_state['values']['belead_hire_hidden'];
+	db_query("update belead_hire_content set name = '%s', department = '%s', post = '%s', location = '%s', gender = '%s', age = '%s', headcount = '%s', openingdate = '%s', closingdate = '%s', description = '%s', requirement = '%s' where id = %d", $name, $department, $post, $location, $gender, $age, $headcount, $openingdate, $closingdate, $description, $requirement, $id);
+}
+
+function belead_hire_edit_form_submit_cancel($form, & $form_state)
+{
+}
+
+function belead_hire_add_form($form_state, $node)
+{ 
+	$form = array ();
+	$form['belead_hire_adds'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Add Position'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#prefix' => '<div class="belead_hire_add_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_hire_add_form_validate';
+	$form['belead_hire_adds']['belead_hire_name'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Name'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_department'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Department'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_post'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Position'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_location'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Place'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_gender'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Gender'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_age'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Age'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_headcount'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Headcount'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_openingdate'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Opening Date'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_closingdate'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Closing Date'),
+			'#size' => 85
+			);
+	$form['belead_hire_adds']['belead_hire_description'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Description'),
+			'#size' => 255
+			);
+	$form['belead_hire_adds']['belead_hire_requirement'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Requirements'),
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_hire_adds']['belead_hire_button_add'] = array (
+			'#type' => 'submit',
+			'#value' => t('Add'),
+			'#name' => 'add',
+			'#submit' => array('belead_hire_add_form_submit_add')
+			);
+	$form['belead_hire_adds']['belead_hire_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_hire_add_form_submit_cancel')
+			);
+	$form['belead_hire_adds']['belead_hire_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $node->vid,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function belead_hire_add_form_validate($form, & $form_state)
+{
+}
+
+function belead_hire_add_form_submit_add($form, & $form_state)
+{
+	$node= $form {
+		'#node' };
+	$name = $form_state['values']['belead_hire_name'];
+	$department = $form_state['values']['belead_hire_department'];
+	$post = $form_state['values']['belead_hire_post'];
+	$location = $form_state['values']['belead_hire_location'];
+	$gender = $form_state['values']['belead_hire_gender'];
+	$age = $form_state['values']['belead_hire_age'];
+	$headcount = $form_state['values']['belead_hire_headcount'];
+	$openingdate = $form_state['values']['belead_hire_openingdate'];
+	$closingdate = $form_state['values']['belead_hire_closingdate'];
+	$description = $form_state['values']['belead_hire_description'];
+	$requirement = $form_state['values']['belead_hire_requirement'];
+	db_query("insert into belead_hire_content (name, department, post, location, gender, age, headcount, openingdate, closingdate, description, requirement, nid) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)", $name, $department, $post, $location, $gender, $age, $headcount, $openingdate, $closingdate, $description, $requirement, $node->nid);
+}
+
+function belead_hire_add_form_submit_cancel($form, & $form_state)
+{
+}
+
+function belead_hire_delete_form($node)
+{
+	$hire_id = intval($_GET['hire_id']);
+
+	$form = array();
+	$form['belead_hire_deletes'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Delete Position'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#description' => t('Are you sure to delete this hire information?'),
+			'#prefix' => '<div class="belead_hire_delete_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_hire_delete_form_validate';
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_hire_deletes']['belead_hire_button_delete'] = array (
+			'#type' => 'submit',
+			'#value' => t('Delete'),
+			'#name' => 'delete',
+			'#submit' => array('belead_hire_delete_form_submit_delete')
+			);
+	$form['belead_hire_deletes']['belead_hire_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_hire_delete_form_submit_cancel')
+			);
+	$form['belead_hire_deletes']['belead_hire_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $hire_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for delete form.
+ */
+function belead_hire_delete_form_validate($form, & $form_state)
+{
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function belead_hire_delete_form_submit_delete($form, & $form_state)
+{
+	$id = $form_state['values']['belead_hire_hidden'];
+	$sql = "delete from belead_hire_content where id = $id";
+	db_query($sql);
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function belead_hire_delete_form_submit_cancel($form, & $form_state)
+{
+}
+
+function belead_hire_apply_form($form_state, $node)
+{
+	$hire_id = intval($_GET['hire_id']);
+	$result = db_query("select * from belead_hire_content where id = $hire_id");
+	$row = db_fetch_array($result);
+
+	$form = array();
+	$form['belead_hire_applys'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('I Want To Apply'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#description' => t('The position you applied is') . ': ' . $row['name'],
+			'#prefix' => '<div class="belead_hire_apply_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#redirect'] = array('hiring', 'submit=success');
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'belead_hire_apply_form_validate';
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['belead_hire_applys']['belead_hire_item1'] = array (
+			'#type' => 'item',
+			'#value' => t('Resume'),
+		       	'#prefix' => '<div class="title">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_name'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Your Name'),
+			'#required' => TRUE,
+			'#size' => 20,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_gender'] = array (
+			'#type' => 'select',
+			'#title' => t('Gender'),
+			'#required' => TRUE,
+			'#options' => array (
+				'male' => t('Male'),
+				'female' => t('Female'),
+				),
+		       	'#prefix' => '<div class="float">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_birthday'] = array (
+			'#type' => 'date',
+			'#title' => t('Date of Birth'),
+			'#required' => TRUE,
+		       	'#prefix' => '<div class="last">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_school'] = array (
+			'#type' => 'textfield',
+			'#title' => t('School'),
+			'#required' => TRUE,
+			'#size' => 20,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_major'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Major'),
+			'#required' => TRUE,
+			'#size' => 20,
+		       	'#prefix' => '<div class="float">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_education'] = array (
+			'#type' => 'select',
+			'#title' => t('Education'),
+			'#required' => TRUE,
+			'#options' => array (
+				'college' => t('College'),
+				'bachelor' => t('Bachelor'),
+				'master' => t('Master'),
+				'doctor' => t('Doctor'),
+				),
+		       	'#prefix' => '<div class="last">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_phone'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Telephone'),
+			'#required' => TRUE,
+			'#size' => 20,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_email'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Email'),
+			'#required' => TRUE,
+			'#size' => 20,
+		       	'#prefix' => '<div class="last">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_language'] = array (
+			'#type' => 'textarea',
+			'#title' => t('Language Skill'),
+			'#required' => TRUE,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_profession'] = array (
+			'#type' => 'textarea',
+			'#title' => t('Professional Skill'),
+			'#required' => TRUE,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_experience'] = array (
+			'#type' => 'textarea',
+			'#title' => t('Work or Practical Experience'),
+			'#required' => TRUE,
+		       	'#prefix' => '<div class="nofloat">',
+		       	'#suffix' => '</div>',
+			);
+	/*
+	$form['belead_hire_applys']['belead_hire_item2'] = array (
+			'#type' => 'item',
+			'#value' => t('Survey'),
+		       	'#prefix' => '<div class="title nofloat">',
+		       	'#suffix' => '</div>',
+			);
+			*/
+	$form['belead_hire_applys']['belead_hire_button_apply'] = array (
+			'#type' => 'submit',
+			'#value' => t('OK'),
+			'#name' => 'apply',
+			'#submit' => array('belead_hire_apply_form_submit_apply'),
+		       	'#prefix' => '<div class="normal">',
+		       	'#suffix' => '</div>',
+			);
+	/*
+	$form['belead_hire_applys']['belead_hire_button_reset'] = array (
+			'#type' => 'submit',
+			'#value' => t('Reset'),
+			'#name' => 'reset',
+			'#submit' => array('belead_hire_apply_form_submit_reset'),
+		       	'#prefix' => '<div class="normal-float">',
+		       	'#suffix' => '</div>',
+			);
+			*/
+	$form['belead_hire_applys']['belead_hire_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('belead_hire_apply_form_submit_cancel'),
+		       	'#prefix' => '<div class="normal-float">',
+		       	'#suffix' => '</div>',
+			);
+	$form['belead_hire_applys']['belead_hire_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $row['name'],
+			'#name' => 'hidden',
+		       	'#prefix' => '<div class="last">',
+		       	'#suffix' => '</div>',
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for apply form.
+ */
+function belead_hire_apply_form_validate($form, & $form_state)
+{
+}
+
+/**
+ * hook_submit implementation for apply form.
+ */
+function belead_hire_apply_form_submit_apply($form, & $form_state)
+{
+	$position = $form_state['values']['belead_hire_hidden'];
+	$name = $form_state['values']['belead_hire_name'];
+	$gender = $form_state['values']['belead_hire_gender'];
+	if ($gender == 'male') {
+		$gender = t('Male');
+	} elseif ($gender == 'female') {
+		$gender = t('Female');
+	}
+	$birth_array = $form_state['values']['belead_hire_birthday'];
+	$birthday = $birth_array['year'] . '.' . $birth_array['month'] . '.' . $birth_array['day'];
+	$school = $form_state['values']['belead_hire_school'];
+	$major = $form_state['values']['belead_hire_major'];
+	$education = $form_state['values']['belead_hire_education'];
+	if ($education == 'college') {
+		$education = t('College');
+	} elseif ($education == 'bachelor') {
+		$education = t('Bachelor');
+	} elseif ($education == 'master') {
+		$education = t('Master');
+	} elseif ($education == 'doctor') {
+		$education = t('Doctor');
+	}
+	$phone = $form_state['values']['belead_hire_phone'];
+	$email = $form_state['values']['belead_hire_email'];
+	$language = $form_state['values']['belead_hire_language'];
+	$profession = $form_state['values']['belead_hire_profession'];
+	$experience = $form_state['values']['belead_hire_experience'];
+	db_query("insert into belead_resume_content (nid, name, gender, position, birthday, school, major, education, phone, email, language, profession, experience) values (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $form['#node']->nid, $name, $gender, $position, $birthday, $school, $major, $education, $phone, $email, $language, $profession, $experience);
+}
+
+/**
+ * hook_submit implementation for apply form.
+ */
+function belead_hire_apply_form_submit_cancel($form, & $form_state)
+{
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function belead_hire_theme()
+{
+	return array(
+			'belead_hire_main' => array (
+				'arguments' => array ('node'),
+				),
+			'belead_hire_script' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'belead_hire_submit' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'belead_hire_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_belead_hire_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_belead_hire_script($node)
+{
+	if (user_access(BELEAD_HIRE_MANAGE)) {
+		$output = '<script type="text/javascript" src="sites/all/libraries/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>';
+		$output .= '<script type="text/javascript">tinyMCE.init({
+				mode : "textareas",
+				theme : "advanced",
+				skin : "o2k7",
+				theme_advanced_toolbar_location : "top",
+				theme_advanced_toolbar_align : "left",
+				theme_advanced_resizing : true,
+				theme_advanced_buttons1 : "cut, copy, paste, separator, undo, redo, separator, bold, italic, underline, strikethrough, separator, justifyleft, justifycenter, justifyright, justifyfull, separator, bullist, numlist, separator, formatselect, styleselect, fontselect, fontsizeselect",
+				theme_advanced_buttons2 : "outdent, indent, separator, link, unlink, anchor, separator, image, hr, separator, sub, sup, separator, forecolor, backcolor, separator, charmap, visualaid, separator, blockquote, removeformat, cleanup, newdocument, code",
+				theme_advanced_buttons3 : "",
+				width : "704",
+				height : "300"
+				});</script>';
+
+		$output .= '<style type="text/css">';
+		$output .= '#edit-belead-page-body {color: 005858;}';
+		$output .= '</style>';
+	} else {
+		$output = '';
+	}
+
+	return $output;
+}
+
+function theme_belead_hire_submit($node)
+{
+	$output .= '<p>';
+	$output .= '<h4>';
+	$output .= t('Your resume is submitted successfully');
+	$output .= '</h4>';
+	$output .= '</p>';
+	$output .= '<p>';
+	$output .= l(t('Return'), "node/$node->nid");
+	$output .= '</p>';
+	return $output;
+}
+
+function theme_belead_hire_main($node)
+{
+	$output = '<div class="belead_information">';
+	$result = db_query('select * from belead_hire_content where nid = %d order by id asc', $node->nid);
+	while ($row = db_fetch_array($result)) {
+		$output .= '<fieldset class="collapsible collapsed">';
+		$output .= '<legend>';
+		$output .= $row['name'];
+		$output .= '</legend>';
+		$output .= '<label>';
+		$output .= '<table class="belead-table-border">';
+		$output .= '<tr>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Department');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= '</b>';
+		$output .= $row['department'];
+		$output .= '</td>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Position');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['post'];
+		$output .= '</td>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Place');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['location'];
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Age');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['age'];
+		$output .= '</td>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Gender');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['gender'];
+		$output .= '</td>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Headcount');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['headcount'];
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Opening Date');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['openingdate'];
+		$output .= '</td>';
+		$output .= '<td>';
+		$output .= '<b>';
+		$output .= t('Closing Date');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= $row['closingdate'];
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr class="noborder">';
+		$output .= '<td colspan="3" class="noborder">';
+		$output .= '<b>';
+		$output .= t('Description');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= '<br/>';
+		$output .= '<br/>';
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr class="border-bottom">';
+		$output .= '<td colspan="3" class="indent">';
+		$output .= $row['description'];
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr class="noborder">';
+		$output .= '<td colspan="3" class="noborder">';
+		$output .= '<b>';
+		$output .= t('Requirements');
+		$output .= ': ';
+		$output .= '</b>';
+		$output .= '<br/>';
+		$output .= '<br/>';
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '<tr class="noborder">';
+		$output .= '<td colspan="3" class="indent">';
+		$output .= $row['requirement'];
+		$output .= '</td>';
+		$output .= '</tr>';
+		$output .= '</table>';
+		if (user_access(BELEAD_HIRE_MANAGE)) {
+			$output .= '<p>';
+			$output .= l(t('Edit'), "node/$node->nid", array ('query' => array ('hire_id' => $row['id'], 'action' => 'edit')));
+			$output .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+			$output .= l(t('Delete'), "node/$node->nid", array ('query' => array ('hire_id' => $row['id'], 'action' => 'delete')));
+			$output .= '</p>';
+			$output .= '<p>';
+			$output .= l(t('I Want To Apply'), "node/$node->nid", array ('query' => array ('hire_id' => $row['id'], 'action' => 'apply')));
+			$output .= '</p>';
+		} else {
+			$output .= '<p>';
+			$output .= l(t('I Want To Apply'), "node/$node->nid", array ('query' => array ('hire_id' => $row['id'], 'action' => 'apply')));
+			$output .= '</p>';
+		}
+		$output .= '</label>';
+		$output .= '</fieldset>';
+	}
+	$output .= '</div>';
+	return $output;
+}
+
+function belead_hire_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}
+
+/**
+ * Callback for belead_hire/%node menu.
+ */
+function _belead_hire_callback($node)
+{
+	exit ();
+}
+
+/**
+ * hook_menu implementation.
+ */
+function belead_hire_menu()
+{
+	$items= array ();
+	$items['belead_hire/%node']= array (
+			'page callback' => '_belead_hire_callback',
+			'page arguments' => array (
+				1
+				),
+			'type' => MENU_CALLBACK,
+			'access arguments' => array (
+				'access content'
+				)
+			);
+	return $items;
+}

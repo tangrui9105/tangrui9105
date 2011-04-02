@@ -1,0 +1,45 @@
+<?php
+// $Id: belead_social.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function belead_social_install() {
+	drupal_install_schema('belead_social');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function belead_social_uninstall() {
+	drupal_uninstall_schema('belead_social');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function belead_social_schema() {  
+	$schema['belead_social'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'color'    => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'quantity' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	$schema['belead_social_content'] = array(
+			'fields' => array(
+				'id' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'auto_increment' => TRUE),
+				'nid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'title' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				'body' => array('type' => 'text', 'not null' => FALSE, 'default' => '', 'size' => 'big'),
+				'picture' => array('type' => 'varchar', 'length' => 255, 'not null' => FALSE, 'default' => ''),
+				'time' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+				),
+			'primary key' => array('id'),
+			);
+
+	return $schema;
+}

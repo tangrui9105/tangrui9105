@@ -1,0 +1,75 @@
+  ; $Id: newswire.info,v 1.6 2008/10/23 13:19:01 jmburnz Exp $
+  
+name = Newswire
+description = A multi column, tableless, fixed width layout by <a href="http://adaptivethemes.com/">AdaptiveThemes</a>
+core = 6.x
+engine = phptemplate
+screenshot = screenshot.png
+
+  ; The regions defined in the page.tpl.php files.  The name in
+  ; brackets is the name of the variable. The text after the 
+  ; = sign is the short description you see on the block 
+  ; configuration page.
+		
+regions[leaderboard] = Leaderboard
+
+regions[suckerfish] = Suckerfish menu
+
+regions[header] = Header
+
+regions[content_top_full_width] = Content top (950px)
+regions[content_top_left] = Content top col 1 (470px)
+regions[content_top_right] = Content top col 2 (470px)
+
+regions[left] = Left (col 1)
+
+regions[main_content_top] = Main Content top (col 2 top)
+regions[content] = Main Content (col 2)
+regions[main_content_bottom] = Main Content bottom (col 2 bottom)
+
+regions[right_2] = Right 2 (col 3)
+regions[right] = Right (col 4)
+
+regions[right_top_box] = Right top box (390px)
+regions[right_bottom_box] = Right bottom box (390px)
+
+regions[content_bottom_left] = Content bottom col 1 (470px)
+regions[content_bottom_right] = Content bottom col 2 (470px)
+regions[content_bottom_full_width] = Content bottom (950px)
+
+regions[footer] = Footer
+
+  ; This section adds CSS files to your theme. The media type is specified in
+  ; the brackets. Typical CSS media types include "all", "screen", "print", and
+  ; "handheld". See http://www.w3.org/TR/CSS21/media.html#media-types for a full
+  ; list of stylesheet media types in CSS 2.1.
+
+stylesheets[all][]   = reset.css
+stylesheets[all][]   = html-elements.css
+stylesheets[all][]   = forms.css
+stylesheets[all][]   = layout.css
+stylesheets[all][]   = suckerfish.css
+stylesheets[all][]   = style.css
+
+  ; The "features" control which of these check boxes display on the
+  ; admin/build/themes configuration page. This is useful for 
+  ; suppressing check boxes for elements not used by your theme.
+  
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = mission
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = search
+features[] = favicon
+features[] = primary_links
+features[] = secondary_links
+
+
+; Information added by drupal.org packaging script on 2008-10-23
+version = "6.x-3.2"
+core = "6.x"
+project = "newswire"
+datestamp = "1224768317"
+

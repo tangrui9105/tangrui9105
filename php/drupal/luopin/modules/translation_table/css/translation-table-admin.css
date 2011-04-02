@@ -1,0 +1,32 @@
+/* $Id: translation-table-admin.css,v 1.1.2.2 2009/05/26 05:19:59 pasqualle Exp $ */
+
+#translation-table-menu-form #language-filter,
+#translation-table-nodetype-form #language-filter,
+#translation-table-taxonomy-form #language-filter {
+  float: left;
+}
+
+#translation-table-taxonomy-form #edit-vid-wrapper {
+  margin-left: 30px;
+  float: left;
+}
+
+#translation-table-nodetype-form #edit-node-type-wrapper {
+  margin-left: 30px;
+  float: left;
+}
+
+#translation-table-menu-form #edit-filter,
+#translation-table-nodetype-form #edit-filter,
+#translation-table-taxonomy-form #edit-filter {
+  float: left;
+  margin: 30px;
+}
+
+#translation-table {
+  clear: both;
+}
+
+#translation-table td.translation-source {
+  min-width: 250px;
+}

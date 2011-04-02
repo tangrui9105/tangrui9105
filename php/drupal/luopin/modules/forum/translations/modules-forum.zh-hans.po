@@ -1,0 +1,434 @@
+# Chinese, Simplified translation of drupal (6.2)
+# Copyright (c) 2008 by the Chinese, Simplified translation team
+# Generated from files:
+#  forum-list.tpl.php,v 1.4 2007/08/30 18:58:12 goba
+#  forum-submitted.tpl.php,v 1.3 2007/08/07 08:39:35 goba
+#  forum-topic-navigation.tpl.php,v 1.2 2007/08/07 08:39:35 goba
+#  forum.admin.inc,v 1.8 2008/01/30 10:14:42 goba
+#  forum.module,v 1.448.2.3 2008/04/09 21:11:47 goba
+#  forum.install,v 1.16 2007/12/31 16:58:34 goba
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: drupal (6.2)\n"
+"POT-Creation-Date: 2008-05-06 23:17-0400\n"
+"PO-Revision-Date: 2008-04-25 23:20-0400\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: modules/forum/forum-list.tpl.php:38
+msgid "Topics"
+msgstr "主题"
+
+#: modules/forum/forum-list.tpl.php:39
+msgid "Posts"
+msgstr "文章"
+
+#: modules/forum/forum-list.tpl.php:40
+msgid "Last post"
+msgstr "最后一篇"
+
+#: modules/forum/forum-submitted.tpl.php:21
+msgid "@time ago<br />by !author"
+msgstr "由 !author <br /> 发表于 @time 前"
+
+#: modules/forum/forum-topic-navigation.tpl.php:29
+msgid "Go to previous forum topic"
+msgstr "转到上一个论坛主题"
+
+#: modules/forum/forum-topic-navigation.tpl.php:32
+msgid "Go to next forum topic"
+msgstr "转到下一个论坛主题"
+
+#: modules/forum/forum.admin.inc:38
+msgid "Forum name"
+msgstr "论坛名称"
+
+#: modules/forum/forum.admin.inc:41
+msgid "Short but meaningful name for this collection of threaded discussions."
+msgstr "这一组讨论主题的简称。"
+
+#: modules/forum/forum.admin.inc:47
+msgid "Description and guidelines for discussions within this forum."
+msgstr "描述该论坛主要用于讨论的话题和版规。"
+
+#: modules/forum/forum.admin.inc:54
+msgid ""
+"Forums are displayed in ascending order by weight (forums with equal weights "
+"are displayed alphabetically)."
+msgstr ""
+"论坛将会按权重的大小来升序排列（相同权重的论坛按照名称字母先后顺序排列）。"
+
+#: modules/forum/forum.admin.inc:75
+msgid "forum container"
+msgstr "论坛分区"
+
+#: modules/forum/forum.admin.inc:90
+msgid "Created new @type %term."
+msgstr "建立新的 @type %term 。"
+
+#: modules/forum/forum.admin.inc:93
+msgid "The @type %term has been updated."
+msgstr "已更新 @type %term 。"
+
+#: modules/forum/forum.admin.inc:116
+msgid "Container name"
+msgstr "分区名称"
+
+#: modules/forum/forum.admin.inc:120
+msgid "Short but meaningful name for this collection of related forums."
+msgstr "这一组相关论坛的简称"
+
+#: modules/forum/forum.admin.inc:128
+msgid "Description and guidelines for forums within this container."
+msgstr "描述该分区主要用于讨论的话题和版规。"
+
+#: modules/forum/forum.admin.inc:136
+msgid ""
+"Containers are displayed in ascending order by weight (containers with equal "
+"weights are displayed alphabetically)."
+msgstr ""
+"分区将会按权重的大小来升序排列（相同权重的分区按照名称字母先后顺序排列）"
+
+#: modules/forum/forum.admin.inc:168
+msgid "Are you sure you want to delete the forum %name?"
+msgstr "您真的要删除 %name 论坛吗？"
+
+#: modules/forum/forum.admin.inc:168
+msgid ""
+"Deleting a forum or container will also delete its sub-forums, if any. To "
+"delete posts in this forum, visit <a href=\"@content\">content "
+"administration</a> first. This action cannot be undone."
+msgstr ""
+"删除一个分区或者论坛将会同时删除其下的所有子论坛。要删除此论坛中的帖子，请先"
+"访问<a href=\"@content\">内容管理</a>页面。此操作不可恢复。"
+
+#: modules/forum/forum.admin.inc:176
+msgid ""
+"The forum %term and all sub-forums and associated posts have been deleted."
+msgstr "论坛%term及其子论坛以及其中所有文章都已被删除。"
+
+#: modules/forum/forum.admin.inc:192
+msgid "Hot topic threshold"
+msgstr "热门主题门槛"
+
+#: modules/forum/forum.admin.inc:195
+msgid "The number of posts a topic must have to be considered \"hot\"."
+msgstr "有多少篇回复的主题可称之为热门主题"
+
+#: modules/forum/forum.admin.inc:199
+msgid "Topics per page"
+msgstr "每页主题数"
+
+#: modules/forum/forum.admin.inc:202
+msgid "Default number of forum topics displayed per page."
+msgstr "默认每页显示主题数。"
+
+#: modules/forum/forum.admin.inc:204
+msgid "Posts - most active first"
+msgstr "文章——活跃主题优先"
+
+#: modules/forum/forum.admin.inc:204
+msgid "Posts - least active first"
+msgstr "文章——沉寂主题优先"
+
+#: modules/forum/forum.admin.inc:206
+msgid "Default order"
+msgstr "默认顺序"
+
+#: modules/forum/forum.admin.inc:209
+msgid "Default display order for topics."
+msgstr "默认主题显示顺序。"
+
+#: modules/forum/forum.admin.inc:230
+msgid "edit container"
+msgstr "编辑分区"
+
+#: modules/forum/forum.admin.inc:233
+msgid "edit forum"
+msgstr "编辑论坛"
+
+#: modules/forum/forum.admin.inc:245
+msgid ""
+"There are no existing containers or forums. Containers and forums may be "
+"added using the <a href=\"@container\">add container</a> and <a href=\"@forum"
+"\">add forum</a> pages."
+msgstr ""
+"没有任何存在的分区和论坛，可以使用<a href=\"@container\">添加分区</a> 和<a "
+"href=\"@forum\">添加论坛</a> 页面来添加分区和论坛。"
+
+#: modules/forum/forum.admin.inc:286
+msgid ""
+"Containers are usually placed at the top (root) level, but may also be "
+"placed inside another container or forum."
+msgstr "分区通常作为最顶级的目录，但是也可以包含于另一个分区或论坛中。"
+
+#: modules/forum/forum.admin.inc:289
+msgid ""
+"Forums may be placed at the top (root) level, or inside another container or "
+"forum."
+msgstr "论坛通常作为最顶级的目录，但是也可以包含于另一个分区或论坛中。"
+
+#: modules/forum/forum.admin.inc:177
+msgid "forum: deleted %term and all its sub-forums and associated posts."
+msgstr "论坛：删除了 %term 以及以下的所有子论坛，以及所有相关帖子。"
+
+#: modules/forum/forum.module:15
+msgid ""
+"The forum module lets you create threaded discussion forums with "
+"functionality similar to other message board systems. Forums are useful "
+"because they allow community members to discuss topics with one another "
+"while ensuring those conversations are archived for later reference. The <a "
+"href=\"@create-topic\">forum topic</a> menu item (under <em>Create content</"
+"em> on the Navigation menu) creates the initial post of a new threaded "
+"discussion, or thread."
+msgstr ""
+"论坛模块可以让您创建类似于其他论坛程序一样的主题讨论区。论坛是一个非常有用的"
+"功能，使得社区成员能够就感兴趣的话题进行交流讨论并对其讨论的话题进行存档供以"
+"后参考。<a href=\"@create-topic\">论坛主题</a>菜单（在导航栏菜单下的<em>创建"
+"内容</em>）可以创建一个新的主题。"
+
+#: modules/forum/forum.module:16
+msgid ""
+"A threaded discussion occurs as people leave comments on a forum topic (or "
+"on other comments within that topic). A forum topic is contained within a "
+"forum, which may hold many similar or related forum topics. Forums are "
+"(optionally) nested within a container, which may hold many similar or "
+"related forums. Both containers and forums may be nested within other "
+"containers and forums, and provide structure for your message board. By "
+"carefully planning this structure, you make it easier for users to find and "
+"comment on a specific forum topic."
+msgstr ""
+"用户对论坛帖子留言（或队回复其它评论）时，就构成了一个同主题的讨论。许多相关"
+"主题的讨论就构成了一个论坛。多个相关的论坛可以组成一个论坛分区。而论坛和分区"
+"又可以是更上一层论坛或分区的一部分。这样层层嵌套的分区、论坛、讨论主题就构成"
+"了您的讨论版的主要结构。精心安排的论坛结构可以帮助用户更快更好的找到特定的讨"
+"论。"
+
+#: modules/forum/forum.module:17
+msgid "When administering a forum, note that:"
+msgstr "当管理一个论坛时，注意："
+
+#: modules/forum/forum.module:18
+msgid ""
+"a forum topic (and all of its comments) may be moved between forums by "
+"selecting a different forum while editing a forum topic."
+msgstr ""
+"一个论坛主题（包括其所有回复评论）可以通过在编辑时选择不同的论坛而在论坛之间"
+"移动。"
+
+#: modules/forum/forum.module:19
+msgid ""
+"when moving a forum topic between forums, the <em>Leave shadow copy</em> "
+"option creates a link in the original forum pointing to the new location."
+msgstr ""
+"当在论坛间移动帖子时，选择<em>留下副本</em>选项将在原论坛中留下一个指向帖子新"
+"位置的链接。"
+
+#: modules/forum/forum.module:20
+msgid ""
+"selecting <em>Read only</em> under <em>Comment settings</em> while editing a "
+"forum topic will lock (prevent new comments) on the thread."
+msgstr ""
+"在<em>评论设置</em>里选择<em>只读</em>，将在编辑论坛帖子时自动锁定该话题（禁"
+"止新的评论）。"
+
+#: modules/forum/forum.module:21
+msgid ""
+"selecting <em>Disabled</em> under <em>Comment settings</em> while editing a "
+"forum topic will hide all existing comments on the thread, and prevent new "
+"ones."
+msgstr ""
+"在编辑论坛帖子时，如果在<em>评论设置</em>之下选择了<em>关闭</em>选项，将会隐"
+"藏该帖子所有的现有评论，并且不允许发表新评论。"
+
+#: modules/forum/forum.module:22
+msgid ""
+"For more information, see the online handbook entry for <a href=\"@forum"
+"\">Forum module</a>."
+msgstr "获取更多信息，请查看在线手册，进入<a href=\"@forum\">论坛模块</a>。"
+
+#: modules/forum/forum.module:25
+msgid ""
+"This page displays a list of existing forums and containers. Containers "
+"(optionally) hold forums, and forums hold forum topics (a forum topic is the "
+"initial post to a threaded discussion). To provide structure, both "
+"containers and forums may be placed inside other containers and forums. To "
+"rearrange forums and containers, grab a drag-and-drop handle under the "
+"<em>Name</em> column and drag the forum or container to a new location in "
+"the list. (Grab a handle by clicking and holding the mouse while hovering "
+"over a handle icon.) Remember that your changes will not be saved until you "
+"click the <em>Save</em> button at the bottom of the page."
+msgstr ""
+"本页面显示一个现有论坛和容器的列表。容器（可选地）含有论坛，论坛含有论坛主题"
+"（论坛主题是一个讨论线索的初始帖子）。容器和论坛都可以放置在其它容器和论坛中"
+"形成结构。要重新安排论坛和容器，可以拖住<em>名称</em>列下的拖放手柄，将论坛或"
+"容器托到列表中新的位置。（点下鼠标以拖住手柄，保持点下状态移动手柄图标。）要"
+"记住您的改变不会保存，直到您按下页面底部的<em>保存</em>按钮。"
+
+#: modules/forum/forum.module:27
+msgid ""
+"By grouping related or similar forums, containers help organize forums. For "
+"example, a container named \"Food\" may hold two forums named \"Fruit\" and "
+"\"Vegetables\", respectively."
+msgstr ""
+"论坛分区通过对相关的或相似的论坛分组，帮助我们组织论坛。例如：名为“食品”的分"
+"区可以包含名为“水果”和“蔬菜”的论坛，等等。"
+
+#: modules/forum/forum.module:29
+msgid ""
+"A forum holds related or similar forum topics (a forum topic is the initial "
+"post to a threaded discussion). For example, a forum named \"Fruit\" may "
+"contain forum topics titled \"Apples\" and \"Bananas\", respectively."
+msgstr ""
+"论坛包含相关的或相似的论坛主题（一个论坛主题是一个讨论话题的初始帖子）。例"
+"如：一个名为“水果”的论坛可以包含题为“苹果”和“香蕉”的论坛主题，等等。"
+
+#: modules/forum/forum.module:31
+msgid ""
+"These settings allow you to adjust the display of your forum topics. The "
+"content types available for use within a forum may be selected by editing "
+"the <em>Content types</em> on the <a href=\"@forum-vocabulary\">forum "
+"vocabulary page</a>."
+msgstr ""
+"这些设置允许您调整论坛主题的显示方式。要选择论坛可使用的内容类型，请到<a "
+"href=\"@forum-vocabulary\">论坛术语表页面</a>编辑<em>内容类型</em>。"
+
+#: modules/forum/forum.module:236
+msgid ""
+"The item %forum is only a container for forums. Please select one of the "
+"forums below it."
+msgstr "项目 %forum 只是一个分区。请在分区下选择论坛。"
+
+#: modules/forum/forum.module:302
+msgid "Forum topic"
+msgstr "论坛主题"
+
+#: modules/forum/forum.module:304
+msgid ""
+"A <em>forum topic</em> is the initial post to a new discussion thread within "
+"a forum."
+msgstr "<em>论坛主题</em>是在一个论坛里面讨论主题的第一个帖子。"
+
+#: modules/forum/forum.module:367
+msgid ""
+"This is the designated forum vocabulary. Some of the normal vocabulary "
+"options have been removed."
+msgstr "这是一个特定的论坛分类术语表。其它一些普通的分类选项已经被自动去除。"
+
+#: modules/forum/forum.module:409,425
+msgid "Active forum topics"
+msgstr "活跃的论坛主题"
+
+#: modules/forum/forum.module:410,432
+msgid "New forum topics"
+msgstr "新的论坛主题"
+
+#: modules/forum/forum.module:414
+msgid "Number of topics"
+msgstr "主题数量"
+
+#: modules/forum/forum.module:441
+msgid "Read the latest forum topics."
+msgstr "阅读最新的论坛主题。"
+
+#: modules/forum/forum.module:460
+msgid "Leave shadow copy"
+msgstr "保留副本"
+
+#: modules/forum/forum.module:460
+msgid ""
+"If you move this topic, you can leave a link in the old forum to the new "
+"forum."
+msgstr "如果您移动此主题，可以在旧论坛留下一个到新论坛的链接。"
+
+#: modules/forum/forum.module:567
+msgid "Topic"
+msgstr "主题"
+
+#: modules/forum/forum.module:569
+msgid "Created"
+msgstr "作者"
+
+#: modules/forum/forum.module:570
+msgid "Last reply"
+msgstr "最后回复"
+
+#: modules/forum/forum.module:683
+msgid "Post new @node_type"
+msgstr "发表新的@node_type"
+
+#: modules/forum/forum.module:690
+msgid "You are not allowed to post new content in forum."
+msgstr "您没有权限在论坛上发表文章"
+
+#: modules/forum/forum.module:694
+msgid "<a href=\"@login\">Login</a> to post new content in forum."
+msgstr "请<a href=\"@login\">登录</a>论坛后发表帖子。"
+
+#: modules/forum/forum.module:732
+msgid "No forums defined"
+msgstr "没有定义论坛"
+
+#: modules/forum/forum.module:818
+msgid "This topic has been moved"
+msgstr "此主题已被移动"
+
+#: modules/forum/forum.install:69
+msgid "Stores the relationship of nodes to forum terms."
+msgstr "保存节点与论坛术语的关系。"
+
+#: modules/forum/forum.install:76
+msgid "The {node}.nid of the node."
+msgstr "节点ID是{node}.nid "
+
+#: modules/forum/forum.install:90
+msgid "The {term_data}.tid of the forum term assigned to the node."
+msgstr "节点所属的论坛术语 ID {term_data}.tid "
+
+#: modules/forum/forum.module:328
+msgid "create forum topics"
+msgstr "创建论坛主题"
+
+#: modules/forum/forum.module:328
+msgid "delete own forum topics"
+msgstr "删除自己的论坛主题"
+
+#: modules/forum/forum.module:328
+msgid "delete any forum topic"
+msgstr "删除任意的论坛主题"
+
+#: modules/forum/forum.module:328
+msgid "edit own forum topics"
+msgstr "编辑自己的论坛主题"
+
+#: modules/forum/forum.module:328
+msgid "edit any forum topic"
+msgstr "编辑任意的论坛主题"
+
+#: modules/forum/forum.module:328
+msgid "administer forums"
+msgstr "管理论坛"
+
+#: modules/forum/forum.module:94
+msgid "Control forums and their hierarchy and change forum settings."
+msgstr "控制论坛、设置层级以及更改论坛的设置。"
+
+#: modules/forum/forum.module:106
+msgid "Add container"
+msgstr "添加分区"
+
+#: modules/forum/forum.module:115
+msgid "Add forum"
+msgstr "添加论坛"
+
+#: modules/forum/forum.module:140
+msgid "Edit container"
+msgstr "编辑分区"
+
+#: modules/forum/forum.module:148
+msgid "Edit forum"
+msgstr "编辑论坛"

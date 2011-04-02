@@ -1,0 +1,8 @@
+; $Id$
+name = Belead News
+description = This is belead news node type.
+core = 6.x
+
+package = "Belead News"
+
+version = "6.x-0.1-dev"

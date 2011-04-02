@@ -1,0 +1,576 @@
+/* $Id: newswire_rubinator.css,v 1.4 2008/09/16 01:51:26 jmburnz Exp $ */
+
+/*****************************
+
+  Newswire Rubinator styles.css
+  Theme by AdaptiveThemes.com
+  
+  #A00002  very dark red
+  #B20028  dark red
+  #222     very dark gray
+  #E1CAA1  tan
+  #ECDDC3  med tan
+  #F4ECDD  light tan
+
+******************************/
+
+/*** Site slogan ***/
+.branding em {
+  color: #B20028;
+}
+
+/*** Search Box Top ***/
+#search-box-top #edit-search-theme-form-1 {
+  color: #B20028;
+  border-color: #A00002;
+}
+
+#block-search-0 .form-submit,
+#search .form-submit {
+  color: #FFF;
+  background-color: #B20028;
+  border: 1px solid #A00002; 
+}
+
+/*** Primary Menu Links  ***/
+#main-navigation { 
+  margin-top: 1em;
+  background: #B20028;
+}
+
+#primary-menu {
+  border-left: 15px solid #A00002;  
+}
+
+#primary-menu ul.links li a {
+  color: #FFF;
+  background: #B20028;
+}
+
+#primary-menu ul.links li a:hover {
+  color: #FFF;
+  background: #A00002;
+}
+
+/*** Secondary Menu Links ***/
+#secondary-menu { 
+  border-bottom: 2px solid #B20028; 
+}
+
+#secondary-menu ul.links li a:link,
+#secondary-menu ul.links li a:visited,
+#secondary-menu ul.links li a:active {
+  color: #B20028;
+}
+
+#secondary-menu ul.links li {
+   border-right: 1px solid #F4ECDD;
+}
+
+/*** Suckerfish drop menus ***/
+#suckerfish {
+  /*border-left: 15px solid #A00002;*/  
+}
+
+#suckerfish .block .content {
+  margin-left: 15.5em;
+  padding: 0;
+}
+
+#suckerfish a { 
+  font-size: 110%;
+  background: #B20028; 
+  color: #FFF; 
+}
+
+#suckerfish a:active, 
+#suckerfish a:hover { 
+  /*background: #A00002;*/ 
+  background: #005858; 
+  color: #FFF;
+}
+
+#suckerfish ul.menu li li a:link, 
+#suckerfish ul.menu li li a:visited { 
+  color: #FFF; 
+  background: #B20028; 
+}
+
+#suckerfish ul.menu li li { 
+}
+
+#suckerfish ul.menu li ul a { 
+  color: #FFF; 
+  background: #B20028; 
+  /*border-bottom: 1px solid #A00002;*/ 
+  border-top: 1px solid #005858; 
+  border-right: 1px solid #005858; 
+  border-left: 1px solid #005858; 
+}
+
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  /*color: #A00002;*/
+  color: #FFF;
+  /*background: #F4ECDD;*/ 
+  background: #005858; 
+}
+
+#suckerfish ul.menu li li.expanded a { 
+  color: #FFF; 
+  background: #B20028; 
+  border-top: 1px solid #005858; 
+}
+
+#suckerfish ul.menu li li.expanded a:active, 
+#suckerfish ul.menu li li.expanded a:hover { 
+  /*background: #F4ECDD;*/ 
+  color: #FFF;
+  background: #005858; 
+}
+
+#suckerfish ul.menu li ul a:active, 
+#suckerfish ul.menu li ul a:hover { 
+  /*background: #F4ECDD;*/
+  background: #005858; 
+  text-decoration: none;  
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a { 
+  background: #B20028; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu a:active, 
+#suckerfish ul.menu li li.expanded ul.menu a:hover { 
+  /*background: #F4ECDD;*/ 
+  background: #005858; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a { 
+  background: #B20028; 
+}
+
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:active, 
+#suckerfish ul.menu li li.expanded ul.menu li.expanded a:hover { 
+  /*background: #F4ECDD;*/
+  background: #005858; 
+}
+
+/*** The Main Columns 
+     Column specific styles ***/
+
+/*** Column 2 ***/
+#content h1.category {
+  background: #F4ECDD; 
+  border: 1px solid #E1CAA1;
+}
+
+#content h1.category em {
+  color: #B20028;
+  background: #F4ECDD; 
+}
+
+#content h1.category span {
+  color: #222;
+}
+
+/*** Column 3 ***/
+#right_2 { 
+  background: #F4ECDD; 
+  border: 1px solid #ECDDC3;
+}
+
+#right_2 .block .block-wrapper { 
+  background: transparent;
+}
+
+#right_2 .block ul li {
+  color: #ECDDC3;
+}
+
+#right_2 .block h3.title {
+  background: transparent;
+  border-bottom: 1px solid #E1CAA1;
+}
+
+#right_2 .block h3.title span {
+}
+
+/***  Mission ***/
+.mission { 
+  color: #222;
+  background: transparent; 
+  border-bottom: 2px solid #F4ECDD;
+}
+
+.mission a:link,
+.mission a:visited,
+.mission a:hover {
+  color: #222;
+}
+
+/*** Nodes ***/
+div.node {
+  border-bottom:1px solid #F4ECDD;
+}
+
+/*** Comments ***/
+div.comment.odd {
+  background: #ECDDC3;
+}
+
+div.comment.even {
+  background: #F4ECDD;
+}
+
+div.comment.comment-mine {
+  background: #E1CAA1;
+}
+
+/*** Forum ***/
+.forum-topic-navigation {
+  border-bottom:1px solid #E1CAA1;
+  border-top:1px solid #E1CAA1;
+}
+
+/*** Book module ***/
+.book-navigation .page-links {
+  background: #F4ECDD;
+}
+.book-navigation .menu {
+  border-color: #F4ECDD;
+}
+
+/*** Blocks ***/
+.block h3.title {
+  /*color: #222;*/
+  color: #FFFFFF;
+  /*background: #F4ECDD;*/
+  /*background: #D6F7F1;*/
+  background: #005858;
+  /*border-bottom: 1px solid #E1CAA1*/;
+  border-bottom: 1px solid #005858;
+}
+
+.block {
+  padding: 0;
+  color: #B20028;
+  /*border: 1px solid #E1CAA1*/;
+  border: 1px solid #005858;
+}
+
+.block a { 
+  color: #B20028;
+}
+
+.block a:active,
+.block a:hover {
+  color: #005858;
+}
+
+.block ul li {
+  /*color: #E1CAA1;*/
+  color: #005858;
+}
+
+/*** Footer ***/
+#footer-message {
+  /*color: #E1CAA1;*/
+  color: #005858;
+}
+
+#footer a {
+  color: #B20028;
+}
+
+#footer a:active,
+#footer a:hover {
+  color: #005858;
+}
+
+#adaptivethemes a:link, 
+#adaptivethemes a:active, 
+#adaptivethemes a:visited {
+  color: #F4ECDD;
+}
+
+#adaptivethemes a:hover {
+  color: #E1CAA1;
+}
+
+/*** Tables ***/
+thead th     { border-bottom: 0px solid #005858; }
+tr.even,
+tr.odd,
+tbody, 
+tbody th     { border: none; }
+tr.odd       { background-color: #F4ECDD; }
+tr.info      { background-color: #E1CAA1; }
+tr.even      { background-color: #fff; }
+
+tr.odd td.active  { background-color: #ECDDC3; }
+tr.even td.active { background-color: #E1CAA1; }
+
+td.region, td.module, td.container {
+  border-bottom: none;
+  background-color: #F4ECDD;
+  color: #222;
+}
+
+table.system-status-report th {
+  border-bottom: none;
+}
+
+/*** Forms ***/
+input.text, input.title, textarea, select,
+/*fieldset, fieldset legend,*/
+input.form-text, textarea {
+  border: 1px solid #005858;
+}
+.resizable-textarea .grippie {
+  background-color: #006969 ;
+  border-color: #005858;
+}
+
+/*** Tabs ***/
+.tabs ul.primary {
+  border-bottom: 1px solid #E1CAA1;
+}
+.tabs ul.primary li a {
+  background-color: #F4ECDD;
+  border-color: #E1CAA1;
+}
+.tabs ul.primary li.active a {
+  border-color: #E1CAA1 #E1CAA1 #FFFFFF;
+  background-color: #FFFFFF;
+}
+.tabs ul.primary li a:hover {
+  background-color: #ECDDC3;
+  border-color: #E1CAA1;
+  border-bottom-color: #E1CAA1;
+}
+.tabs ul.secondary {
+  border-bottom: 1px solid #E1CAA1;
+}
+.tabs ul.secondary li {
+  border-right: 1px solid #E1CAA1; /* LTR */
+}
+.tabs ul.secondary a.active {
+  border-bottom: 4px solid #E1CAA1;
+}
+
+/*** Tangrui9105 Defined Style ***/
+.belead-h4 {
+  font-weight: bolder;
+}
+
+.belead-h3 {
+  font-weight: bolder;
+}
+
+.belead-table tr td.center {
+  text-align: center;
+}
+
+.belead-table tr td.left {
+  text-align: left;
+}
+
+.belead-table tr td.left-larger {
+  text-align: left;
+  font-size: larger;
+}
+
+.belead-table tr td.left-bolder {
+  text-align: left;
+  font-weight: bolder;
+}
+
+.belead-table-border {
+  border: 1px solid #005858;
+  table-layout: fixed;
+}
+
+.belead-table-border tr {
+  border: 1px solid #005858;
+}
+
+.belead-table-border tr.noborder {
+  border: 0px solid #005858;
+}
+
+.belead-table-border tr.border-bottom {
+  border-top: 0px solid #005858;
+  border-left: 0px solid #005858;
+  border-right: 0px solid #005858;
+  border-bottom: 1px solid #005858;
+}
+
+.belead-table-border tr td.bolder {
+  font-weight: bolder;
+}
+
+.belead-table-border tr td {
+  border: 1px solid #005858;
+}
+
+.belead-table-border tr td.noborder {
+  border: 0px solid #005858;
+}
+
+.belead-table-border tr td.indent {
+  border: 0px solid #005858;
+  padding-left: 36px;
+}
+
+.belead-table-auto-border {
+  border: 1px solid #005858;
+}
+
+.belead-table-auto-border tr {
+  border: 1px solid #005858;
+}
+
+.belead-table-auto-border tr.noborder {
+  border: 0px solid #005858;
+}
+
+.belead-table-auto-border tr td.bolder {
+  font-weight: bolder;
+}
+
+.belead-table-auto-border tr td {
+  border: 1px solid #005858;
+}
+
+.belead-table-auto-border tr td.noborder {
+  border: 0px solid #005858;
+}
+
+.belead-table-auto-border tr td.indent {
+  border: 0px solid #005858;
+  padding-left: 36px;
+}
+
+.belead-table tr td span.bolder{
+  font-weight: bolder;
+}
+
+.belead-table tr.border {
+  border: 1px solid #E1CAA1;
+}
+
+.belead-table-navi {
+  table-layout: fixed;
+}
+
+.belead-table-navi tr.border {
+  border: 1px solid #E1CAA1;
+}
+
+.belead-table-navi tr td.first {
+  background-color: #F4ECDD;
+  font-size: medium;
+  font-weight: bolder;
+}
+
+.belead-table-navi tr td.second {
+  font-weight: bolder;
+}
+
+#belead-h4-customer {
+  border: none;
+  text-align: center;
+}
+
+.belead-h4-center {
+  font-weight: bolder;
+  text-align: center;
+}
+
+.belead-h5-right {
+  text-align: right;
+}
+
+.belead-h5-italic {
+  font-style: italic;
+}
+
+.belead-p-center {
+  text-align: center;
+}
+
+.belead-p-right {
+  text-align: right;
+}
+
+.belead-ul li p span.bold {
+  font-weight: bolder;
+}
+
+div.belead-img-right p img {
+  float: right;
+}
+
+div.belead-img-left p img {
+  float: left;
+}
+
+div.belead_information table.hr tr td {
+  border-top: 1px solid #005858; 
+  height: 1px;
+}
+
+div.belead_information span.separator {
+  padding: 5px;
+  color: #005858;
+}
+
+ul.belead-ul li {
+  color: #000000;
+}
+
+div.belead_product_information img {
+  width: 750px;
+  text-align: center;
+}
+
+div.belead_product_category_information img {
+  width: 180px;
+  height: 120px;
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+}
+
+div.belead_hire_apply_form div.title {
+  font-weight: bolder;
+  font-size: 110%;
+}
+
+div.belead_hire_apply_form div.float {
+  float: left;
+  margin-right: 20px; 
+}
+
+div.belead_hire_apply_form div.last {
+  float: left;
+  margin-right: 0;
+}
+
+div.belead_hire_apply_form div.nofloat {
+  float: left;
+  clear: both;
+  margin-right: 20px;
+}
+
+div.belead_hire_apply_form div.normal {
+  float: left;
+  clear: both;
+  margin-right: 0;
+}
+
+div.belead_hire_apply_form div.normal-float {
+  float: left;
+  margin-right: 0; 
+}

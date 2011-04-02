@@ -1,0 +1,31 @@
+<?php
+// $Id: belead_page.install,v 1.4 2007/10/05 16:44:50 drewish Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function belead_page_install() {
+	drupal_install_schema('belead_page');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function belead_page_uninstall() {
+	drupal_uninstall_schema('belead_page');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function belead_page_schema() {  
+	$schema['belead_page'] = array(
+			'fields' => array(
+				'vid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				'nid'      => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+				),
+			'primary key' => array('vid', 'nid'),
+			);
+
+	return $schema;
+}

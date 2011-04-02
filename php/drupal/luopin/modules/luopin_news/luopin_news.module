@@ -1,0 +1,464 @@
+<?php
+// $Id: luopin_news.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+define(LUOPIN_NEWS_CREATE_CONTENT, 'create luopin news content');
+define(LUOPIN_NEWS_EDIT_ANY_CONTENT, 'edit any luopin news content');
+define(LUOPIN_NEWS_EDIT_OWN_CONTENT, 'edit own luopin news content');
+define(LUOPIN_NEWS_DELETE_ANY_CONTENT, 'delete any luopin news content');
+define(LUOPIN_NEWS_DELETE_OWN_CONTENT, 'delete own luopin news content');
+define(LUOPIN_NEWS_MANAGE, 'manage luopin news');
+
+function luopin_news_node_info()
+{
+	return array(
+			'luopin_news' => array(
+				'name' => t('Luopin News'),
+				'module' => 'luopin_news',
+				'description' => t("This is luopin news node type."),
+				'has_title' => TRUE,
+				'title_label' => t('News Title'),
+				'has_body' => TRUE,
+				'body_label' => t('News Body'),
+				)
+		    );
+}
+
+function luopin_news_access($op, $node, $account)
+{
+	if ($op == 'create') {
+		return user_access(LUOPIN_NEWS_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(LUOPIN_NEWS_EDIT_ANY_CONTENT, $account) || (user_access(LUOPIN_NEWS_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(LUOPIN_NEWS_DELETE_ANY_CONTENT, $account) || (user_access(LUOPIN_NEWS_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+function luopin_news_perm() {
+	return array(
+			LUOPIN_NEWS_CREATE_CONTENT,
+			LUOPIN_NEWS_EDIT_ANY_CONTENT,
+			LUOPIN_NEWS_EDIT_OWN_CONTENT,
+			LUOPIN_NEWS_DELETE_ANY_CONTENT,
+			LUOPIN_NEWS_DELETE_OWN_CONTENT,
+			LUOPIN_NEWS_MANAGE,
+		    );
+}
+
+function luopin_news_form(&$node)
+{
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	return $form;
+}
+
+function luopin_news_validate(&$node)
+{
+}
+
+function luopin_news_insert($node)
+{
+	db_query("INSERT INTO {luopin_news} (vid, nid) VALUES (%d, %d)", $node->vid, $node->nid);
+}
+
+function luopin_news_update($node)
+{
+	if ($node->revision) {
+		luopin_news_insert($node);
+	}
+}
+
+function luopin_news_nodeapi(&$node, $op, $teaser, $page)
+{
+	switch ($op) {
+		case 'delete revision':
+			db_query('DELETE FROM {luopin_news} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+function luopin_news_delete($node) {
+	db_query('DELETE FROM {luopin_news} WHERE nid = %d', $node->nid);
+}
+
+function luopin_news_load($node)
+{
+	$additions = db_fetch_object(db_query('SELECT * FROM {luopin_news} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function luopin_news_view($node, $teaser = FALSE, $page = FALSE) {
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+
+	drupal_set_title(theme('luopin_news_page_title', $node));
+	$node->content['luopin_news_script'] = array (
+			'#value' => theme('luopin_news_script', $node),
+			'#weight' => 1
+			);
+	if (isset($_GET['news_id'])) {
+		if ($_GET['action'] == 'edit') {
+			$form = drupal_get_form('luopin_news_edit_form', $node);
+			$node->content['luopin_news_edit'] = array (
+					'#value' => $form,
+					'#weight' => 2
+					);
+		} elseif ($_GET['action'] == 'delete') {
+			$form = drupal_get_form('luopin_news_delete_form', $node);
+			$node->content['luopin_news_delete'] = array (
+					'#value' => $form,
+					'#weight' => 2
+					);
+		} else {
+			$node->content['luopin_news_main'] = array (
+					'#value' => theme('luopin_news_main', $node),
+					'#weight' => 2
+					);
+		}
+	} else {
+		$node->content['luopin_news_main'] = array (
+				'#value' => theme('luopin_news_main', $node),
+				'#weight' => 2
+				);
+		if (user_access(LUOPIN_NEWS_MANAGE)) {
+			$form = drupal_get_form('luopin_news_add_form', $node);
+			$node->content['luopin_news_add']= array (
+					'#value' => $form,
+					'#weight' => 3
+					);
+		}
+	}
+
+	return $node;
+}
+
+function luopin_news_theme()
+{
+	return array (
+			'luopin_news_main' => array (
+				'arguments' => array ('node'),
+				),
+			'luopin_news_script' => array (
+				'arguments' => array ('node' => NULL),
+				),
+			'luopin_news_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_luopin_news_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_luopin_news_script(& $node)
+{
+	$output = '<script type="text/javascript" src="sites/all/libraries/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>';
+	$output .= '<script type="text/javascript">tinyMCE.init({
+			mode : "textareas",
+		       	theme : "advanced",
+		       	skin : "o2k7",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_resizing : true,
+			theme_advanced_buttons1 : "cut, copy, paste, separator, undo, redo, separator, bold, italic, underline, strikethrough, separator, justifyleft, justifycenter, justifyright, justifyfull, separator, bullist, numlist, separator, formatselect, fontselect, fontsizeselect",
+			theme_advanced_buttons2 : "outdent, indent, separator, link, unlink, anchor, separator, image, hr, separator, sub, sup, separator, forecolor, backcolor, separator, charmap, visualaid, separator, blockquote, removeformat, cleanup, newdocument, code",
+			theme_advanced_buttons3 : "",
+		       	width : "500",
+		       	height : "300"
+			});</script>';
+
+/*
+	$output .= '<style type="text/css">';
+	$output .= '#edit-luopin-page-body {color: 005858;}';
+	$output .= '</style>';
+*/
+
+	return $output;
+}
+
+function luopin_news_add_form($form_state, $node) {
+	$form = array ();
+	$form['luopin_news_adds'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Add News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Added News will be the latest news.'),
+			'#prefix' => '<div class="luopin_news_add_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][] = 'luopin_news_add_form_submit';
+	$form['#validate'][ ]= 'luopin_news_add_form_validate';
+	$form['luopin_news_adds']['luopin_news_title'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Title'),
+			'#size' => 85
+			);
+	$form['luopin_news_adds']['luopin_news_body'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Body'),
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['luopin_news_adds']['luopin_news_button'] = array (
+			'#type' => 'submit',
+			'#value' => t('Add It'),
+			'#name' => 'add'
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for add form.
+ */
+function luopin_news_add_form_validate($form, & $form_state) {
+	$title = $form_state['values']['luopin_news_title'];
+	if (empty($title)) {
+		form_error($form['luopin_news_adds']['luopin_news_title'], t("This news title cannot be empty."));
+	}
+	if (strlen($title) > 255) {
+		form_error($form['luopin_news_adds']['luopin_news_title'], t("This news title lenght is too long."));
+	}
+	$body = $form_state['values']['luopin_news_body'];
+	if (empty($body)) {
+		form_error($form['luopin_news_adds']['luopin_news_body'], t("This news body cannot be empty."));
+	}
+}
+
+/**
+ * hook_submit implementation for add form.
+ */
+function luopin_news_add_form_submit($form, & $form_state) {
+	$node= $form {
+		'#node' };
+	$time = date("Y-m-d H:i:s");
+	$title = $form_state['values']['luopin_news_title'];
+	$body = $form_state['values']['luopin_news_body'];
+	$sql = "insert into luopin_news_content (title, body, time, nid) values ('$title', '$body', '$time', $node->nid)";
+	db_query($sql);
+}
+
+function luopin_news_edit_form($form_state, $node)
+{ 
+	$news_id = intval($_GET['news_id']);
+	$result = db_query("select * from luopin_news_content where id = $news_id");
+	$rows = db_fetch_array($result);
+
+	$form = array ();
+	$form['luopin_news_edits'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Edit News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#prefix' => '<div class="luopin_news_edit_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'luopin_news_edit_form_validate';
+	$form['luopin_news_edits']['luopin_news_title'] = array (
+			'#type' => 'textfield',
+			'#title' => t('Title'),
+			'#default_value' => $rows['title'],
+			'#size' => 85
+			);
+	$form['luopin_news_edits']['luopin_news_body'] = array (
+			'#type' => 'textarea',
+			'#resizable' => FALSE,
+			'#title' => t('Body'),
+			'#default_value' => $rows['body'],
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['luopin_news_edits']['luopin_news_button_edit'] = array (
+			'#type' => 'submit',
+			'#value' => t('Update'),
+			'#name' => 'update',
+			'#submit' => array('luopin_news_edit_form_submit_update')
+			);
+	$form['luopin_news_edits']['luopin_news_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('luopin_news_edit_form_submit_cancel')
+			);
+	$form['luopin_news_deletes']['luopin_news_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $news_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function luopin_news_edit_form_validate($form, & $form_state)
+{
+	$title = $form_state['values']['luopin_news_title'];
+	if (empty($title)) {
+		form_error($form['luopin_news_edits']['luopin_news_title'], t("This news title cannot be empty."));
+	}
+	if (strlen($title) > 255) {
+		form_error($form['luopin_news_edits']['luopin_news_title'], t("This news title lenght is too long."));
+	}
+	$body = $form_state['values']['luopin_news_body'];
+	if (empty($body)) {
+		form_error($form['luopin_news_edits']['luopin_news_body'], t("This news body cannot be empty."));
+	}
+}
+
+function luopin_news_edit_form_submit_update($form, & $form_state)
+{
+	$title = $form_state['values']['luopin_news_title'];
+	$body = $form_state['values']['luopin_news_body'];
+	$id = $form_state['values']['luopin_news_hidden'];
+	$sql = "update luopin_news_content set title = '$title', body = '$body' where id = $id";
+	db_query($sql);
+}
+
+function luopin_news_edit_form_submit_cancel($form, & $form_state)
+{
+}
+
+function luopin_news_delete_form($node)
+{
+	$news_id = intval($_GET['news_id']);
+	$result = db_query("select * from luopin_news_content where id = $news_id");
+	$rows = db_fetch_array($result);
+
+	$form = array();
+	$form['luopin_news_deletes'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Delete News'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#description' => t('Are you sure to delete this news?'),
+			'#prefix' => '<div class="luopin_news_delete_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'luopin_news_delete_form_validate';
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['luopin_news_deletes']['luopin_news_button_delete'] = array (
+			'#type' => 'submit',
+			'#value' => t('Delete'),
+			'#name' => 'delete',
+			'#submit' => array('luopin_news_delete_form_submit_delete')
+			);
+	$form['luopin_news_deletes']['luopin_news_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('luopin_news_delete_form_submit_cancel')
+			);
+	$form['luopin_news_deletes']['luopin_news_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $news_id,
+			'#name' => 'hidden'
+			);
+	return $form;
+}
+
+function luopin_news_delete_form_validate($form, & $form_state)
+{
+}
+
+function luopin_news_delete_form_submit_delete($form, & $form_state)
+{
+	$id = $form_state['values']['luopin_news_hidden'];
+	$sql = "delete from luopin_news_content where id = $id";
+	db_query($sql);
+}
+
+function luopin_news_delete_form_submit_cancel($form, & $form_state)
+{
+}
+
+function theme_luopin_news_main($node)
+{
+	$output = '<div class="luopin_news_main">';
+
+	$result = db_query('select * from luopin_news_content where nid = %d order by id desc ', $node->nid);
+	while ($row = db_fetch_array($result)) {
+		$output .= '<fieldset class="collapsible collapsed">';
+		$output .= '<legend>';
+		$output .= $row['title'];
+		$output .= '</legend>';
+		$output .= '<label>';
+		$output .= $row['body'];
+		if (user_access(LUOPIN_HIRE_MANAGE)) {
+			$output .= '<p>';
+			$output .= l(t('Edit'), "node/$node->nid", array ('query' => array ('news_id' => $row['id'], 'action' => 'edit')));
+			$output .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+			$output .= l(t('Delete'), "node/$node->nid", array ('query' => array ('news_id' => $row['id'], 'action' => 'delete')));
+			$output .= '</p>';
+		}
+		$output .= '</label>';
+		$output .= '</fieldset>';
+	}
+	$output .= '</div>';
+	return $output;
+}
+
+function luopin_news_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}

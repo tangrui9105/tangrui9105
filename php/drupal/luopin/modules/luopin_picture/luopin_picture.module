@@ -1,0 +1,412 @@
+<?php
+// $Id: luopin_picture.module,v 1.26 2008/01/19 21:13:58 bdragon Exp $
+
+/**
+ * Implementation of hook_node_info(). This function replaces hook_node_name()
+ * and hook_node_types() from 4.6. Drupal 5 expands this hook significantly.
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e. if the
+ *   module is luopin_picture_foo then luopin_picture_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   show up when a user accesses the "Create content" page for that node type.
+ *
+ * The other optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label": the label for the title field of this content type.
+ * - "has_body": boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label": the label for the body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ */
+define(LUOPIN_PICTURE_CREATE_CONTENT, 'create luopin picture content');
+define(LUOPIN_PICTURE_EDIT_ANY_CONTENT, 'edit any luopin picture content');
+define(LUOPIN_PICTURE_EDIT_OWN_CONTENT, 'edit own luopin picture content');
+define(LUOPIN_PICTURE_DELETE_ANY_CONTENT, 'delete any luopin picture content');
+define(LUOPIN_PICTURE_DELETE_OWN_CONTENT, 'delete own luopin picture content');
+define(LUOPIN_PICTURE_MANAGE, 'manage luopin picture');
+
+function luopin_picture_node_info()
+{
+	return array (
+			'luopin_picture' => array(
+				'name' => t('Luopin Picture'),
+				'module' => 'luopin_picture',
+				'description' => t("This is luopin picture node type."),
+				'has_title' => TRUE,
+				'title_label' => t('Picture Title'),
+				'has_body' => TRUE,
+				'body_label' => t('Picture Body'),
+				)
+		    );
+}
+
+/**
+ * Implementation of hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function luopin_picture_access($op, $node, $account)
+{
+	if ($op == 'create') {
+		return user_access(LUOPIN_PICTURE_CREATE_CONTENT, $account);
+	}
+
+	if ($op == 'update') {
+		if (user_access(LUOPIN_PICTURE_EDIT_ANY_CONTENT, $account) || (user_access(LUOPIN_PICTURE_EDIT_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+
+	if ($op == 'delete') {
+		if (user_access(LUOPIN_PICTURE_DELETE_ANY_CONTENT, $account) || (user_access(LUOPIN_PICTURE_DELETE_OWN_CONTENT, $account) && ($account->uid == $node->uid))) {
+			return TRUE;
+		}
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function luopin_picture_perm()
+{
+	return array(
+			LUOPIN_PICTURE_CREATE_CONTENT,
+			LUOPIN_PICTURE_EDIT_ANY_CONTENT,
+			LUOPIN_PICTURE_EDIT_OWN_CONTENT,
+			LUOPIN_PICTURE_DELETE_ANY_CONTENT,
+			LUOPIN_PICTURE_DELETE_OWN_CONTENT,
+			LUOPIN_PICTURE_MANAGE,
+		    );
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array with
+ * a sub array containing information for each element in the form.
+ */
+function luopin_picture_form(&$node)
+{
+	// The site admin can decide if this node type has a title and body, and how
+	// the fields should be labeled. We need to load these settings so we can
+	// build the node form correctly.
+	$type = node_get_types('type', $node);
+
+	if ($type->has_title) {
+		$form['title'] = array(
+				'#type' => 'textfield',
+				'#title' => check_plain($type->title_label),
+				'#required' => TRUE,
+				'#default_value' => $node->title,
+				'#weight' => -5
+				);
+	}
+
+	if ($type->has_body) {
+		// In Drupal 6, we can use node_body_field() to get the body and filter
+		// elements. This replaces the old textarea + filter_form() method of
+		// setting this up. It will also ensure the teaser splitter gets set up
+		// properly.
+		$form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+	}
+
+	return $form;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function luopin_picture_validate(&$node)
+{
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * As a new node is being inserted into the database, we need to do our own
+ * database inserts.
+ */
+function luopin_picture_insert($node)
+{
+	db_query("INSERT INTO {luopin_picture} (vid, nid) VALUES (%d, %d)", $node->vid, $node->nid);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates.
+ */
+function luopin_picture_update($node)
+{
+	// if this is a new node or we're adding a new revision,
+	if ($node->revision) {
+		luopin_picture_insert($node);
+	}
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * When a node revision is deleted, we need to remove the corresponding record
+ * from our table. The only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ */
+function luopin_picture_nodeapi(&$node, $op, $teaser, $page)
+{
+	switch ($op) {
+		case 'delete revision':
+			// Notice that we're matching a single revision based on the node's vid.
+			db_query('DELETE FROM {luopin_picture} WHERE vid = %d', $node->vid);
+			break;
+	}
+}
+
+/**
+ * Implementation of hook_delete().
+ *
+ * When a node is deleted, we need to remove all related records from out table.
+ */
+function luopin_picture_delete($node)
+{
+	// Notice that we're matching all revision, by using the node's nid.
+	db_query('DELETE FROM {luopin_picture} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node back out. This hook is called
+ * every time a node is loaded, and allows us to do some loading of our own.
+ */
+function luopin_picture_load($node)
+{
+	$additions = db_fetch_object(db_query('SELECT * FROM {luopin_picture} WHERE vid = %d', $node->vid));
+	return $additions;
+}
+
+/**
+ * Implementation of hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters.
+ */
+function luopin_picture_view($node, $teaser = FALSE, $page = FALSE)
+{
+	global $user, $base_url;
+	$node = node_prepare($node, $teaser);
+
+	/* Full node content view */
+	drupal_set_title(theme('luopin_picture_page_title', $node));
+	if (user_access(LUOPIN_PICTURE_MANAGE)) {
+		$form = drupal_get_form('luopin_picture_upload_form', $node);
+		$node->content['luopin_picture_upload'] = array (
+				'#value' => $form,
+				'#weight' => 1
+				);
+	}
+	$node->content['luopin_picture_main'] = array (
+			'#value' => theme('luopin_picture_main', $node),
+			'#weight' => 2
+			);
+
+	return $node;
+}
+
+function luopin_picture_upload_form($form_state, $node) {
+	$form = array ();
+	$form['luopin_picture_uploads'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Upload Picture File'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Upload picture to site directory and use it in other page.'),
+			'#prefix' => '<div class="luopin_picture_upload_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][] = 'luopin_picture_upload_form_submit';
+	$form['#validate'][ ]= 'luopin_picture_upload_form_validate';
+	$form['luopin_picture_uploads']['luopin_picture_upload']= array (
+			'#type' => 'file',
+			'#title' => t('Upload file'),
+			'#size' => 40
+			);
+	$form['luopin_picture_uploads']['luopin_picture_description'] = array (
+			'#type' => 'textarea',
+			'#title' => t('Description'),
+			'#default_value' => '',
+			'#size' => 255
+			);
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['luopin_picture_uploads']['luopin_picture_button'] = array (
+			'#type' => 'submit',
+			'#value' => t('Upload'),
+			'#name' => 'upload'
+			);
+	return $form;
+}
+
+/**
+ * hook_submit implementation for upload form.
+ */
+function luopin_picture_upload_form_submit($form, & $form_state)
+{
+	$time = date("Y-m-d H:i:s");
+	$name= $_FILES['files']['name']['luopin_picture_upload'];
+	if (!empty ($form_state['values']['luopin_picture_file_name'])) {
+		$name= $form_state['values']['luopin_picture_file_name'];
+	}
+	$tmp_name= $_FILES['files']['tmp_name']['luopin_picture_upload'];
+	$location = file_directory_path().'/'.$name;
+	copy($tmp_name, $location);
+	$description = $form_state['values']['luopin_picture_description'];
+	db_query("insert into luopin_picture_content (name, location, description, time) values ('$name', '$location', '$description', '$time')");
+}
+
+/**
+ * hook_validate implementation for upload form.
+ */
+function luopin_picture_upload_form_validate($form, $form_state)
+{
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function luopin_picture_theme()
+{
+	return array(
+			'luopin_picture_main' => array (
+				'arguments' => array ('node'),
+				),
+			'luopin_picture_page_title' => array (
+				'arguments' => array ('node' => NULL),
+				)
+		     );
+}
+
+function theme_luopin_picture_description(& $node)
+{
+	$output= '<div class="luopin-page-description">';
+	$output .= '</div>';
+	return $output;
+}
+
+function theme_luopin_picture_page_title($node)
+{
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function theme_luopin_picture_main($node)
+{
+	$output = '<h4 class="luopin-h4">';
+	$output .= t('Picture Files List');
+	$output .= '</h4>';
+	$sql = 'SELECT name, location, description, time FROM {luopin_picture_content}';
+	$limit = 20;
+	$header = array (
+			array (
+				'data' => t('Name'),
+				'field' => 'name',
+			      ),
+			array (
+				'data' => t('Location'),
+				'field' => 'location',
+			      ),
+			array (
+				'data' => t('Description'),
+				'field' => 'description',
+			      ),
+			array (
+				'data' => t('Upload Time'),
+				'field' => 'time',
+				'sort' => 'desc',
+			      ),
+		       );
+	$tablesort = tablesort_sql($header);
+	$result = pager_query($sql . $tablesort, $limit);
+	$rows = array();
+	while ($picture = db_fetch_object($result)) {
+		$rows[] = array($picture->name, $picture->location, $picture->description, $picture->time);
+	}
+	if (!$rows) {
+		$rows[] = array(array('data' => t('The list is empty.'), 'colspan' => 3));
+	}
+	$output .= theme('table', $header, $rows, array('id' => 'luopin_picture-file-listing'));
+	//$output .= theme('pager', NULL, $limit, 0);
+	return $output;
+}
+
+function luopin_picture_match_path($path, $patterns)
+{
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array (
+						'/(\r\n?|\n)/',
+						'/\\\\\*/'
+						), array (
+							'|',
+							'.*'
+							), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}
+
+/**
+ * Callback for luopin_picture/%node menu.
+ */
+function _luopin_picture_callback($node)
+{
+	exit ();
+}
+
+/**
+ * hook_menu implementation.
+ */
+function luopin_picture_menu()
+{
+	$items= array ();
+	$items['luopin_picture/%node']= array (
+			'page callback' => '_luopin_picture_callback',
+			'page arguments' => array (
+				1
+				),
+			'type' => MENU_CALLBACK,
+			'access arguments' => array (
+				'access content'
+				)
+			);
+	return $items;
+}

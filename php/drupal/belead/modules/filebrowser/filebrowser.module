@@ -1,0 +1,1232 @@
+<?php
+/* This file is part of "filebrowser".
+ *    Copyright 2009, arNuméral
+ *    Author : Yoran Brault
+ *    eMail  : yoran.brault@bad_arnumeral.fr (remove bad_ before sending an email)
+ *    Site   : http://www.arnumeral.fr/node/5
+ * 
+ * Original credit for susurrus (http://drupal.org/user/118433). 
+ *
+ * "filebrowser" is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * "filebrowser" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with "Broken Anchor for Node comments Module"; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+define(FILEBROWSER_CREATE_DIRECTORY_LISTING, 'create directory listings');
+define(FILEBROWSER_DELETE_OWN_DIRECTORY_LISTINGS, 'delete own directory listings');
+define(FILEBROWSER_DELETE_ANY_DIRECTORY_LISTINGS, 'delete any directory listings');
+define(FILEBROWSER_EDIT_OWN_DIRECTORY_LISTINGS, 'edit own directory listings');
+define(FILEBROWSER_EDIT_ANY_DIRECORY_LISTINGS, 'edit any directory listings');
+define(FILEBROWSER_VIEW_DIRECORY_LISTINGS, 'view directory listings');
+define(FILEBROWSER_UPLOAD, 'upload files');
+
+require_once "logger_stub.inc";
+
+function _filebrowser_sorter_size($a, $b) {
+	if ($a['size'] == $b['size']) {
+		return 0;
+	}
+	return ($a['size'] > $b['size']) ? -1 : 1;
+}
+
+function _filebrowser_sorter_created($a, $b) {
+	if ($a['created'] == $b['created']) {
+		return 0;
+	}
+	return ($a['created'] > $b['created']) ? -1 : 1;
+}
+
+function _filebrowser_sorter_uploaded($a, $b) {
+	if ($a['uploaded'] == $b['uploaded']) {
+		return 0;
+	}
+	return ($a['uploaded'] > $b['uploaded']) ? -1 : 1;
+}
+
+function _filebrowser_sorter_displayname($a, $b) {
+	return -strcasecmp($a['display-name'], $b['display-name']);
+}
+
+function _filebrowser_sorter_type($a, $b) {
+	return -strcasecmp($a['mime-type'], $b['mime-type']);
+}
+
+function _filebrowser_sorter_description($a, $b) {
+	return -strcasecmp($a['description'], $b['description']);
+}
+
+/**
+ * return true if the string end with a specific string. 
+ */
+function _filebrowser_ends_with($str, $sub) {
+	return (substr($str, strlen($str) - strlen($sub)) == $sub);
+}
+
+function _filebrowser_current_full_path($node) {
+	return $node->file_path . $node->relative_path;
+}
+
+/**
+ * Callback for filebrowser_download/%node menu.
+ */
+function _filebrowser_download_callback($node) {
+	if (!node_access('view', $node)) {
+		drupal_access_denied();
+		exit ();
+	}
+
+	$match= array ();
+	if (!_filebrowser_ends_with($node->download_file_name, '.zip')) {
+		foreach ($node->file_listing as $file_name => $file_data) {
+			if ($node->download_file_name == $file_data['name']) {
+				$match= $file_data;
+				break;
+			}
+		}
+		if (empty ($match)) {
+			drupal_not_found();
+			exit ();
+		}
+	} else {
+		if (!function_exists("zip_open")) {
+			return t("No ZIP support found in PHP installation, please contact your administrator");
+		}
+		$zip= new ZipArchive();
+		$match['name']= $node->download_file_name;
+		$match['mime-type']= 'application/zip';
+		$match['path']= file_directory_temp().'/'.$match['name'];
+		if (file_exists($match['path'])) {
+			unlink($match['path']);
+		}
+		if ($zip->open($match['path'], ZIPARCHIVE :: CREATE) === TRUE) {
+			foreach ($node->file_listing as $file_name => $file_data) {
+				if ($file_data['kind'] == 0) {
+					$zip->addFile($file_data['path'], $file_name);
+				}
+			}
+			$zip->close();
+		} else {
+			return t("Unable to create temporary zip file '@file'", array (
+						file => $match['name']
+						));
+		}
+		$match['size']= filesize($match['path']);
+	}
+	header('Content-Description: File Transfer');
+	header("Cache-Control: public, must-revalidate, max-age=0"); // HTTP/1.1
+	header("Pragma: public");
+	header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+	header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+	header("Content-Type: ".$match['mime-type']);
+	header('Content-Disposition: attachment; filename="'.$match['name'].'";');
+	header("Content-Transfer-Encoding: binary");
+	header("Content-Length: ".$match['size']);
+	$content= file_get_contents($match['path']);
+	print $content;
+	exit ();
+}
+
+function _filebrowser_is_filtered($node, $file) {
+	return trim($node->filtered_files) == '' || filebrowser_match_path($file, $node->filtered_files);
+}
+
+function _filebrowser_is_hidden($node, $file) {
+	return trim($node->hidden_files) != '' && filebrowser_match_path($file, $node->hidden_files);
+}
+
+/**
+ * Load data from current path.
+ */
+function _filebrowser_load_files(& $node) {
+	global $user, $base_url;
+
+	$url_parts= explode('/', $_GET['path']);
+
+	if (count($url_parts) == 0) {
+		// This is 'root' folder
+		$relative_path= "/";
+	} else {
+		if ($url_parts['0'] == 'edit') {
+			return;
+		}
+
+		$relative_path= implode('/', $url_parts);
+		if (arg(0) == 'filebrowser_download') {
+			$node->download_file_name= basename($relative_path);
+			$relative_path= dirname($relative_path);
+			if ($relative_path == '.') {
+				$relative_path= "/";
+			}
+		}
+		if ($relative_path == '') {
+			$relative_path= '/';
+		}
+		if ($relative_path != '/') {
+			$relative_path= '/'.trim($relative_path, '/').'/';
+		}
+	}
+	$node->relative_path= $relative_path;
+
+	if (logger_is_debug()) {
+		logger_debug("filebrowser", "query path    :".$_GET['path']);
+		logger_debug("filebrowser", "relative path :".$relative_path);
+	}
+	static $cache= array ();
+	if (isset ($cache[$relative_path])) {
+		return  $node->file_listing = $cache[$relative_path];
+	}
+
+	// retreive paths
+	$full_path= $node->file_path.$relative_path;
+	$is_subdir= $relative_path != '/';
+	logger_error("file_browser", "browsing $relative_path");
+	// If we shouldn't be in a subdirectory, redirect to root_dir.
+	if ($is_subdir && !$node->explore_subdirs) {
+		drupal_set_message(t('You\'re not allowed to browse sub folders.'));
+		return;
+	}
+
+	// More advanced check to make sure no parent directories match our files.
+	// blacklist
+	if (!empty ($relative_path)) {
+		$dirs= explode('/', $relative_path);
+		foreach ($dirs as $dir) {
+			if (!empty ($dir)) {
+				if (_filebrowser_is_hidden($node, $dir)) {
+					drupal_set_message(t('You\'re not allowed to view %dir.', array (
+									'%dir' => $full_path
+									)));
+					return;
+				}
+			}
+		}
+	}
+
+	// Load meta-data
+	$file_metadata= array ();
+	// Check for meta files if we need info.
+	$metadata_file= $full_path.'descript.ion';
+	if (!file_exists($metadata_file)) {
+		$metadata_file= $full_path.'file_name.bbs';
+		if (file_exists($metadata_file)) {
+			$file_metadata= "";
+		}
+	}
+	if ($file_metadata != "") {
+		$file_metadata= filebrowser_get_fileinfo($metadata_file);
+	}
+
+	// Iterate over files
+	$files= array ();
+	$files_count= 0;
+	$total_size= 0;
+	$has_metadata= false;
+	if (is_dir($full_path) && $dh= opendir($full_path)) {
+		while (($file_name= readdir($dh)) !== false) {
+			if (!is_readable($full_path.$file_name)) {
+				continue;
+			}
+			if (is_dir($full_path.$file_name) && !$node->explore_subdirs) {
+				continue;
+			}
+			$full_file_path= $full_path.$file_name;
+
+			// Handle files that should not be shown.
+			if ($file_name == '.' || $file_name == '..') {
+				if ($file_name == '..' && !$is_subdir) {
+					continue;
+				}
+
+			} else {
+				if (is_file($full_file_path) && !_filebrowser_is_filtered($node, $file_name)) {
+					continue;
+				}
+				if (_filebrowser_is_hidden($node, $file_name)) {
+					continue;
+				}
+			}
+
+			// File record building
+			$files[$file_name]= array (
+					'name' => $file_name,
+					'display-name' => $file_name,
+					'path' => $full_file_path,
+					'relative_path' => $relative_path.$file_name,
+					'status' => MARK_READ,
+					'created' => 0,
+					'uploaded' => 0,
+					'size' => 0,
+					'kind' => is_file($full_file_path) ? 0 : 1,
+					'mime-type' => !is_file($full_file_path) ? "folder" : file_get_mimetype($full_file_path),
+					'description' => $file_metadata[$file_name]
+					);
+			$has_metadata |= !empty ($file_metadata[$file_name]);
+
+			// set file properties from stat()
+			if (($f_stats= stat($full_file_path)) !== FALSE) {
+				if (is_file($full_file_path)) {
+					$files[$file_name]['size']= $f_stats['size'];
+					$total_size += $files[$file_name]['size'];
+
+					if ($node->hide_extension) {
+						$pos= strrpos($files[$file_name]['name'], ".");
+						$files[$file_name]['display-name']= substr($files[$file_name]['name'], 0, $pos);
+					}
+
+				}
+				$files[$file_name]['created']= $f_stats['ctime'];
+				$files[$file_name]['uploaded']= $f_stats['mtime'];
+				if ($user->uid) {
+					if ($user->access < $files[$file_name]['created']) {
+						$files[$file_name]['status']= MARK_NEW;
+					} else
+						if ($user->access < $files[$file_name]['uploaded']) {
+							$files[$file_name]['status']= MARK_UPDATED;
+						}
+				}
+			}
+			if ($file_name == '.') {
+				$files[$file_name]['path']= $full_path;
+				$files[$file_name]['name']= basename($full_path);
+			}
+
+			if ($file_name == '..') {
+				$files[$file_name]['mime-type'] .= "/parent";
+				$files[$file_name]['kind'] .= 2;
+			}
+
+			if (is_file($full_file_path)) {
+				$files[$file_name]['url']= $node->private_downloads ? 
+					url('filebrowser_download/'.$node->nid, array('query'=>"path=".$relative_path.$file_name)) : 
+					$base_url."/".$full_path.$file_name;
+				$files_count++;
+			} else {
+				$base='node/'.$node->nid;
+				$queries=array();
+				if ($file_name == '..') {
+					$parent_folder=dirname($relative_path);
+					if ($parent_folder!="/") {
+						$queries[]="path=".$parent_folder;
+					}
+				} else {
+					$queries[]="path=".$relative_path.$file_name;
+				}
+				if ($_GET['sort']) {
+					$queries[]="sort=".$_GET['sort'];
+				}
+				if ($_GET['order']) {
+					$queries[]="order=".$_GET['order'];
+				}
+				$files[$file_name]['url']= url($base, array('query'=>implode("&", $queries)));
+			}
+		}
+
+		// Set global folder properties
+		$files['.']['size']= $total_size;
+		$files['.']['count']= $files_count;
+		$files['.']['has-metadata']= $has_metadata;
+		closedir($dh);
+	}
+
+	$cache[$relative_path]= & $files;
+	$node->file_listing = $files;
+}
+
+/**
+ * Node form settings. 
+ */
+function filebrowser_form(& $node, & $param) {
+	$type= node_get_types('type', $node);
+
+	$form['folder_description'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Folder Description'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#weight' => -10
+			);
+
+	$form['folder_description']['title']= array (
+			'#type' => 'textfield',
+			'#title' => check_plain($type->title_label),
+			'#default_value' => !empty ($node->title) ? $node->title : '',
+			'#required' => TRUE,
+			);
+
+	$form['folder_description']['body_filter']['body']= array (
+			'#type' => 'textarea',
+			'#title' => t('Description'),
+			'#description' => t("This will overide metainformations from .bbs or .ion files."),
+			'#default_value' => $node->body,
+			'#rows' => 5,
+			'#weight' => -9
+			);
+	$form['folder_description']['body_filter']['format']= filter_form($node->format);
+
+
+	$form['folder_description']['file_path']= array (
+			'#type' => 'textfield',
+			'#title' => t('The system file path to the directory'),
+			'#description' => t('This can be an absolute path or should be relative to the Drupal root directory.'),
+			'#default_value' => isset ($node->file_path) ? check_plain($node->file_path) : '',
+			'#required' => TRUE,
+			'#weight' => -8
+			);
+	$form['folder_description']['private_downloads']= array (
+			'#type' => 'checkbox',
+			'#title' => t("Use private downloads"),
+			'#description' => t("Use private downloads if your files are outside Drupal root or if you want Drupal to check permissions."),
+			'#default_value' => isset ($node->private_downloads) ? $node->private_downloads : '',
+			'#weight' => -7
+			);
+
+
+	$form['folder_rights'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Listing Management'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#weight' => -7
+			);
+
+	/*
+	   $form['folder_rights']['explore_subdirs']= array (
+	   '#type' => 'checkbox',
+	   '#title' => t('Allow subdirectory listings.'),
+	   '#default_value' => isset ($node->explore_subdirs) ? $node->explore_subdirs : '',
+	   '#weight' => -6
+	   );
+	 */
+
+	$form['folder_rights']['hidden_files']= array (
+			'#type' => 'textarea',
+			'#title' => t('Files to hide'),
+			'#description' => t('List of patterns to hide, one per line, you can use wildcards (ex. .*).'),
+			'#default_value' => isset ($node->hidden_files) ? $node->hidden_files : ".*\r\ndescript.ion\r\nfile.bbs\r\nCVS",
+			'#weight' => -4
+			);
+	$form['folder_rights']['filtered_files']= array (
+			'#type' => 'textarea',
+			'#title' => t('Files to filter'),
+			'#description' => t('List of patterns to filter, one per line, you can use wildcards (ex. *.pdf).'),
+			'#default_value' => isset ($node->filtered_files) ? $node->filtered_files : '',
+			'#weight' => -3
+			);
+
+	$form['folder_uploads'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Files Upload'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#weight' => -6
+			);
+	$form['folder_uploads']['allow_files_upload']= array (
+			'#type' => 'checkbox',
+			'#title' => t('Allow uploads'),
+			'#description' => t('Allow users to upload files.'),
+			'#default_value' => isset ($node->allow_files_upload) ? $node->allow_files_upload : false,
+			'#weight' => -2
+			);
+
+	$form['folder_uploads']['allowed_uploaded_files']= array (
+			'#type' => 'textarea',
+			'#title' => t('Allows files for uploading'),
+			'#description' => t('List of file patterns allowed for upload. Empty means anything.'),
+			'#default_value' => isset ($node->allowed_uploaded_files) ? $node->allowed_uploaded_files : '*.*',
+			'#weight' => -1
+			);
+
+
+	$form['folder_display'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Listing Display Options'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#weight' => -8
+			);
+
+	$form['folder_display']['visible_columns']= array (
+			'#type' => 'checkboxes',
+			'#title' => t("Visible columns"),
+			'#default_value' => is_array($node->visible_columns) ? $node->visible_columns : array (),
+			'#options' => array (
+				'size' => t('Size'),
+				'created' => t('Creation time'),
+				'uploaded' => t('Uploaded time'),
+				'type' => t('Mime type'),
+				'download' => t('Download'),
+				),
+			'#weight' => 0
+			);
+	$form['folder_display']['hide_extension']= array (
+			'#type' => 'checkbox',
+			'#title' => t('Hide file extensions'),
+			'#default_value' => isset ($node->hide_extension) ? $node->hide_extension : '',
+			'#weight' => -5
+			);
+
+
+	return $form;
+}
+
+/**
+ * hook_node_info implementation.
+ */
+function filebrowser_node_info() {
+	return array (
+			'dir_listing' => array (
+				'name' => t('Directory listing'),
+				'module' => 'filebrowser',
+				'description' => t("A listing of files similar to how Apache lists files in a directory."),
+				'has_body' => FALSE
+				)
+		     );
+}
+
+/**
+ * hook_load implementation.
+ */
+function filebrowser_load($node) {
+	$additions= db_fetch_object(db_query('SELECT * FROM {filebrowser} WHERE nid = %d', $node->nid));
+	$additions->visible_columns= unserialize($additions->visible_columns);
+	if (empty ($additions->visible_columns)) {
+		$additions->visible_columns= array (
+				"size" => "size"
+				);
+	}
+	_filebrowser_load_files($additions);
+	return $additions;
+}
+
+/**
+ * hook_insert implementation.
+ */
+function filebrowser_insert($node) {
+	$node->file_path= rtrim($node->file_path, '/');
+	$node->visible_columns= serialize($node->visible_columns);
+	drupal_write_record("filebrowser", $node);
+}
+
+/**
+ * hook_update implementation.
+ */
+function filebrowser_update($node) {
+	$node->file_path= rtrim($node->file_path, '/');
+	$node->visible_columns= serialize($node->visible_columns);
+	drupal_write_record("filebrowser", $node, 'nid');
+}
+
+/**
+ * hook_delete implementation.
+ */
+function filebrowser_delete($node) {
+	db_query('DELETE FROM {filebrowser} WHERE nid = %d', $node->nid);
+}
+
+/**
+ * hook_validate implementation.
+ */
+function filebrowser_validate(& $node) {
+	if (!$node->private_downloads && $node->file_path[0] == '/') {
+		form_set_error('file_path', t('If you specify an absolute path, you should choose "private downloads".'));
+	}
+
+	// Verify the file system location & check that it's a directory.
+	if (!is_dir($node->file_path)) {
+		form_set_error('file_path', t('You must specify a valid directory.'));
+	}
+
+	// Check that it's readable.
+	if (!is_readable($node->file_path)) {
+		form_set_error('file_path', t('The directory %dir is not readable.', array (
+						'%dir' => $node->file_path
+						)));
+	}
+}
+
+/**
+ * hook_access implementation.
+ */
+function filebrowser_access($op, $node, $account) {
+	if (!filebrowser_get_no_node_access()) {
+
+		if ($op == 'view') {
+			if (user_access(FILEBROWSER_VIEW_DIRECORY_LISTINGS, $account) && (node_access(FILEBROWSER_VIEW_DIRECORY_LISTINGS, $node))) {
+				return TRUE;
+			}
+		}
+
+		if ($op == 'create') {
+			if (user_access(FILEBROWSER_CREATE_DIRECTORY_LISTING, $account) && (node_access(FILEBROWSER_CREATE_DIRECTORY_LISTING, $node))) {
+				return TRUE;
+			}
+		}
+
+		if ($op == 'update') {
+			if (user_access(FILEBROWSER_EDIT_ANY_DIRECORY_LISTINGS, $account) || (user_access(FILEBROWSER_EDIT_OWN_DIRECTORY_LISTINGS, $account) && ($account->uid == $node->uid))) {
+				return TRUE;
+			}
+		}
+
+		if ($op == 'delete') {
+			if (user_access(FILEBROWSER_DELETE_ANY_DIRECTORY_LISTINGS, $account) || (user_access(FILEBROWSER_DELETE_OWN_DIRECTORY_LISTINGS, $account) && ($account->uid == $node->uid))) {
+				return TRUE;
+			}
+		}
+	}
+	return NULL;
+}
+
+/**
+ * hook_perm implementation.
+ */
+function filebrowser_perm() {
+	return array (
+			FILEBROWSER_CREATE_DIRECTORY_LISTING,
+			FILEBROWSER_DELETE_OWN_DIRECTORY_LISTINGS,
+			FILEBROWSER_DELETE_ANY_DIRECTORY_LISTINGS,
+			FILEBROWSER_EDIT_OWN_DIRECTORY_LISTINGS,
+			FILEBROWSER_EDIT_ANY_DIRECORY_LISTINGS,
+			FILEBROWSER_VIEW_DIRECORY_LISTINGS,
+			FILEBROWSER_UPLOAD
+		     );
+}
+
+/**
+ * hook_db_rewrite_sql implementation.
+ */
+function filebrowser_db_rewrite_sql($query, $primary_table, $primary_field, $args) {
+	if (!filebrowser_get_no_node_access()) {
+		global $user;
+		if ($primary_table == 'n' && $primary_field == 'nid' && !user_access(FILEBROWSER_VIEW_DIRECORY_LISTINGS, $user)) {
+			$return= array (
+					'where' => "n.type != 'dir_listing'"
+				       );
+			return $return;
+		}
+	}
+}
+
+/**
+ * hook_theme imlementation.
+ */
+function filebrowser_theme() {
+	return array (
+			'filebrowser_description' => array (
+				'arguments' => array (
+					'node' => array ()
+					)
+				),
+			'filebrowser_dir_listing' => array (
+				'arguments' => array (
+					'node' => array ()
+					)
+				),
+			'filebrowser_page_title' => array (
+				'arguments' => array (
+					'node' => NULL
+					)
+				)
+		     );
+}
+
+/**
+ * hook_link() implementation.
+ */
+function filebrowser_link($type, $node= NULL, $teaser= FALSE) {
+	if ($node->type == 'dir_listing' && !$teaser &&  function_exists('zip_open')) {
+		$links= array ();
+		foreach ($node->file_listing as $file) {
+			if ($file['kind'] == 0) {
+				$links['file_browser_download_archive']= array (
+						'href' => 'filebrowser_download/'.$node->nid,
+						'query'=>"path=".$node->relative_path. ($node->relative_path == '/' ? $node->title : basename($node->relative_path)).".zip",
+						'title' => t("Download files as an Archive")
+						);
+				break;
+			}
+		}
+		return $links;
+	}
+}
+
+/**
+ * hook_menu implementation.
+ */
+function filebrowser_menu() {
+	$items= array ();
+	$items['filebrowser_download/%node']= array (
+			'page callback' => '_filebrowser_download_callback',
+			'page arguments' => array (
+				1
+				),
+			'type' => MENU_CALLBACK,
+			'access arguments' => array (
+				'access content'
+				)
+			);
+	$items['admin/settings/filebrowser']= array (
+			'title' => 'File Browser',
+			'description' => 'Configure File Browser.',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array (
+				'filebrowser_admin_settings'
+				),
+			'access arguments' => array (
+				'administer site configuration'
+				),
+			'file' => 'filebrowser.admin.inc',
+			'type' => MENU_LOCAL_TASK
+			);
+	return $items;
+}
+
+/**
+ * hook_init implementation.
+ */
+function filebrowser_init() {
+	drupal_add_css(drupal_get_path("module", "filebrowser")."/filebrowser.css");
+}
+
+/**
+ * hook_view implementation
+ */
+function filebrowser_view($node, $teaser= FALSE, $page= FALSE) {
+	global $user, $base_url;
+	$node= node_prepare($node, $teaser);
+
+	// Full node content view
+	// ========================================================
+	drupal_set_title(theme('filebrowser_page_title', $node));
+
+	if (isset($_GET['name'])) {
+		if ($_GET['action'] == 'delete') {
+			$form = drupal_get_form('filebrowser_delete_form', $node);
+			$node->content['filebrowser_delete'] = array (
+					'#value' => $form,
+					'#weight' => -1
+					);
+		}
+	}
+	// Insert file listing  content part
+	$node->content['filebrowser']= array (
+			'#value' => theme('filebrowser_dir_listing', $node),
+			'#weight' => 1
+			);
+
+	// Insert download form content part
+	if (!empty ($node->allow_files_upload) && user_access(FILEBROWSER_UPLOAD)) {
+		$form= drupal_get_form('filebrowser_upload_form', $node);
+		$node->content['filebrowser_upload']= array (
+				'#value' => $form,
+				'#weight' => 2
+				);
+	}
+	return $node;
+}
+
+function filebrowser_delete_form($node)
+{
+	$file_name = $_GET['name'];
+	$q = $_GET['q'];
+	list($text, $nid) = split('/', $q);
+
+	$form = array();
+	$form['filebrowser_deletes'] = array (
+			'#type' => 'fieldset',
+			'#title' => t('Delete File'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#description' => t('Are you sure to delete this file?'),
+			'#prefix' => '<div class="filebrowser_delete_form">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node'] = $node;
+	$form['#attributes'] = array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#validate'][] = 'filebrowser_delete_form_validate';
+	$form['submitted'] = array (
+			'#tree' => TRUE
+			);
+	$form['filebrowser_deletes']['filebrowser_button_delete'] = array (
+			'#type' => 'submit',
+			'#value' => t('Delete'),
+			'#name' => 'delete',
+			'#submit' => array('filebrowser_delete_form_submit_delete')
+			);
+	$form['filebrowser_deletes']['filebrowser_button_cancel'] = array (
+			'#type' => 'submit',
+			'#value' => t('Cancel'),
+			'#name' => 'cancel',
+			'#submit' => array('filebrowser_delete_form_submit_cancel')
+			);
+	$form['filebrowser_deletes']['filebrowser_hidden'] = array (
+			'#type' => 'hidden',
+			'#value' => $file_name,
+			);
+	$form['filebrowser_deletes']['filebrowser_hidden2'] = array (
+			'#type' => 'hidden',
+			'#value' => $nid,
+			);
+	return $form;
+}
+
+/**
+ * hook_validate implementation for delete form.
+ */
+function filebrowser_delete_form_validate($form, & $form_state)
+{
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function filebrowser_delete_form_submit_delete($form, & $form_state)
+{
+	$file_name = $form_state['values']['filebrowser_hidden'];
+	$nid = $form_state['values']['filebrowser_hidden2'];
+	$result = db_query("select * from filebrowser where nid = $nid");
+	$row = db_fetch_array($result);
+	$file_path = $row['file_path'];
+	unlink($file_path.'/'.$file_name);
+}
+
+/**
+ * hook_submit implementation for delete form.
+ */
+function filebrowser_delete_form_submit_cancel($form, & $form_state)
+{
+}
+
+/**
+ * Upload form. 
+ */
+function filebrowser_upload_form($form_state, $node) {
+	$form= array ();
+	$form['filebrowser_uploads']= array (
+			'#type' => 'fieldset',
+			'#title' => t('File Upload'),
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'#description' => t('Please upload your file here.'),
+			'#prefix' => '<div class="attachments">',
+			'#suffix' => '</div>',
+			'#weight' => 30
+			);
+	$form['#node']= $node;
+	$form['#attributes']= array (
+			'enctype' => "multipart/form-data"
+			);
+	$form['#submit'][]= 'filebrowser_upload_form_submit';
+	$form['#validate'][]= 'filebrowser_upload_form_validate';
+	$form['filebrowser_uploads']['filebrowser_upload']= array (
+			'#type' => 'file',
+			'#title' => t('Upload file'),
+			'#size' => 40
+			);
+	/*
+	   $form['filebrowser_uploads']['filebrowser_file_name']= array (
+	   '#type' => 'textfield',
+	   '#title' => t('New name'),
+	   '#size' => 40
+	   );
+	 */
+	$form['filebrowser_uploads']['filebrowser_description']= array (
+			'#type' => 'textarea',
+			'#title' => t('Description'),
+			'#size' => 255
+			);
+	$form['submitted']= array (
+			'#tree' => TRUE
+			);
+	$form['filebrowser_uploads']['filebrowser_button']= array (
+			'#type' => 'submit',
+			'#value' => t('Upload'),
+			'#name' => 'attach'
+			);
+	/* Add a image-upload form to upload icon for the uploaded file, by David L, 2009-07-01, Start */
+	/* Add a image-upload form to upload icon for the uploaded file, by David L, 2009-07-01, End */
+	return $form;
+
+}
+
+/**
+ * hook_validate implementation for upload form.
+ */
+function filebrowser_upload_form_validate($form, $form_state) {
+	//	print "<pre style='background-color:white'>";
+	//	print_r($form_state);
+	//	print "</pre>";	
+	$file_name= $_FILES['files']['name']['filebrowser_upload'];
+	if (!empty ($form_state['values']['filebrowser_file_name'])) {
+		$file_name= $form_state['values']['filebrowser_file_name'];
+	}
+	$node= $form {
+		'#node' };
+	if (file_exists(_filebrowser_current_full_path($node).$file_name)) {
+		form_error($form['filebrowser_uploads']['filebrowser_upload'], t("This file already exists."));
+	}
+	if (!empty($node->allowed_uploaded_files) && !filebrowser_match_path($file_name, $node->allowed_uploaded_files)) {
+		form_error($form['filebrowser_uploads']['filebrowser_upload'], t("Sorry, you can't upload this kind of file."));
+	}
+}
+
+/**
+ * hook_submit implementation for upload form.
+ */
+function filebrowser_upload_form_submit($form, & $form_state) {
+	$file_name= $_FILES['files']['name']['filebrowser_upload'];
+	if (!empty ($form_state['values']['filebrowser_file_name'])) {
+		$file_name= $form_state['values']['filebrowser_file_name'];
+	}
+	$tmp_filename= $_FILES['files']['tmp_name']['filebrowser_upload'];
+	$node= $form {
+		'#node' };
+
+	copy($tmp_filename, _filebrowser_current_full_path($node).$file_name);
+	$description_file= _filebrowser_current_full_path($node)."descript.ion";
+	if (!empty ($form['filebrowser_uploads']['filebrowser_description'])) {
+		if (file_exists($description_file)) {
+			$description= file_get_contents($description_file);
+		}
+		$description .= "\r\n$file_name	".$form_state['values']['filebrowser_description'];
+		file_put_contents($description_file, $description);
+	}
+}
+
+/**
+ * Loads file metainformation from the specified file. Also
+ * allows the file to specify a *callback* with which the
+ * descriptions are parsed, so more metainformation can be
+ * presented on the output.
+ */
+function filebrowser_get_fileinfo($info_file_path) {
+	static $metacols= array ();
+
+	// Build meta information list.
+	$metainfo= array ();
+	if (is_readable($info_file_path) && ($file= file($info_file_path))) {
+		foreach ($file as $line) {
+			// Skip empty and commented lines.
+			if (trim($line) == '' || strpos(trim($line), '#') === 0) {
+				continue;
+			}
+
+			// Use PCRE regular expressions to parse file.
+			$matches= array ();
+			preg_match('/"([^"]+)"\s+(.*)|(\S+)\s+(.*)/', $line, $matches);
+			$name= !empty ($matches[1]) ? $matches[1] : $matches[3];
+			$description= !empty ($matches[2]) ? $matches[2] : $matches[4];
+
+			if (isset ($metainfo[$name])) {
+				$metainfo[$name] .= ' '.trim($description);
+			} else {
+				$metainfo[$name]= trim($description);
+			}
+		}
+	}
+	return $metainfo;
+}
+
+/**
+ * Returns the appropriate HTML code for an icon representing
+ * a file, based on the extension of the file. A specific icon
+ * can also be requested with the second parameter.
+ */
+function filebrowser_get_fileicon($mime_type) {
+	$main_type= dirname($mime_type);
+	$mime_type= str_replace("/", "-", $mime_type);
+	$module_path= drupal_get_path("module", "filebrowser")."/icons/";
+	$theme_path= path_to_theme()."/filebrowser/";
+	$icons= array (
+			$theme_path.$mime_type.".png",
+			$theme_path.$main_type.".png",
+			$module_path.$mime_type.".png",
+			$module_path.$main_type.".png"
+		      );
+	foreach ($icons as $icon) {
+		if (file_exists($icon)) {
+			return theme('image', $icon);
+		}
+	}
+	return theme('image', $module_path."unknown.png");
+}
+
+/**
+ * Originaly a file.inc Drupal function uploaded.
+ *
+ * @param unknown_type $file_name
+ * @param unknown_type $mapping
+ */
+
+/**
+ * Theme a directory listing of files in a system directory.
+ *
+ * @param array $files An array of data of files in this directory.
+ * @param array $folders An array of data of folders in this directory.
+ * @param string $curr_dir The current directory path we're in.
+ * @param integer $total_size The total size in bytes of data in this folder.
+ * @return A string containing real page HTML.
+ */
+function theme_filebrowser_dir_listing(& $node) {
+	//drupal_add_js(drupal_get_path("module", "filebrowser")."/filebrowser.js");
+	$files= & $node->file_listing;
+
+	// Manage empty folder
+	if (empty ($files) || $files['.']['count'] == 0) {
+		return '<p>'.t('No files can be downloaded.').'</p>';
+	}
+
+	$output= '';
+	// Deal with files.
+	$unsorted_rows= array ();
+	foreach ($files as $file_name => $data) {
+		if ($file_name == ".") {
+			continue;
+		}
+
+		// add icon
+		$unsorted_rows[$file_name][]= array (
+				'data' => filebrowser_get_fileicon($data['mime-type']),
+				'style' => 'width:1%;'
+				);
+
+		// add filename
+		/* Change filename to plain text, by David Liao, 2009-07-01. Start */
+		// $unsorted_rows[$file_name][]= '<a href="'.
+		// $data['url'].'">'. ($data['display-name'] == '..' ? t('Go up') : $data['display-name']).'</a>'.theme('mark', $data['status']);
+		$unsorted_rows[$file_name][]= $data['display-name'];
+		/* Change filename to plain text, by David Liao, 2009-07-01. End */
+
+		// add optional colunmns
+		$is_used= array ();
+		$node->visible_columns['description']= true;
+		$node->visible_columns['delete']= true;
+		if (user_access(FILEBROWSER_UPLOAD)) {
+			$columns= array (
+					'size',
+					'created',
+					'uploaded',
+					'type',
+					'description',
+					'download',
+					'delete'
+					);
+		} else {
+			$columns= array (
+					'size',
+					'created',
+					'uploaded',
+					'type',
+					'description',
+					'download'
+					);
+		}
+		foreach ($columns as $column_name) {
+			if ($node->visible_columns[$column_name]) {
+				if (user_access(FILEBROWSER_UPLOAD)) {
+					switch ($column_name) {
+						case size :
+							$is_used['size']= $data['size'] != 0;
+							$unsorted_rows[$file_name][]= $is_used['size'] ? format_size($data['size']) : "";
+							break;
+
+						case created :
+							$is_used['created']= $data['created'] != 0;
+							$unsorted_rows[$file_name][]= format_date($data['created'], "small");
+							break;
+
+						case uploaded :
+							$is_used['uploaded']= $data['uploaded'] != 0;
+							$unsorted_rows[$file_name][]= format_date($data['uploaded'], "small");
+							break;
+
+						case type :
+							$is_used['type']= $data['mime-type'] != 'folder' && $data['mime-type'] != 'folder/parent';
+							$unsorted_rows[$file_name][]= $is_used['type'] ? t($data['mime-type']) : "";
+							break;
+
+						case description :
+							$is_used['description']= true;
+							//$is_used['description']= !empty ($data['description']);
+							$unsorted_rows[$file_name][]= $data['description'];
+							break;
+
+						case download :
+							$download = t('Download');
+							$unsorted_rows[$file_name][]= '<a href="'.$data['url'].'"> '.$download.' </a>';
+							break;
+
+						case delete :
+							$delete = t('Delete');
+							$unsorted_rows[$file_name][] = "<a href=\"?q=node/$node->nid&name=$file_name&action=delete\"> " . $delete . " </a>";
+							break;
+
+						default :
+							break;
+					}
+				} else {
+					switch ($column_name) {
+						case size :
+							$is_used['size']= $data['size'] != 0;
+							$unsorted_rows[$file_name][]= $is_used['size'] ? format_size($data['size']) : "";
+							break;
+
+						case created :
+							$is_used['created']= $data['created'] != 0;
+							$unsorted_rows[$file_name][]= format_date($data['created'], "small");
+							break;
+
+						case uploaded :
+							$is_used['uploaded']= $data['uploaded'] != 0;
+							$unsorted_rows[$file_name][]= format_date($data['uploaded'], "small");
+							break;
+
+						case type :
+							$is_used['type']= $data['mime-type'] != 'folder' && $data['mime-type'] != 'folder/parent';
+							$unsorted_rows[$file_name][]= $is_used['type'] ? t($data['mime-type']) : "";
+							break;
+
+						case description :
+							$is_used['description']= true;
+							//$is_used['description']= !empty ($data['description']);
+							$unsorted_rows[$file_name][]= $data['description'];
+							break;
+
+						case download :
+							$download = t('Download');
+							$unsorted_rows[$file_name][]= '<a href="'.$data['url'].'"> '.$download.' </a>';
+							break;
+
+						default :
+							break;
+					}
+				}
+			}
+		}
+	}
+
+	// Builder header and clean up unused columns
+	$header= array (
+			'', /// icon column
+			array (
+				'data' => t('Name'),
+				'field' => 'displayname',
+				'sort' => 'asc'
+			      )
+		       );
+
+	for ($i= 0; $i < count($columns); $i++) {
+		if ($node->visible_columns[$columns[$i]]) {
+			if ($is_used[$columns[$i]]) {
+				$header[]= array (
+						'data' => t(ucfirst($columns[$i])),
+						'field' => $columns[$i]
+						);
+			} else {
+				foreach ($unsorted_rows as & $row) {
+					unset ($row[$i +2]);
+				}
+			}
+		}
+	}
+
+	// Handle any and all sorting.
+	$table_sort= tablesort_init($header);
+
+	// Split files in two heaps to preserve folders and files
+	$just_folders= array ();
+	$just_files= array ();
+	foreach ($files as $data) {
+		if ($data['kind'] == 0) {
+			$just_files[]= $data;
+		} else {
+			$just_folders[]= $data;
+		}
+	}
+
+	// Sort files according to correct column.
+	usort($just_folders, "_filebrowser_sorter_".$table_sort['sql']);
+	if ($table_sort['sort'] == 'asc') {
+		$just_folders= array_reverse($just_folders, TRUE);
+	}
+	usort($just_files, "_filebrowser_sorter_".$table_sort['sql']);
+	if ($table_sort['sort'] == 'asc') {
+		$just_files= array_reverse($just_files, TRUE);
+	}
+
+	// Combine folders and files array and setup correct order.
+	//$rows = array_merge($just_folders, $just_files);
+	$rows= array ();
+	foreach ($just_folders as $data) {
+		$rows[]= $unsorted_rows[$data['name']];
+	}
+	foreach ($just_files as $data) {
+		$rows[]= $unsorted_rows[$data['name']];
+	}
+
+	// Concatenate them all together.
+	if (empty ($node->body)) {
+		$output .= theme('filebrowser_description', $node, $files);
+	}
+
+	$output .= theme('table', $header, $rows, array (
+				'id' => 'filebrowser-file-listing'
+				));
+	/*
+	   if ($files['.']['size'] > 0) {
+	   $output .= '<div class="filebrowser-statistics">'.t('Contains @fc totaling @ds in size.', array (
+	   '@fc' => format_plural($files['.']['count'], '1 file', '@count files'),
+	   '@ds' => format_size($files['.']['size'])
+	   )).
+	   '</div>';
+	   }
+	 */
+
+	return $output;
+}
+function theme_filebrowser_description(& $node) {
+	$output= '<div class="filebrowser-description">';
+	$files= & $node->file_listing;
+	if (isset ($files['.']['description'])) {
+		$output .= $files['.']['description'];
+	} else {
+		$output .= t('Displaying %dir', array (
+					'%dir' => $files['.']['name']
+					));
+		;
+	}
+	$output .= '</div>';
+	return $output;
+}
+
+function theme_filebrowser_page_title($node) {
+	return !empty ($node->title) ? $node->title : '';
+}
+
+function filebrowser_get_no_node_access() {
+	return variable_get('filebrowser_no_node_access', false);
+}
+
+function filebrowser_match_path($path, $patterns) {
+	static $regexps;
+
+	if (!isset ($regexps[$patterns])) {
+		$regexps[$patterns]= '/^('.preg_replace(array ( '/(\r\n?|\n)/', '/\\\\\*/'), array ( '|', '.*'), preg_quote($patterns, '/')).')$/';
+	}
+	$result= preg_match($regexps[$patterns], $path) == 1;
+	return $result;
+}

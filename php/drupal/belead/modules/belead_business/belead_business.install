@@ -1,0 +1,318 @@
+<?php
+/* This file is part of "belead_business".
+ *    Copyright 2009, arNuméral
+ *    Author : Yoran Brault
+ *    eMail  : yoran.brault@bad_arnumeral.fr (remove bad_ before sending an email)
+ *    Site   : http://www.arnumeral.fr/node/5
+ * 
+ * Original credit for susurrus (http://drupal.org/user/118433). 
+ *
+ * "belead_business" is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * "belead_business" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with "Broken Anchor for Node comments Module"; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+ 
+function belead_business_schema() {
+  $schema['belead_business']= array (
+    'fields' => array (
+      'nid' => array (
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'file_path' => array (
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE
+      ),
+/*
+      'explore_subdirs' => array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'disp-width' => '1'
+      ),
+*/
+      'hide_extension' => array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'disp-width' => '1'
+      ),
+      'hidden_files' => array (
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE
+      ),
+      'filtered_files' => array (
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE
+      ),
+      'allow_files_upload' => array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => FALSE,
+        'disp-width' => '1'
+      ),
+      'allowed_uploaded_files' => array (
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE
+      ),
+      'private_downloads' => array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'disp-width' => '1'
+      ),
+      'visible_columns' => array (
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => ''
+      )
+    ),
+    'primary key' => array (
+      'nid'
+    )
+  );
+
+  return $schema;
+}
+
+function belead_business_install() {
+  drupal_install_schema('belead_business');
+}
+
+function belead_business_uninstall() {
+  drupal_uninstall_schema('belead_business');
+}
+
+// Update from 5.x-1.x to 6.x-1.x
+function belead_business_update_6100() {
+
+  $ret= array ();
+
+  // Add the old directory listing into the new database structure given that
+  // this old data exists and users haven't already upgraded manually.
+  global $conf;
+  if (isset ($conf['belead_business_root']) && !db_table_exists('belead_business')) {
+    db_create_table($ret, 'belead_business', array (
+      'fields' => array (
+        'path' => array (
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => TRUE
+        ),
+        'location' => array (
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => TRUE
+        ),
+        'can_explore' => array (
+          'type' => 'int',
+          'size' => 'tiny',
+          'not null' => TRUE,
+          'disp-width' => '1'
+        )
+      ),
+      'primary key' => array (
+        'path'
+      )
+    ));
+
+    $ret[]= update_sql("INSERT INTO {belead_business} (path, location, can_explore) VALUES ('belead_business', '{$conf['belead_business_root']}', 1)");
+  }
+
+  // Clean up variables from 5.x branch
+  variable_del('belead_business_icons');
+  variable_del('belead_business_root');
+  variable_del('belead_business_hide_description_files');
+
+  return $ret;
+}
+
+// Update from 6.x-1.x to 6.x-2.x
+function belead_business_update_6200() {
+
+  $ret= array ();
+
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'nid', array (
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE
+  ));
+  db_add_field($ret, 'belead_business', 'file_blacklist', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE
+  ));
+
+  // Change existing fields
+  db_change_field($ret, 'belead_business', 'location', 'file_path', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE
+  ));
+  db_drop_primary_key($ret, 'belead_business');
+  db_change_field($ret, 'belead_business', 'can_explore', 'explore_subdirs', array (
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'disp-width' => '1'
+  ));
+
+  // Grab all existing belead_business data
+  $qry= db_query('SELECT file_path, path, explore_subdirs FROM {belead_business}');
+  $new_nodes= array ();
+  while ($node= db_fetch_object($qry)) {
+    $new_nodes[]= $node;
+  }
+
+  // Clear out the belead_business data
+  // This is necessary so that we can use node_save() which will automatically
+  // call belead_business_save() for us.
+  $ret[]= update_sql('TRUNCATE TABLE {belead_business}');
+
+  // We need to add the primary key after we've truncated the table, otherwise 
+  // it'll fail on duplicate keys if multiple directory listings have been
+  // created. 
+  db_add_primary_key($ret, 'belead_business', array (
+    'nid'
+  ));
+
+  // Attach these nodes to the default administrator account
+  $user= user_load(array (
+    'uid' => 1
+  ));
+
+  // Reinsert our directory listing nodes
+  foreach ($new_nodes as $node) {
+    $node->type= 'dir_listing';
+    $node->uid= 1;
+    $node->name= $user->name;
+    $node->file_blacklist= '';
+    node_save($node);
+  }
+
+  // Drop unneeded fields
+  db_drop_field($ret, 'belead_business', 'path');
+
+  return $ret;
+}
+
+// Update enabling private downloads
+function belead_business_update_6201() {
+  $ret= array ();
+  db_add_field($ret, 'belead_business', 'private_downloads', array (
+    'type' => 'int',
+    'size' => 'tiny',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 0
+  ));
+  return $ret;
+}
+
+function belead_business_update_6202() {
+
+  $ret= array ();
+
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'hidden_files', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE,
+    'default' => ''
+  ));
+  db_add_field($ret, 'belead_business', 'filtered_files', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE,
+    'default' => ''
+  ));
+
+  // Grab all existing belead_business data
+  $cursor= db_query('SELECT nid, file_blacklist FROM {belead_business}');
+  while ($node= db_fetch_object($cursor)) {
+    $hidden= preg_replace("/\s*,\s*/", "\r\n", $node->file_blacklist);
+    $ret[]= update_sql("update {belead_business} set hidden_files='".$hidden."' where nid=".$node->nid);
+  }
+
+  // Change existing fields
+  $ret[]= db_drop_field($ret, 'belead_business', 'file_blacklist');
+
+  return $ret;
+}
+
+function belead_business_update_6203() {
+
+  $ret= array ();
+
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'allowed_uploaded_files', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE,
+    'default' => ''
+  ));
+
+  return $ret;
+}
+
+function belead_business_update_6204() {
+
+  $ret= array ();
+
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'hide_extension', array (
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'disp-width' => '1',
+    'default' => '0'
+  ));
+
+  return $ret;
+}
+
+function belead_business_update_6205() {
+  $ret= array ();
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'visible_columns', array (
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => TRUE,
+    'default' => ''
+  ));
+
+  return $ret;
+}
+
+
+function belead_business_update_6210() {
+  $ret= array ();
+  // Add new fields
+  db_add_field($ret, 'belead_business', 'allow_files_upload', array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => FALSE,
+        'disp-width' => '1'
+      ));
+
+  return $ret;
+}
+
